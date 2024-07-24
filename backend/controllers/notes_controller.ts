@@ -11,6 +11,7 @@ import {
 	keepStartCensorStrategy,
 	asteriskCensorStrategy
 } from "obscenity";
+import mongoose from "mongoose";
 
 colors.enable();
 
@@ -41,6 +42,7 @@ const createNote = async (req: Request, res: Response) => {
 	const censor = new TextCensor().setStrategy(
 		keepStartCensorStrategy(asteriskCensorStrategy())
 	);
+
 	const matcher = new RegExpMatcher({
 		...englishDataset.build(),
 		...englishRecommendedTransformers
@@ -49,7 +51,6 @@ const createNote = async (req: Request, res: Response) => {
 	const checkTitleMatches = matcher.getAllMatches(note_title);
 
 	if (checkTitleMatches.length > 0) {
-		// Title cannot contain profanity
 		return res.status(400).json({
 			message: "Title cannot contain profanity"
 		});
@@ -58,7 +59,6 @@ const createNote = async (req: Request, res: Response) => {
 	if (!curr_uid) {
 		const user_id: string = createCookie(res);
 		try {
-			// Implement logic here to save note data to MongoDB
 			const createdNote = await Note.create({
 				note_title,
 				note_content: censor.applyTo(note_content, matches),
@@ -88,7 +88,7 @@ const createNote = async (req: Request, res: Response) => {
 			}
 		} catch (error) {
 			console.log(
-				"<notes_controller.ts> error",
+				"<notes_controller.ts> createNote function error",
 				(error as Error).toString().red.bold
 			);
 			res.status(500).send(error);
@@ -96,4 +96,25 @@ const createNote = async (req: Request, res: Response) => {
 	}
 };
 
-export { createNote };
+const getNoteData = async (req: Request, res: Response) => {
+	const { note_id } = req.params;
+
+	try {
+		if (mongoose.isValidObjectId(note_id)) {
+			const note = await Note.findById({ _id: note_id }).select(
+				"-__v -updatedAt"
+			);
+			res.status(200).send(note);
+		} else {
+			res.status(400).send("Invalid note id");
+		}
+	} catch (error) {
+		console.log(
+			"<notes_controller.ts> getNoteData function error",
+			(error as Error).toString().red.bold
+		);
+		res.status(500).send(error);
+	}
+};
+
+export { createNote, getNoteData };
