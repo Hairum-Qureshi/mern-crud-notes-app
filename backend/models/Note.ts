@@ -13,6 +13,10 @@ const noteSchema = new Schema(
 		curr_uid: {
 			type: String,
 			required: true
+		},
+		containsProfanity: {
+			type: Boolean,
+			default: false
 		}
 	},
 	{
