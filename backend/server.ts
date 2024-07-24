@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import colors from "colors";
 import mongoose from "mongoose";
 import notes_route from "./routes/notes_route";
+import cookieParser from "cookie-parser";
 
 colors.enable();
 dotenv.config();
@@ -17,6 +18,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/notes", notes_route);
