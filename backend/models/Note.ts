@@ -10,7 +10,7 @@ const noteSchema = new Schema(
 			type: String,
 			required: true
 		},
-		user_id: {
+		curr_uid: {
 			type: String,
 			required: true
 		}
