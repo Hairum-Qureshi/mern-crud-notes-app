@@ -3,6 +3,14 @@ import { randomUUID } from "crypto";
 import jwt from "jsonwebtoken";
 import colors from "colors";
 import Note from "../models/Note";
+import {
+	TextCensor,
+	RegExpMatcher,
+	englishDataset,
+	englishRecommendedTransformers,
+	keepStartCensorStrategy,
+	asteriskCensorStrategy
+} from "obscenity";
 
 colors.enable();
 
@@ -29,14 +37,33 @@ function parseJWT(token: string): string {
 const createNote = async (req: Request, res: Response) => {
 	const { note_title, note_content } = req.body;
 	const curr_uid: string | undefined = req.cookies["anon-session"];
+
+	const censor = new TextCensor().setStrategy(
+		keepStartCensorStrategy(asteriskCensorStrategy())
+	);
+	const matcher = new RegExpMatcher({
+		...englishDataset.build(),
+		...englishRecommendedTransformers
+	});
+	const matches = matcher.getAllMatches(note_content);
+	const checkTitleMatches = matcher.getAllMatches(note_title);
+
+	if (checkTitleMatches.length > 0) {
+		// Title cannot contain profanity
+		return res.status(400).json({
+			message: "Title cannot contain profanity"
+		});
+	}
+
 	if (!curr_uid) {
 		const user_id: string = createCookie(res);
 		try {
 			// Implement logic here to save note data to MongoDB
 			const createdNote = await Note.create({
 				note_title,
-				note_content,
-				curr_uid: user_id
+				note_content: censor.applyTo(note_content, matches),
+				curr_uid: user_id,
+				containsProfanity: matches.length > 0
 			});
 
 			res.status(201).send(createdNote);
@@ -53,8 +80,9 @@ const createNote = async (req: Request, res: Response) => {
 			if (user_id) {
 				const createdNote = await Note.create({
 					note_title,
-					note_content,
-					curr_uid: user_id
+					note_content: censor.applyTo(note_content, matches),
+					curr_uid: user_id,
+					containsProfanity: matches.length > 0
 				});
 				res.status(201).send(createdNote);
 			}
