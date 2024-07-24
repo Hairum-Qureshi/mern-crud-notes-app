@@ -2,8 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import useNotes from "../hooks/useNotes";
+import { ring2 } from "ldrs";
 
 // TODO - figure out how to add a max word limit to the textarea
+// TODO - uncomment the disabled logic for the button
+// TODO - need to add loading spinner
 
 export default function Form() {
 	const [noteTitle, setNoteTitle] = useState("");
@@ -11,6 +15,8 @@ export default function Form() {
 	const [typedWords, setTypedWords] = useState(0);
 	const [maxCharacters, setMaxCharacters] = useState(1000);
 	const [readOnly, setReadOnly] = useState(false);
+
+	ring2.register();
 
 	useEffect(() => {
 		const wordCount = noteBody.trim().split(/\s+/).length; // Use \s+ to handle multiple spaces
@@ -21,6 +27,8 @@ export default function Form() {
 			setReadOnly(true);
 		}
 	}, [noteBody]);
+
+	const { postNote, loadingStatus } = useNotes();
 
 	return (
 		<div className="w-full flex justify-center">
@@ -63,12 +71,27 @@ export default function Form() {
 					</div>
 					<div className="flex justify-center">
 						<button
-							disabled={typedWords < 1000}
-							className={`w-full lg:w-1/2 mt-5 p-3 bg-black rounded text-white text-lg ${
+							// disabled={typedWords < 1000}
+							className={`w-full lg:w-1/2 mt-5 p-3 bg-black rounded text-white text-lg flex items-center justify-center ${
 								typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
 							}`}
+							onClick={() => postNote(noteTitle, noteBody)}
 						>
-							Create Note
+							{loadingStatus ? (
+								<>
+									<l-ring-2
+										size="30"
+										stroke="3"
+										stroke-length="0.25"
+										bg-opacity="0.1"
+										speed="0.8"
+										color="white"
+									></l-ring-2>
+									&nbsp; Posting
+								</>
+							) : (
+								"Post Note"
+							)}
 						</button>
 					</div>
 				</div>
