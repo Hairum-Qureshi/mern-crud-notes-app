@@ -4,6 +4,7 @@ import NotFound from "./NotFound";
 import Form from "./Form";
 import Note from "./Note";
 import { SessionProvider } from "../contexts/sessionContext";
+import NotesViewer from "./NotesViewer";
 
 export default function App() {
 	return (
@@ -13,6 +14,7 @@ export default function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/new-note" element={<Form />} />
 					<Route path="/note/:note_id" element={<Note />} />
+					<Route path="/notes/all" element={<NotesViewer />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</SessionProvider>
