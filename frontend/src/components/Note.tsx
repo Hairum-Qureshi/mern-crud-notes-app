@@ -11,7 +11,7 @@ import { tailspin } from "ldrs";
 import useSessionContext from "../contexts/sessionContext";
 
 export default function Note() {
-	const { getNoteData, noteData, loadingStatus } = useNotes();
+	const { getNoteData, noteData, loadingStatus, deleteNote } = useNotes();
 	const { currUID } = useSessionContext()!;
 
 	const note_id = window.location.href.split("/").pop();
@@ -22,8 +22,6 @@ export default function Note() {
 	}, [note_id]);
 
 	tailspin.register();
-
-	// TODO - need to add buttons for editing/deleting notes
 
 	function formatDate(utcDate: string): string {
 		const date = new Date(utcDate);
@@ -102,6 +100,9 @@ export default function Note() {
 											<FontAwesomeIcon
 												icon={faTrash}
 												className="ml-2 bg-red-500 p-1 text-lg text-slate-100 rounded hover:cursor-pointer"
+												onClick={() =>
+													deleteNote(noteData?._id, noteData?.note_title)
+												}
 											/>
 										</div>
 									)}
