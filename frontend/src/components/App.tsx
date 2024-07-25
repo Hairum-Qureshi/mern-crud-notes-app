@@ -5,6 +5,7 @@ import Form from "./Form";
 import Note from "./Note";
 import { SessionProvider } from "../contexts/sessionContext";
 import NotesViewer from "./NotesViewer";
+import Disclaimer from "../components/Disclaimer";
 
 export default function App() {
 	return (
@@ -12,6 +13,7 @@ export default function App() {
 			<SessionProvider>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/disclaimers" element={<Disclaimer />} />
 					<Route path="/new-note" element={<Form />} />
 					<Route path="/note/:note_id" element={<Note />} />
 					<Route path="/notes/all" element={<NotesViewer />} />
