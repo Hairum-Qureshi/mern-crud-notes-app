@@ -2,7 +2,11 @@ import { useEffect } from "react";
 import useNotes from "../hooks/useNotes";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import {
+	faArrowLeftLong,
+	faPenToSquare,
+	faTrash
+} from "@fortawesome/free-solid-svg-icons";
 import { tailspin } from "ldrs";
 
 export default function Note() {
@@ -83,9 +87,21 @@ export default function Note() {
 										</p>
 									</div>
 								) : null}
-								<p className="text-sm mt-2">
-									Posted on {formatDate(noteData?.createdAt)}
-								</p>
+								<div className="mt-2 flex items-center">
+									<p className="text-sm">
+										Posted on {formatDate(noteData?.createdAt)}
+									</p>
+									<div className="ml-auto">
+										<FontAwesomeIcon
+											icon={faPenToSquare}
+											className="bg-orange-400 p-1 text-lg rounded hover:cursor-pointer"
+										/>
+										<FontAwesomeIcon
+											icon={faTrash}
+											className="ml-2 bg-red-500 p-1 text-lg text-slate-100 rounded hover:cursor-pointer"
+										/>
+									</div>
+								</div>
 								<div className="mt-6 text-base whitespace-pre-wrap">
 									{noteData?.note_content}
 								</div>
