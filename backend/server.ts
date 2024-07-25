@@ -47,7 +47,8 @@ app.get("/api/user/current-session", (req: Request, res: Response) => {
 			res.status(401).json({ error: "Unauthorized" });
 		}
 	} catch (error) {
-		console.log(error);
+		console.log("<server.ts>  error", (error as Error).toString().red.bold);
+		res.status(500).send(error);
 	}
 });
 
