@@ -8,9 +8,11 @@ import {
 	faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import { tailspin } from "ldrs";
+import useSessionContext from "../contexts/sessionContext";
 
 export default function Note() {
 	const { getNoteData, noteData, loadingStatus } = useNotes();
+	const { currUID } = useSessionContext()!;
 
 	const note_id = window.location.href.split("/").pop();
 	useEffect(() => {
@@ -91,16 +93,18 @@ export default function Note() {
 									<p className="text-sm">
 										Posted on {formatDate(noteData?.createdAt)}
 									</p>
-									<div className="ml-auto">
-										<FontAwesomeIcon
-											icon={faPenToSquare}
-											className="bg-orange-400 p-1 text-lg rounded hover:cursor-pointer"
-										/>
-										<FontAwesomeIcon
-											icon={faTrash}
-											className="ml-2 bg-red-500 p-1 text-lg text-slate-100 rounded hover:cursor-pointer"
-										/>
-									</div>
+									{currUID === noteData?.curr_uid && (
+										<div className="ml-auto">
+											<FontAwesomeIcon
+												icon={faPenToSquare}
+												className="bg-orange-400 p-1 text-lg rounded hover:cursor-pointer"
+											/>
+											<FontAwesomeIcon
+												icon={faTrash}
+												className="ml-2 bg-red-500 p-1 text-lg text-slate-100 rounded hover:cursor-pointer"
+											/>
+										</div>
+									)}
 								</div>
 								<div className="mt-6 text-base whitespace-pre-wrap">
 									{noteData?.note_content}
