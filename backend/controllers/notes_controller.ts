@@ -12,6 +12,7 @@ import {
 	asteriskCensorStrategy
 } from "obscenity";
 import mongoose from "mongoose";
+import { parseJWT } from "../server";
 
 colors.enable();
 
@@ -26,13 +27,6 @@ function createCookie(res: Response): string {
 	const token = jwt.sign(payload, secretKey, { expiresIn: "7d" });
 	res.cookie("anon-session", token, { httpOnly: true, maxAge: 604800000 }); // 1 week in milliseconds
 	return user_id;
-}
-
-function parseJWT(token: string): string {
-	const decoded_uid = JSON.parse(
-		Buffer.from(token.split(".")[1], "base64").toString()
-	);
-	return decoded_uid.user_id;
 }
 
 const createNote = async (req: Request, res: Response) => {
@@ -132,4 +126,18 @@ const getAllNotes = async (req: Request, res: Response) => {
 	}
 };
 
-export { createNote, getNoteData, getAllNotes };
+const deleteNote = async (req: Request, res: Response) => {
+	const { note_id } = req.params;
+	try {
+		await Note.findByIdAndDelete({ _id: note_id });
+		res.status(200).send("Note deleted successfully");
+	} catch (error) {
+		console.log(
+			"<notes_controller.ts> deleteNote function error",
+			(error as Error).toString().red.bold
+		);
+		res.status(500).send(error);
+	}
+};
+
+export { createNote, getNoteData, getAllNotes, deleteNote };
