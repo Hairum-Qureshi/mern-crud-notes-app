@@ -10,6 +10,22 @@ export const SessionProvider = ({ children }: SessionProps) => {
 
 	// Implement the functions related to your context here. For example, since this is called 'AuthContext', its purpose is to handle authentication so here you'd have a bunch of functions handling authentication, getting the current logged in user's data, etc.
 
+	useEffect(() => {
+		async function getUser() {
+			await axios
+				.get("http://localhost:4000/api/user/current-session", {
+					withCredentials: true
+				})
+				.then(response => {
+					setCurrUID(response.data);
+				})
+				.catch(error => {
+					console.log(error.response.data.error);
+				});
+		}
+		getUser();
+	}, []);
+
 	const value: ContextData = {
 		currUID,
 		error
