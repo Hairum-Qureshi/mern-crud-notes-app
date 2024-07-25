@@ -8,6 +8,7 @@ interface NoteHandlers {
 	noteData: Note | undefined;
 	loadingStatus: boolean;
 	allNotesData: Note[];
+	deleteNote: (note_id: string, note_title: string) => void;
 }
 
 export default function useNotes(): NoteHandlers {
@@ -15,12 +16,12 @@ export default function useNotes(): NoteHandlers {
 	const [loadingStatus, setLoadingStatus] = useState(false);
 	const [allNotesData, setAllNotesData] = useState<Note[]>([]);
 
-	function postNote(note_title: string, note_content: string) {
+	async function postNote(note_title: string, note_content: string) {
 		if (!note_title || !note_content) {
 			alert("Please make sure all fields are filled");
 		} else {
 			setLoadingStatus(true);
-			axios
+			await axios
 				.post(
 					"http://localhost:4000/api/notes/create",
 					{
@@ -44,9 +45,9 @@ export default function useNotes(): NoteHandlers {
 		}
 	}
 
-	function getNoteData(note_id: string) {
+	async function getNoteData(note_id: string) {
 		setLoadingStatus(true);
-		axios
+		await axios
 			.get(`http://localhost:4000/api/notes/${note_id}`)
 			.then(response => {
 				setNoteData(response.data);
@@ -56,6 +57,26 @@ export default function useNotes(): NoteHandlers {
 				console.log(error);
 				setLoadingStatus(false);
 			});
+	}
+
+	async function deleteNote(note_id: string, note_title: string) {
+		const confirmation = confirm(
+			`Are you sure you would like to delete "${note_title}"? This cannot be undone!`
+		);
+		if (confirmation) {
+			await axios
+				.delete(`http://localhost:4000/api/notes/${note_id}`, {
+					withCredentials: true
+				})
+				.then(response => {
+					if (response.status === 200) {
+						window.location.href = "/";
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				});
+		}
 	}
 
 	useEffect(() => {
@@ -68,5 +89,12 @@ export default function useNotes(): NoteHandlers {
 		getAllNotes();
 	}, [noteData]);
 
-	return { postNote, getNoteData, noteData, loadingStatus, allNotesData };
+	return {
+		postNote,
+		getNoteData,
+		noteData,
+		loadingStatus,
+		allNotesData,
+		deleteNote
+	};
 }
