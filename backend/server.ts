@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import colors from "colors";
@@ -25,6 +25,31 @@ app.use("/api/notes", notes_route);
 
 const PORT: string | number = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI!;
+
+export function parseJWT(token: string): string {
+	const decoded_uid = JSON.parse(
+		Buffer.from(token.split(".")[1], "base64").toString()
+	);
+	return decoded_uid.user_id;
+}
+
+app.get("/api/user/current-session", (req: Request, res: Response) => {
+	const token = req.cookies["anon-session"];
+	try {
+		if (token) {
+			const curr_uid: string | undefined = parseJWT(token);
+			if (curr_uid) {
+				res.status(200).json(curr_uid);
+			} else {
+				res.status(401).json({ error: "Unauthorized" });
+			}
+		} else {
+			res.status(401).json({ error: "Unauthorized" });
+		}
+	} catch (error) {
+		console.log(error);
+	}
+});
 
 mongoose
 	.connect(MONGO_URI)
