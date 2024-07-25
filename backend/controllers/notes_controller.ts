@@ -106,7 +106,7 @@ const getNoteData = async (req: Request, res: Response) => {
 			);
 			res.status(200).send(note);
 		} else {
-			res.status(400).send("Invalid note id");
+			res.status(400).send("Invalid Note ID");
 		}
 	} catch (error) {
 		console.log(
@@ -117,4 +117,19 @@ const getNoteData = async (req: Request, res: Response) => {
 	}
 };
 
-export { createNote, getNoteData };
+const getAllNotes = async (req: Request, res: Response) => {
+	try {
+		const allNotes = await Note.find({})
+			.select("-__v -updatedAt")
+			.sort({ createdAt: -1 });
+		res.status(200).send(allNotes);
+	} catch (error) {
+		console.log(
+			"<notes_controller.ts> getNoteData function error",
+			(error as Error).toString().red.bold
+		);
+		res.status(500).send(error);
+	}
+};
+
+export { createNote, getNoteData, getAllNotes };
