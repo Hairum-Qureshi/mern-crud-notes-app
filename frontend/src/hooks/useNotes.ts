@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Note } from "../interfaces";
 
 interface NoteHandlers {
@@ -7,11 +7,13 @@ interface NoteHandlers {
 	getNoteData: (note_id: string) => void;
 	noteData: Note | undefined;
 	loadingStatus: boolean;
+	allNotesData: Note[];
 }
 
 export default function useNotes(): NoteHandlers {
 	const [noteData, setNoteData] = useState<Note | undefined>();
 	const [loadingStatus, setLoadingStatus] = useState(false);
+	const [allNotesData, setAllNotesData] = useState<Note[]>([]);
 
 	function postNote(note_title: string, note_content: string) {
 		if (!note_title || !note_content) {
@@ -49,5 +51,15 @@ export default function useNotes(): NoteHandlers {
 			.catch(error => console.log(error));
 	}
 
-	return { postNote, getNoteData, noteData, loadingStatus };
+	useEffect(() => {
+		function getAllNotes() {
+			axios
+				.get("http://localhost:4000/api/notes/all")
+				.then(response => setAllNotesData(response.data))
+				.catch(error => console.log(error));
+		}
+		getAllNotes();
+	}, [noteData]);
+
+	return { postNote, getNoteData, noteData, loadingStatus, allNotesData };
 }
