@@ -45,10 +45,17 @@ export default function useNotes(): NoteHandlers {
 	}
 
 	function getNoteData(note_id: string) {
+		setLoadingStatus(true);
 		axios
 			.get(`http://localhost:4000/api/notes/${note_id}`)
-			.then(response => setNoteData(response.data))
-			.catch(error => console.log(error));
+			.then(response => {
+				setNoteData(response.data);
+				setLoadingStatus(false);
+			})
+			.catch(error => {
+				console.log(error);
+				setLoadingStatus(false);
+			});
 	}
 
 	useEffect(() => {
