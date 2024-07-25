@@ -28,6 +28,17 @@ export default function Disclaimer() {
 					<p>Please keep the following in mind while using this site:</p>
 					<br />
 					<p>
+						<strong>Posts:</strong> As a new user, when you make your first
+						post, you will get a cookie that will expire in 1 week. Within this
+						week, you have the freedom to create/edit/delete posts only you have
+						made. After a week, upon making a new post, you will be issued a new
+						week-long cookie. All posts that were not edited/deleted prior to
+						that week will no longer be able to be edited/deleted by you (even
+						though you authored those posts). This is why it's really important
+						you <b>do not</b> include any personal/identifiable information
+						within these posts.
+						<br />
+						<br />
 						<strong>Privacy:</strong> Your anonymity is my priority. No personal
 						data is collected, and your notes are not linked to any identifiable
 						information. However, please avoid sharing personal details within
@@ -56,7 +67,7 @@ export default function Disclaimer() {
 						<br />
 						<strong>Feedback:</strong> I value your feedback and suggestions. If
 						you encounter any issues or have ideas for improvement, feel free to
-						reach out{" "}
+						reach out&nbsp;
 						<Link to="/contact">
 							<u className="text-blue-600">here</u>
 						</Link>
