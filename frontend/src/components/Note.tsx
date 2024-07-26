@@ -90,13 +90,22 @@ export default function Note() {
 								<div className="mt-2 flex items-center">
 									<p className="text-sm">
 										Posted on {formatDate(noteData?.createdAt)}
+										<br />
+										{noteData?.updatedAt !== noteData?.createdAt && (
+											<p className="text-sm text-blue-700">
+												Updated on {formatDate(noteData?.updatedAt)}
+											</p>
+										)}
 									</p>
+
 									{currUID === noteData?.curr_uid && (
 										<div className="ml-auto">
-											<FontAwesomeIcon
-												icon={faPenToSquare}
-												className="bg-orange-400 p-1 text-lg rounded hover:cursor-pointer"
-											/>
+											<Link to={`/note/${noteData._id}/edit`}>
+												<FontAwesomeIcon
+													icon={faPenToSquare}
+													className="bg-orange-400 p-1 text-lg rounded hover:cursor-pointer"
+												/>
+											</Link>
 											<FontAwesomeIcon
 												icon={faTrash}
 												className="ml-2 bg-red-500 p-1 text-lg text-slate-100 rounded hover:cursor-pointer"
