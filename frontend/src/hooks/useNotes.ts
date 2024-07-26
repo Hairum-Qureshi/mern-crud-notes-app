@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Note } from "../interfaces";
 
+// TODO - need to make middleware to make sure only users with a cookie can make posts!
+
 interface NoteHandlers {
 	postNote: (note_title: string, note_content: string) => void;
 	getNoteData: (note_id: string) => void;
@@ -9,6 +11,7 @@ interface NoteHandlers {
 	loadingStatus: boolean;
 	allNotesData: Note[];
 	deleteNote: (note_id: string, note_title: string) => void;
+	editNote: (note_id: string, noteTitle: string, noteBody: string) => void;
 }
 
 export default function useNotes(): NoteHandlers {
@@ -89,12 +92,42 @@ export default function useNotes(): NoteHandlers {
 		getAllNotes();
 	}, [noteData]);
 
+	async function editNote(
+		note_id: string,
+		noteTitle: string,
+		noteBody: string
+	) {
+		setLoadingStatus(true);
+		await axios
+			.patch(
+				`http://localhost:4000/api/notes/${note_id}/edit`,
+				{
+					note_title: noteTitle,
+					note_content: noteBody
+				},
+				{
+					withCredentials: true
+				}
+			)
+			.then(response => {
+				if (response.status === 200) {
+					window.location.href = `http://localhost:5174/note/${response.data._id}`;
+					setLoadingStatus(false);
+				}
+			})
+			.catch(error => {
+				console.log(error);
+				setLoadingStatus(false);
+			});
+	}
+
 	return {
 		postNote,
 		getNoteData,
 		noteData,
 		loadingStatus,
 		allNotesData,
-		deleteNote
+		deleteNote,
+		editNote
 	};
 }
