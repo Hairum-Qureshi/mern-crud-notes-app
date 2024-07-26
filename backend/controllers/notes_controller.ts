@@ -9,7 +9,8 @@ import {
 	englishDataset,
 	englishRecommendedTransformers,
 	keepStartCensorStrategy,
-	asteriskCensorStrategy
+	asteriskCensorStrategy,
+	MatchPayload
 } from "obscenity";
 import mongoose from "mongoose";
 import { parseJWT } from "../server";
@@ -39,15 +40,19 @@ const matcher = new RegExpMatcher({
 	...englishRecommendedTransformers
 });
 
+const censor = new TextCensor().setStrategy(
+	keepStartCensorStrategy(asteriskCensorStrategy())
+);
+
+function getMatchPayload(note_content: string): MatchPayload[] {
+	const matches = matcher.getAllMatches(note_content);
+	return matches;
+}
+
 const createNote = async (req: Request, res: Response) => {
 	const { note_title, note_content } = req.body;
 	const curr_uid: string | undefined = req.cookies["anon-session"];
 
-	const censor = new TextCensor().setStrategy(
-		keepStartCensorStrategy(asteriskCensorStrategy())
-	);
-
-	const matches = matcher.getAllMatches(note_content);
 	const checkTitleMatches = matcher.getAllMatches(note_title);
 
 	if (checkTitleMatches.length > 0) {
@@ -55,6 +60,8 @@ const createNote = async (req: Request, res: Response) => {
 			message: "Title cannot contain profanity"
 		});
 	}
+
+	const matches: MatchPayload[] = getMatchPayload(note_content);
 
 	if (!curr_uid) {
 		const user_id: string = createCookie(res);
@@ -147,6 +154,9 @@ const deleteNote = async (req: Request, res: Response) => {
 const editNote = async (req: Request, res: Response) => {
 	const { note_id } = req.params;
 	const { note_title, note_content } = req.body;
+
+	// TODO - need to implement logic for censoring profanity in the body text here too
+
 	try {
 		const checkTitleMatches = matcher.getAllMatches(note_title);
 
@@ -156,11 +166,13 @@ const editNote = async (req: Request, res: Response) => {
 			});
 		}
 
+		const matches: MatchPayload[] = getMatchPayload(note_content);
+
 		const updatedNote = await Note.findByIdAndUpdate(
 			{ _id: note_id },
 			{
 				note_title,
-				note_content
+				note_content: censor.applyTo(note_content, matches)
 			},
 			{
 				new: true
