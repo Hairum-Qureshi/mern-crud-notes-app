@@ -101,9 +101,7 @@ const getNoteData = async (req: Request, res: Response) => {
 
 	try {
 		if (mongoose.isValidObjectId(note_id)) {
-			const note = await Note.findById({ _id: note_id }).select(
-				"-__v -updatedAt"
-			);
+			const note = await Note.findById({ _id: note_id }).select("-__v");
 			res.status(200).send(note);
 		} else {
 			res.status(400).send("Invalid Note ID");
@@ -167,7 +165,7 @@ const editNote = async (req: Request, res: Response) => {
 			{
 				new: true
 			}
-		).select("-__v -updatedAt");
+		).select("-__v");
 		res.status(200).send(updatedNote);
 	} catch (error) {
 		console.log(
