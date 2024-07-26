@@ -13,6 +13,13 @@ import {
 } from "obscenity";
 import mongoose from "mongoose";
 import { parseJWT } from "../server";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+// TODO - need to handle expired JWT tokens
+
+const secretKey: string = process.env.JWT_SECRET!;
 
 colors.enable();
 
@@ -21,13 +28,16 @@ function createCookie(res: Response): string {
 	const payload = {
 		user_id
 	};
-	const secretKey: string = Math.floor(
-		Math.random() * Number(new Date())
-	).toString();
+
 	const token = jwt.sign(payload, secretKey, { expiresIn: "7d" });
 	res.cookie("anon-session", token, { httpOnly: true, maxAge: 604800000 }); // 1 week in milliseconds
 	return user_id;
 }
+
+const matcher = new RegExpMatcher({
+	...englishDataset.build(),
+	...englishRecommendedTransformers
+});
 
 const createNote = async (req: Request, res: Response) => {
 	const { note_title, note_content } = req.body;
@@ -37,10 +47,6 @@ const createNote = async (req: Request, res: Response) => {
 		keepStartCensorStrategy(asteriskCensorStrategy())
 	);
 
-	const matcher = new RegExpMatcher({
-		...englishDataset.build(),
-		...englishRecommendedTransformers
-	});
 	const matches = matcher.getAllMatches(note_content);
 	const checkTitleMatches = matcher.getAllMatches(note_title);
 
@@ -144,6 +150,14 @@ const editNote = async (req: Request, res: Response) => {
 	const { note_id } = req.params;
 	const { note_title, note_content } = req.body;
 	try {
+		const checkTitleMatches = matcher.getAllMatches(note_title);
+
+		if (checkTitleMatches.length > 0) {
+			return res.status(400).json({
+				message: "Title cannot contain profanity"
+			});
+		}
+
 		const updatedNote = await Note.findByIdAndUpdate(
 			{ _id: note_id },
 			{
