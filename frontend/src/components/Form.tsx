@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useNotes from "../hooks/useNotes";
 import { ring2 } from "ldrs";
+import useSessionContext from "../contexts/sessionContext";
 
 // TODO - figure out how to add a max word limit to the textarea
 // TODO - uncomment the disabled logic for the button
@@ -11,7 +12,6 @@ import { ring2 } from "ldrs";
 // TODO - add a character/word limit to the title
 //! BUG - if you press the button only entering the note title, it doesn't prompt you to fill in the textarea
 // TODO - need to make sure error messages are alerted to the user (for ex. having a title contain profanity - alert the user)
-// TODO - for editing a note, make sure to add some guard to prevent users from editing other users' notes
 
 export default function Form() {
 	const [noteTitle, setNoteTitle] = useState("");
@@ -19,8 +19,11 @@ export default function Form() {
 	const [typedWords, setTypedWords] = useState(0);
 	const [maxCharacters, setMaxCharacters] = useState(1000);
 	const [readOnly, setReadOnly] = useState(false);
+	const [yourNoteFlair, setYourNoteFlair] = useState(false);
+	const { currUID } = useSessionContext()!;
 
-	const { getNoteData, noteData } = useNotes();
+	const { postNote, getNoteData, noteData, loadingStatus, editNote } =
+		useNotes();
 
 	const note_id = window.location.href.split("/")[4];
 	useEffect(() => {
@@ -33,6 +36,8 @@ export default function Form() {
 		if (noteData) {
 			setNoteTitle(noteData.note_title);
 			setNoteBody(noteData.note_content);
+
+			setYourNoteFlair(noteData.curr_uid === currUID);
 		}
 	}, [noteData]);
 
@@ -48,8 +53,6 @@ export default function Form() {
 		}
 	}, [noteBody]);
 
-	const { postNote, loadingStatus } = useNotes();
-
 	return (
 		<div className="w-full flex justify-center">
 			<div className="flex flex-col mt-5 lg:w-7/12 w-full p-3 space-y-4">
@@ -60,7 +63,9 @@ export default function Form() {
 					</div>
 				</Link>
 				<h1 className="text-3xl font-semibold">
-					{noteData === undefined || !noteData ? "Create a Note" : "Edit Note"}
+					{noteData === undefined || !noteData || !yourNoteFlair
+						? "Create a Note"
+						: "Edit Note"}
 				</h1>
 				<div className="p-2">
 					<form autoComplete="off">
@@ -72,7 +77,11 @@ export default function Form() {
 								type="text"
 								id="note-title"
 								placeholder="Enter a title"
-								value={noteData !== undefined ? noteTitle : undefined}
+								value={
+									noteData !== undefined && yourNoteFlair
+										? noteTitle
+										: undefined
+								}
 								className="w-full p-2 my-1 text-base border border-black rounded"
 								onChange={e => setNoteTitle(e.target.value)}
 							/>
@@ -84,7 +93,9 @@ export default function Form() {
 							<textarea
 								id="note-body"
 								placeholder="Enter some body text"
-								value={noteData !== undefined ? noteBody : undefined}
+								value={
+									noteData !== undefined && yourNoteFlair ? noteBody : undefined
+								}
 								className="w-full p-3 my-1 text-base border whitespace-pre-wrap border-black rounded h-56 resize-y min-h-20 max-h-96"
 								// maxLength={maxCharacters}
 								readOnly={readOnly}
@@ -96,7 +107,7 @@ export default function Form() {
 						</div>
 					</form>
 					<div className="flex justify-center">
-						{noteData === undefined || !noteData ? (
+						{noteData === undefined || !noteData || !yourNoteFlair ? (
 							<button
 								// disabled={typedWords < 1000}
 								className={`w-full lg:w-1/2 mt-5 p-3 bg-black rounded text-white text-lg flex items-center justify-center ${
@@ -129,7 +140,7 @@ export default function Form() {
 									typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
 								}`}
 								onClick={() => {
-									postNote(noteTitle, noteBody);
+									editNote(note_id, noteTitle, noteBody);
 								}}
 							>
 								{loadingStatus ? (
@@ -142,7 +153,7 @@ export default function Form() {
 											speed="0.8"
 											color="white"
 										></l-ring-2>
-										&nbsp; Posting
+										&nbsp; Confirming Edits
 									</>
 								) : (
 									"Confirm Edits"
