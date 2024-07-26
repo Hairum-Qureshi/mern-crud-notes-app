@@ -31,7 +31,10 @@ const authenticated = (req: Request, res: Response, next: NextFunction) => {
 			}
 		);
 	} else {
-		res.status(401).json({ message: "Unauthorized" });
+		res.status(401).json({
+			message:
+				"Your session has expired. Please make a new post to renew your session"
+		});
 	}
 };
 
@@ -51,7 +54,7 @@ const verifyRequest = async (
 			if (note.curr_uid !== decoded_uid) {
 				return res
 					.status(403)
-					.json({ message: "Cannot edit note since you are not the owner." });
+					.json({ message: "Cannot edit note because you are not the owner" });
 			}
 
 			next();
