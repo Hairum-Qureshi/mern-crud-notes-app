@@ -16,6 +16,7 @@ export default function App() {
 					<Route path="/disclaimers" element={<Disclaimer />} />
 					<Route path="/new-note" element={<Form />} />
 					<Route path="/note/:note_id" element={<Note />} />
+					<Route path="/note/:note_id/edit" element={<Form />} />
 					<Route path="/notes/all" element={<NotesViewer />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
