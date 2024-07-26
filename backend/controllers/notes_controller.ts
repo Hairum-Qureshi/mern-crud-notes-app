@@ -140,4 +140,28 @@ const deleteNote = async (req: Request, res: Response) => {
 	}
 };
 
-export { createNote, getNoteData, getAllNotes, deleteNote };
+const editNote = async (req: Request, res: Response) => {
+	const { note_id } = req.params;
+	const { note_title, note_content } = req.body;
+	try {
+		const updatedNote = await Note.findByIdAndUpdate(
+			{ _id: note_id },
+			{
+				note_title,
+				note_content
+			},
+			{
+				new: true
+			}
+		).select("-__v -updatedAt");
+		res.status(200).send(updatedNote);
+	} catch (error) {
+		console.log(
+			"<notes_controller.ts> editNote function error",
+			(error as Error).toString().red.bold
+		);
+		res.status(500).send(error);
+	}
+};
+
+export { createNote, getNoteData, getAllNotes, deleteNote, editNote };
