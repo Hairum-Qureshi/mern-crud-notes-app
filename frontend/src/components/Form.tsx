@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeftLong, faX } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useNotes from "../hooks/useNotes";
@@ -22,8 +22,15 @@ export default function Form() {
 	const [yourNoteFlair, setYourNoteFlair] = useState(false);
 	const { currUID } = useSessionContext()!;
 
-	const { postNote, getNoteData, noteData, loadingStatus, editNote } =
-		useNotes();
+	const {
+		postNote,
+		getNoteData,
+		noteData,
+		loadingStatus,
+		editNote,
+		errorMessage,
+		clearErrorMessage
+	} = useNotes();
 
 	const note_id = window.location.href.split("/")[4];
 	useEffect(() => {
@@ -36,7 +43,6 @@ export default function Form() {
 		if (noteData) {
 			setNoteTitle(noteData.note_title);
 			setNoteBody(noteData.note_content);
-
 			setYourNoteFlair(noteData.curr_uid === currUID);
 		}
 	}, [noteData]);
@@ -55,7 +61,7 @@ export default function Form() {
 
 	return (
 		<div className="w-full flex justify-center">
-			<div className="flex flex-col mt-5 lg:w-7/12 w-full p-3 space-y-4">
+			<div className="flex flex-col lg:w-7/12 w-full p-3 space-y-4">
 				<Link to="/">
 					<div className="flex items-center text-lg">
 						<FontAwesomeIcon icon={faArrowLeftLong} />
@@ -67,8 +73,18 @@ export default function Form() {
 						? "Create a Note"
 						: "Edit Note"}
 				</h1>
-				<div className="p-2">
+				<div>
 					<form autoComplete="off">
+						{errorMessage && (
+							<div className="p-2 bg-red-600 text-white rounded my-2 flex items-center -mt-3">
+								<h1>{errorMessage}</h1>
+								<FontAwesomeIcon
+									icon={faX}
+									className="ml-auto mr-2 text-lg px-2 py-2 hover:cursor-pointer"
+									onClick={clearErrorMessage}
+								/>
+							</div>
+						)}
 						<div>
 							<label htmlFor="note-title" className="text-lg">
 								Note Title
