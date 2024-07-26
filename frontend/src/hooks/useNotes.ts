@@ -12,12 +12,15 @@ interface NoteHandlers {
 	allNotesData: Note[];
 	deleteNote: (note_id: string, note_title: string) => void;
 	editNote: (note_id: string, noteTitle: string, noteBody: string) => void;
+	errorMessage: string;
+	clearErrorMessage: () => void;
 }
 
 export default function useNotes(): NoteHandlers {
 	const [noteData, setNoteData] = useState<Note | undefined>();
 	const [loadingStatus, setLoadingStatus] = useState(false);
 	const [allNotesData, setAllNotesData] = useState<Note[]>([]);
+	const [errorMessage, setErrorMessage] = useState("");
 
 	async function postNote(note_title: string, note_content: string) {
 		if (!note_title || !note_content) {
@@ -43,6 +46,7 @@ export default function useNotes(): NoteHandlers {
 				})
 				.catch(error => {
 					console.log(error);
+					setErrorMessage(error.response.data.message);
 					setLoadingStatus(false);
 				});
 		}
@@ -58,6 +62,7 @@ export default function useNotes(): NoteHandlers {
 			})
 			.catch(error => {
 				console.log(error);
+				setErrorMessage(error.response.data.message);
 				setLoadingStatus(false);
 			});
 	}
@@ -78,6 +83,7 @@ export default function useNotes(): NoteHandlers {
 				})
 				.catch(error => {
 					console.log(error);
+					setErrorMessage(error.response.data.message);
 				});
 		}
 	}
@@ -87,7 +93,10 @@ export default function useNotes(): NoteHandlers {
 			axios
 				.get("http://localhost:4000/api/notes/all")
 				.then(response => setAllNotesData(response.data))
-				.catch(error => console.log(error));
+				.catch(error => {
+					console.log(error);
+					setErrorMessage(error.response.data.message);
+				});
 		}
 		getAllNotes();
 	}, [noteData]);
@@ -116,9 +125,13 @@ export default function useNotes(): NoteHandlers {
 				}
 			})
 			.catch(error => {
-				console.log(error);
+				setErrorMessage(error.response.data.message);
 				setLoadingStatus(false);
 			});
+	}
+
+	function clearErrorMessage() {
+		setErrorMessage("");
 	}
 
 	return {
@@ -128,6 +141,8 @@ export default function useNotes(): NoteHandlers {
 		loadingStatus,
 		allNotesData,
 		deleteNote,
-		editNote
+		editNote,
+		errorMessage,
+		clearErrorMessage
 	};
 }
