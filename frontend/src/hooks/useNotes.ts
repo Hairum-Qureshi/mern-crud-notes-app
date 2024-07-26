@@ -90,12 +90,17 @@ export default function useNotes(): NoteHandlers {
 
 	useEffect(() => {
 		function getAllNotes() {
+			setLoadingStatus(true);
 			axios
 				.get("http://localhost:4000/api/notes/all")
-				.then(response => setAllNotesData(response.data))
+				.then(response => {
+					setAllNotesData(response.data);
+					setLoadingStatus(false);
+				})
 				.catch(error => {
 					console.log(error);
 					setErrorMessage(error.response.data.message);
+					setLoadingStatus(false);
 				});
 		}
 		getAllNotes();
