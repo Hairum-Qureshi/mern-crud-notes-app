@@ -5,6 +5,7 @@ import colors from "colors";
 import mongoose from "mongoose";
 import notes_route from "./routes/notes_route";
 import cookieParser from "cookie-parser";
+import { authenticated } from "./middleware/session-auth";
 
 colors.enable();
 dotenv.config();
@@ -33,24 +34,20 @@ export function parseJWT(token: string): string {
 	return decoded_uid.user_id;
 }
 
-app.get("/api/user/current-session", (req: Request, res: Response) => {
-	const token = req.cookies["anon-session"];
-	try {
-		if (token) {
-			const curr_uid: string | undefined = parseJWT(token);
-			if (curr_uid) {
-				res.status(200).json(curr_uid);
-			} else {
-				res.status(401).json({ error: "Unauthorized" });
-			}
-		} else {
-			res.status(401).json({ error: "Unauthorized" });
+app.get(
+	"/api/user/current-session",
+	authenticated,
+	(req: Request, res: Response) => {
+		const decoded_uid = req.cookies.decoded_uid;
+		console.log(decoded_uid);
+		try {
+			res.status(200).json(decoded_uid);
+		} catch (error) {
+			console.log("<server.ts>  error", (error as Error).toString().red.bold);
+			res.status(500).send(error);
 		}
-	} catch (error) {
-		console.log("<server.ts>  error", (error as Error).toString().red.bold);
-		res.status(500).send(error);
 	}
-});
+);
 
 mongoose
 	.connect(MONGO_URI)
