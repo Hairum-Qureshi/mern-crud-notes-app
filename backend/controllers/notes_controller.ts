@@ -155,8 +155,6 @@ const editNote = async (req: Request, res: Response) => {
 	const { note_id } = req.params;
 	const { note_title, note_content } = req.body;
 
-	// TODO - need to implement logic for censoring profanity in the body text here too
-
 	try {
 		const checkTitleMatches = matcher.getAllMatches(note_title);
 
