@@ -54,7 +54,7 @@ const verifyRequest = async (
 			if (note.curr_uid !== decoded_uid) {
 				return res
 					.status(403)
-					.json({ message: "Cannot edit note because you are not the owner" });
+					.json({ message: "You are not the owner of this note" });
 			}
 
 			next();
