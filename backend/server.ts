@@ -39,7 +39,6 @@ app.get(
 	authenticated,
 	(req: Request, res: Response) => {
 		const decoded_uid = req.cookies.decoded_uid;
-		console.log(decoded_uid);
 		try {
 			res.status(200).json(decoded_uid);
 		} catch (error) {
