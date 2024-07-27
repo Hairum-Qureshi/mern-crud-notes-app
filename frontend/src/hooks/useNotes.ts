@@ -51,8 +51,14 @@ export default function useNotes(): NoteHandlers {
 					}
 				})
 				.catch(error => {
-					console.log(error);
-					setErrorMessage(error.response.data.message);
+					if (error.response.status === 429) {
+						console.log(error);
+						setErrorMessage(error.response.data);
+					} else {
+						console.log(error);
+						setErrorMessage(error.response.data.message);
+					}
+
 					setLoadingStatus(false);
 				});
 		}
