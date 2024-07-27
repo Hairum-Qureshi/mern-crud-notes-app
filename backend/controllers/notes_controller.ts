@@ -177,7 +177,8 @@ const editNote = async (req: Request, res: Response) => {
 			{ _id: note_id },
 			{
 				note_title,
-				note_content: censor.applyTo(note_content, matches)
+				note_content: censor.applyTo(note_content, matches),
+				containsProfanity: matches.length > 0
 			},
 			{
 				new: true
