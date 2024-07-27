@@ -123,17 +123,24 @@ const getNoteData = async (req: Request, res: Response) => {
 };
 
 const getAllNotes = async (req: Request, res: Response) => {
-	try {
-		const allNotes = await Note.find({})
-			.select("-__v -updatedAt")
-			.sort({ createdAt: -1 });
-		res.status(200).send(allNotes);
-	} catch (error) {
-		console.log(
-			"<notes_controller.ts> getNoteData function error",
-			(error as Error).toString().red.bold
-		);
-		res.status(500).send(error);
+	const page = Number(req.query.page) || 1;
+	const notesPerPage = 9;
+	const totalNotes: number = await Note.countDocuments({});
+	const totalPages: number = Math.ceil(totalNotes / notesPerPage);
+	if (page < 0 || page > totalPages) {
+		res.status(404).json({ message: "no notes" });
+	} else {
+		const skip = (page - 1) * notesPerPage;
+
+		const all_notes = await Note.find({})
+			.sort({ createdAt: -1 })
+			.skip(skip)
+			.limit(notesPerPage);
+		if (all_notes && all_notes.length > 0) {
+			res.status(200).send({ all_notes, totalPages, totalNotes });
+		} else {
+			res.status(404).json({ message: "No notes" });
+		}
 	}
 };
 
