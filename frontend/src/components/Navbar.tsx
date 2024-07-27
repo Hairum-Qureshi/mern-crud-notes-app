@@ -42,6 +42,14 @@ export default function Navbar() {
 						Disclaimers & Rules
 					</button>
 				</Link>
+				<Link to="/contact">
+					<button
+						className="text-white p-2 rounded text-base mr-2"
+						onClick={createStickyNote}
+					>
+						Contact
+					</button>
+				</Link>
 				<button
 					className="bg-sky-800 text-white p-2 rounded text-base w-10"
 					onClick={changeTheme}
