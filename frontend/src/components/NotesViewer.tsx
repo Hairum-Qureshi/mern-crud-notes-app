@@ -79,28 +79,31 @@ export default function NotesViewer() {
 				</div>
 				{!loadingStatus ? (
 					<>
-						<table className="w-full table-auto">
-							<thead className="bg-slate-700 text-white border-b-2 border-gray-200">
-								<tr>
-									<th className="p-3 text-base font-semibold tracking-wide text-left">
-										Blog Title
-									</th>
-									<th className="p-3 text-base font-semibold tracking-wide text-left">
-										Owner
-									</th>
-									<th className="p-3 text-base font-semibold tracking-wide text-left">
-										Flag
-									</th>
-									<th className="p-3 text-base font-semibold tracking-wide text-left">
-										Posted Date
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								{allNotesData.map((note: Note, index: number) => {
-									return (
-										<>
+						<div className="overflow-x-auto pb-20">
+							{" "}
+							{/* Added pb-20 for padding bottom */}
+							<table className="w-full table-auto">
+								<thead className="bg-slate-700 text-white border-b-2 border-gray-200">
+									<tr>
+										<th className="p-3 text-base font-semibold tracking-wide text-left">
+											Blog Title
+										</th>
+										<th className="p-3 text-base font-semibold tracking-wide text-left">
+											Owner
+										</th>
+										<th className="p-3 text-base font-semibold tracking-wide text-left">
+											Flag
+										</th>
+										<th className="p-3 text-base font-semibold tracking-wide text-left">
+											Posted Date
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									{allNotesData.map((note: Note, index: number) => {
+										return (
 											<tr
+												key={note._id} // Added key prop
 												className={`${
 													index % 2 === 0 ? "bg-white" : "bg-slate-200"
 												}`}
@@ -132,11 +135,11 @@ export default function NotesViewer() {
 													{formatDate(note.createdAt)}
 												</td>
 											</tr>
-										</>
-									);
-								})}
-							</tbody>
-						</table>
+										);
+									})}
+								</tbody>
+							</table>
+						</div>
 					</>
 				) : (
 					<div className="flex items-center justify-center mt-20">
@@ -151,7 +154,9 @@ export default function NotesViewer() {
 				)}
 			</div>
 			{totalNotes > 9 && (
-				<div className="w-full absolute bottom-0 p-5 flex items-center text-lg justify-center">
+				<div className="w-full lg:absolute fixed bottom-0 p-5 flex items-center text-lg justify-center bg-white shadow-md">
+					{" "}
+					{/* Added bg-white and shadow-md */}
 					<Link
 						to={
 							Number(pageNumber) <= 1
@@ -164,10 +169,10 @@ export default function NotesViewer() {
 					>
 						<FontAwesomeIcon icon={faArrowLeft} />
 					</Link>
-
 					{numButtons.map((buttonNo: number) => {
 						return (
 							<Link
+								key={buttonNo} // Added key prop
 								to={`?page=${buttonNo}`}
 								className={`w-9 h-9 rounded p-2 ${
 									Number(pageNumber) === buttonNo ? "bg-slate-400" : "bg-black"
@@ -180,8 +185,7 @@ export default function NotesViewer() {
 					<Link
 						to={`?page=${Number(pageNumber) + 1}`}
 						className={`w-9 h-9 rounded p-2 bg-black text-white flex items-center justify-center mr-2 ${
-							Number(pageNumber) >= numPages - 1 &&
-							"pointer-events-none bg-red-900"
+							Number(pageNumber) >= numPages && "pointer-events-none bg-red-900"
 						}`}
 					>
 						<FontAwesomeIcon icon={faArrowRight} />
