@@ -13,7 +13,7 @@ export default function Disclaimer() {
 					</div>
 				</Link>
 				<h1 className="text-2xl font-semibold bg-black rounded text-white p-2">
-					Some Disclaimers - Please Read!
+					Some Rules & Disclaimers - Please Read!
 				</h1>
 				<div className="text-md my-5">
 					<p>
@@ -27,24 +27,26 @@ export default function Disclaimer() {
 					</p>
 					<br />
 					<p>
-						<strong>Posts:</strong> When you make your first post, you will get
-						a cookie that will expire in one (1) week. Within this week, you
-						have the freedom to create/edit/delete posts only you have made.
-						After a week, upon making a new post, you will be issued a new
-						week-long cookie. All posts that were not edited/deleted prior to
-						that week will no longer be able to be edited/deleted by you (even
-						though you authored those posts). This is why it's really important
-						you <b>do not</b> include any personal/identifiable information
-						within these posts. So try and edit and/or delete any unwanted posts
-						before your cookie expires!
+						<strong>Posts:</strong> When you make your first post, you will
+						receive a cookie that expires in one week. During this week, you can
+						create, edit, and delete your own posts. Each time you post, the
+						cookie's expiration extends, keeping it active. If you don't post
+						before your cookie expires in one (1) week, you'll lose
+						editing/deleting rights to your posts, even though you authored
+						them. To maintain access to your posts, keep your session active by
+						posting within the week. Additionally, avoid including any personal
+						or identifiable information in your posts. To prevent spamming, you
+						are limited to 10 posts per hour.
 						<br />
 						<br />
 						<strong>Privacy:</strong> Your anonymity is my priority. No personal
-						data is collected, and your notes are not linked to any identifiable
+						data is collected and your notes are not linked to any identifiable
 						information. However, please avoid sharing personal details you may
 						not want others to know about (even if you are anonymous) as post
-						data is stored in a database. Data stored in the database is{" "}
-						<b>not</b> encrypted.
+						data is stored in a database and all posts are made public. Data
+						stored in the database is&nbsp;
+						<b>not</b> encrypted. You cannot hide or unpublish any notes you
+						post.
 						<br />
 						<br />
 						<strong>Respect:</strong> While I aim to provide a free space for
@@ -55,10 +57,11 @@ export default function Disclaimer() {
 						<strong>Content Moderation:</strong> To ensure a pleasant experience
 						for all users, notes that contain profanity will be marked to deter
 						any users who may not want to read such notes. While profanity is
-						allowed, it will be censored. With that being said, sexual content,
-						on the other hand, is <b>prohibited</b>. Despite the measures I've
-						implemented, some inappropriate content might slip through. Feel
-						free to report any content that violates any of these rules.
+						allowed, it will be censored. With that being said, sexual and
+						violent content, on the other hand, is <b>prohibited</b>. Despite
+						the measures I've implemented, some inappropriate content might slip
+						through. Feel free to report any content that violates any of these
+						rules.
 						<br />
 						<br />
 						<strong>Limitations:</strong> As a simple, no-auth site, there are
