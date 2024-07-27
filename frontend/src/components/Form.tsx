@@ -8,10 +8,9 @@ import useSessionContext from "../contexts/sessionContext";
 
 // TODO - figure out how to add a max word limit to the textarea
 // TODO - uncomment the disabled logic for the button
-// TODO - need to add loading spinner
 // TODO - add a character/word limit to the title
 //! BUG - if you press the button only entering the note title, it doesn't prompt you to fill in the textarea
-// TODO - need to make sure error messages are alerted to the user (for ex. having a title contain profanity - alert the user)
+// ! BUG - if there are no notes, the error "no notes" is displayed to the user
 
 export default function Form() {
 	const [noteTitle, setNoteTitle] = useState("");
@@ -112,7 +111,7 @@ export default function Form() {
 								value={
 									noteData !== undefined && yourNoteFlair ? noteBody : undefined
 								}
-								className="w-full p-3 my-1 text-base border whitespace-pre-wrap border-black rounded h-56 resize-y min-h-20 max-h-96"
+								className="w-full p-3 my-1 text-base border whitespace-pre-wrap border-black rounded h-96 resize-none"
 								// maxLength={maxCharacters}
 								readOnly={readOnly}
 								onChange={e => setNoteBody(e.target.value)}
