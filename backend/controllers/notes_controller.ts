@@ -24,8 +24,8 @@ const secretKey: string = process.env.JWT_SECRET!;
 
 colors.enable();
 
-function createCookie(res: Response): string {
-	const user_id: string = randomUUID().replace(/-/g, "");
+export function createCookie(res: Response, uid?: string): string {
+	const user_id: string = !uid ? randomUUID().replace(/-/g, "") : uid;
 	const payload = {
 		user_id
 	};
