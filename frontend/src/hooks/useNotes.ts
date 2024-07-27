@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Note } from "../interfaces";
+import { useSearchParams } from "react-router-dom";
 
 // TODO - need to make middleware to make sure only users with a cookie can make posts!
 
@@ -14,6 +15,8 @@ interface NoteHandlers {
 	editNote: (note_id: string, noteTitle: string, noteBody: string) => void;
 	errorMessage: string;
 	clearErrorMessage: () => void;
+	numPages: number;
+	totalNotes: number;
 }
 
 export default function useNotes(): NoteHandlers {
@@ -21,6 +24,9 @@ export default function useNotes(): NoteHandlers {
 	const [loadingStatus, setLoadingStatus] = useState(false);
 	const [allNotesData, setAllNotesData] = useState<Note[]>([]);
 	const [errorMessage, setErrorMessage] = useState("");
+	const [numPages, setNumPages] = useState(0);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [totalNotes, setTotalNotes] = useState(0);
 
 	async function postNote(note_title: string, note_content: string) {
 		if (!note_title || !note_content) {
@@ -88,13 +94,17 @@ export default function useNotes(): NoteHandlers {
 		}
 	}
 
+	const pageNumber = searchParams.get("page");
 	useEffect(() => {
+		console.log(pageNumber);
 		function getAllNotes() {
 			setLoadingStatus(true);
 			axios
-				.get("http://localhost:4000/api/notes/all")
+				.get(`http://localhost:4000/api/notes/all?page=${pageNumber}`)
 				.then(response => {
-					setAllNotesData(response.data);
+					setAllNotesData(response.data.all_notes);
+					setNumPages(response.data.totalPages);
+					setTotalNotes(response.data.totalNotes);
 					setLoadingStatus(false);
 				})
 				.catch(error => {
@@ -104,7 +114,7 @@ export default function useNotes(): NoteHandlers {
 				});
 		}
 		getAllNotes();
-	}, [noteData]);
+	}, [noteData, pageNumber]);
 
 	async function editNote(
 		note_id: string,
@@ -148,6 +158,8 @@ export default function useNotes(): NoteHandlers {
 		deleteNote,
 		editNote,
 		errorMessage,
-		clearErrorMessage
+		clearErrorMessage,
+		numPages,
+		totalNotes
 	};
 }
