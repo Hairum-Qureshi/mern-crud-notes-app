@@ -6,12 +6,12 @@ export default function Disclaimer() {
 	return (
 		<div className="flex justify-center">
 			<div className="w-full lg:w-1/2 mt-5 p-2 rounded text-lg">
-				<Link to="/">
+				{/* <Link to="/">
 					<div className="flex items-center text-lg mb-2">
 						<FontAwesomeIcon icon={faArrowLeftLong} />
 						<h1 className="ml-2">Go Back Home</h1>
 					</div>
-				</Link>
+				</Link> */}
 				<h1 className="text-2xl font-semibold bg-black rounded text-white p-2">
 					Some Rules & Disclaimers - Please Read!
 				</h1>

@@ -59,24 +59,24 @@ export default function Note() {
 					<>
 						{!noteData ? (
 							<div>
-								<Link to="/">
+								{/* <Link to="/">
 									<div className="flex items-center text-lg">
 										<FontAwesomeIcon icon={faArrowLeftLong} />
 										<h1 className="ml-2">Go Back Home</h1>
 									</div>
-								</Link>
+								</Link> */}
 								<h1 className="text-center font-semibold text-2xl mt-10">
 									Sorry, this note might've been deleted or doesn't exist
 								</h1>
 							</div>
 						) : (
 							<div className="p-4 rounded">
-								<Link to="/">
+								{/* <Link to="/">
 									<div className="flex items-center text-lg">
 										<FontAwesomeIcon icon={faArrowLeftLong} />
 										<h1 className="ml-2">Go Back Home</h1>
 									</div>
-								</Link>
+								</Link> */}
 								<h1 className="text-3xl font-semibold">
 									{noteData?.note_title}
 								</h1>

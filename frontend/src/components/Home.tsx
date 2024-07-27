@@ -1,12 +1,10 @@
-import { Link } from "react-router-dom";
 import "../css/index.css";
-import { useState } from "react";
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useStickyNotes from "../hooks/useStickyNotes";
 import { StickyNote } from "../interfaces";
 import StickyNoteComponent from "./StickyNote";
 import Draggable from "react-draggable";
+import Navbar from "./Navbar";
+import lightmodeImgLaptop from "../assets/lighmode-laptop-bg.png";
 
 // Long Notes:
 // Titles cannot have profanity, but body text can have filtered profanity
@@ -17,69 +15,29 @@ import Draggable from "react-draggable";
 // When a user presses the "create sticky note"/"create long note" button, create the cookie in the backend storing the uuid
 
 export default function Home() {
-	const { createStickyNote, stickyNotes } = useStickyNotes();
-	const [theme, setTheme] = useState("light");
-
-	function changeTheme() {
-		if (theme === "light") setTheme("dark");
-		else setTheme("light");
-	}
+	const { stickyNotes } = useStickyNotes();
 
 	return (
-		<div className="w-full h-screen p-5">
-			<div>
-				<div className="flex items-center">
-					<h1 className="text-3xl font-semibold">
-						Anonymous Notes - Speak Your Mind!
+		<div className="w-full h-screen bg-[#f7f8fc]">
+			<div className="border border-black w-full lg:flex">
+				<div className="lg:w-1/2 w-full h-screen border-2 border-red-700">
+					<h1 className="lg:text-6xl text-5xl m-5 text-left lg:leading-tight font-semibold p-3">
+						Your thoughts, <br />
+						Your voice, easily shared without needing to create an account.
 					</h1>
-					<div className="ml-auto">
-						<Link to="/new-note">
-							<button className="bg-sky-800 text-white p-2 rounded text-base mr-2">
-								Create a Big Note
-							</button>
-						</Link>
-						<Link to="/notes/all">
-							<button className="bg-slate-700 text-white p-2 rounded text-base mr-2">
-								View Notes
-							</button>
-						</Link>
-						<Link to="/important">
-							<button className="bg-black text-white p-2 rounded text-base mr-2">
-								Disclaimers & Rules
-							</button>
-						</Link>
-						<button
-							className="bg-sky-900 text-white p-2 rounded text-base w-10"
-							onClick={changeTheme}
-						>
-							{theme == "light" ? (
-								<FontAwesomeIcon icon={faMoon} />
-							) : (
-								<FontAwesomeIcon icon={faSun} />
-							)}
-						</button>
-					</div>
 				</div>
-				<div>
-					<button
-						className="bg-sky-700 text-white p-2 rounded text-base mt-2"
-						onClick={createStickyNote}
-					>
-						Create a Sticky Note
-					</button>
-				</div>
-				<div className="w-full flex grid-cols-1 flex-wrap items-center justify-center mt-5">
-					{stickyNotes.map((stickyNote: StickyNote) => {
-						return (
-							<Draggable>
-								<div>
-									<StickyNoteComponent stickyNote={stickyNote} />
-								</div>
-							</Draggable>
-						);
-					})}
+				<div className="border-2 border-blue-700 lg:w-1/2 w-full">
+					{/* <img
+						src="https://pngimg.com/d/sticky_note_PNG18964.png"
+						alt=""
+						className="w-72 h-72 object-cover"
+					/> */}
 				</div>
 			</div>
+
+			{/* <div className="w-full flex flex-wrap items-center justify-center">
+					<img src={lightmodeImgLaptop} alt="" className="max-w-full h-auto" />
+				</div> */}
 		</div>
 	);
 }

@@ -61,13 +61,13 @@ export default function Form() {
 	return (
 		<div className="w-full flex justify-center">
 			<div className="flex flex-col lg:w-7/12 w-full p-3 space-y-4">
-				<Link to="/">
+				{/* <Link to="/">
 					<div className="flex items-center text-lg">
 						<FontAwesomeIcon icon={faArrowLeftLong} />
 						<h1 className="ml-2">Go Back</h1>
 					</div>
-				</Link>
-				<h1 className="text-3xl font-semibold">
+				</Link> */}
+				<h1 className="text-3xl font-semibold mt-5">
 					{noteData === undefined || !noteData || !yourNoteFlair
 						? "Create a Note"
 						: "Edit Note"}
@@ -125,7 +125,7 @@ export default function Form() {
 						{noteData === undefined || !noteData || !yourNoteFlair ? (
 							<button
 								// disabled={typedWords < 1000}
-								className={`w-full lg:w-1/2 mt-5 p-3 bg-black rounded text-white text-lg flex items-center justify-center ${
+								className={`w-full lg:w-1/2 p-3 bg-black rounded text-white text-lg flex items-center justify-center ${
 									typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
 								}`}
 								onClick={() => {
@@ -151,7 +151,7 @@ export default function Form() {
 						) : (
 							<button
 								// disabled={typedWords < 1000}
-								className={`w-full lg:w-1/2 mt-5 p-3 bg-black rounded text-white text-lg flex items-center justify-center ${
+								className={`w-full lg:w-1/2 p-3 bg-black rounded text-white text-lg flex items-center justify-center ${
 									typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
 								}`}
 								onClick={() => {
