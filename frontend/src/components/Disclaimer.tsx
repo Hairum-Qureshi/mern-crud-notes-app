@@ -36,7 +36,8 @@ export default function Disclaimer() {
 						them. To maintain access to your posts, keep your session active by
 						posting within the week. Additionally, avoid including any personal
 						or identifiable information in your posts. To prevent spamming, you
-						are limited to 10 posts per hour.
+						are limited to 10 posts per hour. The same goes for editing existing
+						posts.
 						<br />
 						<br />
 						<strong>Privacy:</strong> Your anonymity is my priority. No personal
