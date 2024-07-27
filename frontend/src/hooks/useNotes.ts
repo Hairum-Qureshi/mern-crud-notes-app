@@ -30,7 +30,7 @@ export default function useNotes(): NoteHandlers {
 
 	async function postNote(note_title: string, note_content: string) {
 		if (!note_title || !note_content) {
-			alert("Please make sure all fields are filled");
+			setErrorMessage("Please make sure all fields are filled");
 		} else {
 			setLoadingStatus(true);
 			await axios
