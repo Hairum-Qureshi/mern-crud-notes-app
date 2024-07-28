@@ -1,4 +1,4 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StickyNote as StickyNoteInterface } from "../interfaces";
 import { useState } from "react";
@@ -39,7 +39,7 @@ export default function StickyNote({ stickyNote }: Props) {
 					onClick={() => setStickyNoteColor("purple")}
 				></div>
 				<div className="ml-auto px-2 py-1 rounded bg-red-600 text-white text-base hover:cursor-pointer">
-					<FontAwesomeIcon icon={faX} />
+					<FontAwesomeIcon icon={faTrash} />{" "}
 				</div>
 			</div>
 			<textarea
