@@ -59,8 +59,7 @@ export default function Disclaimer() {
 						allowed, it will be censored. With that being said, sexual and
 						violent content, on the other hand, is <b>prohibited</b>. Despite
 						the measures I've implemented, some inappropriate content might slip
-						through. Feel free to report any content that violates any of these
-						rules.
+						through.
 						<br />
 						<br />
 						<strong>Limitations:</strong> As a simple, no-auth site, there are
