@@ -2,11 +2,7 @@ import { useEffect } from "react";
 import useNotes from "../hooks/useNotes";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faArrowLeftLong,
-	faPenToSquare,
-	faTrash
-} from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { tailspin } from "ldrs";
 import useSessionContext from "../contexts/sessionContext";
 

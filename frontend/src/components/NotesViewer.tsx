@@ -1,6 +1,5 @@
 import {
 	faArrowLeft,
-	faArrowLeftLong,
 	faArrowRight,
 	faCrown
 } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +15,7 @@ import { useEffect, useState } from "react";
 // TODO - implement logic to render out any error messages to the user
 // TODO - if there are no notes, add a message saying there are no notes
 // TODO - consider making the pagination logic a separate component
+// ! MINOR BUG - if you're on the first page and click the right paginate button, you have to click it twice to get to the second page
 
 export default function NotesViewer() {
 	const [numButtons, setNumButtons] = useState<number[]>([]);
@@ -61,7 +61,7 @@ export default function NotesViewer() {
 
 	return (
 		<>
-			<div className="lg:p-10 p-3 h-screen w-full -mt-5">
+			<div className="lg:p-10 p-3 h-screen w-full lg:-mt-5">
 				{/* <Link to="/">
 					<div className="flex items-center text-lg">
 						<FontAwesomeIcon icon={faArrowLeftLong} />
@@ -79,8 +79,6 @@ export default function NotesViewer() {
 				{!loadingStatus ? (
 					<>
 						<div className="overflow-x-auto pb-20">
-							{" "}
-							{/* Added pb-20 for padding bottom */}
 							<table className="w-full table-auto">
 								<thead className="bg-slate-700 text-white border-b-2 border-gray-200">
 									<tr>
