@@ -10,8 +10,13 @@ export default function Navbar() {
 	const [theme, setTheme] = useState("light");
 
 	function changeTheme() {
-		if (theme === "light") setTheme("dark");
-		else setTheme("light");
+		if (theme === "light") {
+			setTheme("dark");
+			localStorage.setItem("theme", "dark");
+		} else {
+			setTheme("light");
+			localStorage.setItem("theme", "light");
+		}
 	}
 
 	return (
@@ -19,7 +24,7 @@ export default function Navbar() {
 			<div className="flex">
 				<Link to="/">
 					<h1
-						className="lg:text-2xl text-xl"
+						className="lg:text-2xl text-xl ml-2"
 						onClick={() => setOpenNavbar(false)}
 					>
 						Anonymous Notes - Speak Your Mind!
@@ -51,7 +56,7 @@ export default function Navbar() {
 					</Link>
 					<Link to="/contact" onClick={() => setOpenNavbar(false)}>
 						<button
-							className="text-white p-2 text-center block w-full mr-4 -ml-1"
+							className="text-white p-2 text-center block w-full mr-4 -ml-2"
 							onClick={createStickyNote}
 						>
 							Contact
