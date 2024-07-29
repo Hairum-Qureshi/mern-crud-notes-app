@@ -1,18 +1,8 @@
 import "../css/index.css";
 import useStickyNotes from "../hooks/useStickyNotes";
-import { StickyNote } from "../interfaces";
-import StickyNoteComponent from "./StickyNote";
 import laptopImag from "../assets/laptop-image.png";
 import { Link } from "react-router-dom";
 import { useTheme } from "../contexts/themeContext";
-
-// Long Notes:
-// Titles cannot have profanity, but body text can have filtered profanity
-
-// Sticky Notes:
-// No profanity whatsoever
-
-// When a user presses the "create sticky note"/"create long note" button, create the cookie in the backend storing the uuid
 
 export default function Home() {
 	const { stickyNotes } = useStickyNotes();
