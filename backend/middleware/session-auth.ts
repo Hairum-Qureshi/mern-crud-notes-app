@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import colors from "colors";
 import Note from "../models/Note";
+import { createCookie } from "../controllers/notes_controller";
 
 colors.enable();
 dotenv.config();
@@ -18,13 +19,15 @@ const authenticated = (req: Request, res: Response, next: NextFunction) => {
 			secret,
 			(err: Error | null, decoded: string | JwtPayload | undefined) => {
 				if (err) {
-					console.log(
-						"<session-auth.ts> middleware".yellow.bold,
-						(err as Error).toString().red.bold
-					);
+					// console.log(
+					// 	"<session-auth.ts> middleware".yellow.bold,
+					// 	(err as Error).toString().red.bold
+					// );
 					return res.status(401).json({ message: "Invalid token" });
 				} else {
 					const decoded_parsed: JwtPayload = decoded as JwtPayload;
+					// The cookie hasn't expired yet, so extend it
+					createCookie(res, decoded_parsed.user_id);
 					req.cookies.decoded_uid = decoded_parsed.user_id;
 					next();
 				}
@@ -59,7 +62,6 @@ const verifyRequest = async (
 
 			next();
 		} else {
-			console.log(4);
 			res.status(400).json({ message: "Note ID is required" });
 		}
 	} catch (error) {
