@@ -14,6 +14,14 @@ export function ThemeProvider({ children }: ContextProps) {
 
 	const toggleTheme = () => {
 		setIsDarkMode(!isDarkMode);
+
+		console.log(isDarkMode);
+
+		if (isDarkMode) {
+			localStorage.setItem("theme", "light");
+		} else {
+			localStorage.setItem("theme", "dark");
+		}
 	};
 
 	const theme = isDarkMode ? "dark" : "light";
