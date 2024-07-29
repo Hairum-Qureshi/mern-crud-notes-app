@@ -8,7 +8,7 @@ export default function Home() {
 
 	return (
 		<div className={theme === "dark" ? "dark" : ""}>
-			<div className="w-full flex flex-col bg-[#f7f8fc] dark:bg-slate-800 dark:text-white pb-10">
+			<div className="w-full flex flex-col bg-[#f7f8fc] dark:bg-slate-800 dark:text-slate-50 pb-10">
 				<div className="w-full lg:flex">
 					<div className="lg:w-1/2 w-full">
 						<h1 className="lg:text-6xl text-5xl m-5 text-left lg:leading-tight font-semibold p-3">
