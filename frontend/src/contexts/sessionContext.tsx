@@ -8,8 +8,6 @@ export const SessionProvider = ({ children }: ContextProps) => {
 	const [currUID, setCurrUID] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
-	// Implement the functions related to your context here. For example, since this is called 'AuthContext', its purpose is to handle authentication so here you'd have a bunch of functions handling authentication, getting the current logged in user's data, etc.
-
 	useEffect(() => {
 		async function getUser() {
 			await axios
@@ -21,7 +19,6 @@ export const SessionProvider = ({ children }: ContextProps) => {
 				})
 				.catch(error => {
 					console.log(error);
-					// console.log(error.response.data.error);
 				});
 		}
 		getUser();
