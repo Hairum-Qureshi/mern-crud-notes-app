@@ -8,7 +8,7 @@ export interface Note {
 	updatedAt: string;
 }
 
-export interface SessionProps {
+export interface ContextProps {
 	children: React.ReactNode;
 }
 
@@ -18,9 +18,9 @@ export interface ContextData {
 }
 
 export interface StickyNote {
-	_id?: string;
+	_id: string;
 	note_title: string;
 	note_content: string;
-	color: string;
 	curr_uid?: string;
+	color: string;
 }
