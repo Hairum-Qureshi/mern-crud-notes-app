@@ -12,7 +12,7 @@ export interface ContextProps {
 	children: React.ReactNode;
 }
 
-export interface ContextData {
+export interface SessionContextData {
 	currUID: string | null;
 	error: string | null;
 }
@@ -23,4 +23,9 @@ export interface StickyNote {
 	note_content: string;
 	curr_uid?: string;
 	color: string;
+}
+
+export interface ThemeContextData {
+	theme: string;
+	toggleTheme: () => void;
 }
