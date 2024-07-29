@@ -18,9 +18,6 @@ export default function Home() {
 	const { stickyNotes } = useStickyNotes();
 	const { theme } = useTheme()!;
 
-	// TODO - align left div using items center
-	// TODO - Make div go all the way on the bottom on mobile view
-
 	return (
 		<div className={theme === "dark" ? "dark" : ""}>
 			<div className="w-full flex flex-col bg-[#f7f8fc] dark:bg-slate-800 dark:text-white pb-10">
