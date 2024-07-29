@@ -1,8 +1,8 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
-import { ContextProps, ContextData } from "../interfaces";
+import { ContextProps, SessionContextData } from "../interfaces";
 
-export const SessionContext = createContext<ContextData | null>(null);
+export const SessionContext = createContext<SessionContextData | null>(null);
 
 export const SessionProvider = ({ children }: ContextProps) => {
 	const [currUID, setCurrUID] = useState<string | null>(null);
@@ -27,7 +27,7 @@ export const SessionProvider = ({ children }: ContextProps) => {
 		getUser();
 	}, []);
 
-	const value: ContextData = {
+	const value: SessionContextData = {
 		currUID,
 		error
 	};
