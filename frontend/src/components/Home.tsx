@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useTheme } from "../contexts/themeContext";
 
 export default function Home() {
-	const { stickyNotes } = useStickyNotes();
 	const { theme } = useTheme()!;
 
 	return (
