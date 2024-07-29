@@ -51,7 +51,7 @@ export default function Navbar() {
 					</Link>
 					<Link to="/contact" onClick={() => setOpenNavbar(false)}>
 						<button
-							className="text-white p-2 text-center block w-full"
+							className="text-white p-2 text-center block w-full mr-4 -ml-1"
 							onClick={createStickyNote}
 						>
 							Contact
