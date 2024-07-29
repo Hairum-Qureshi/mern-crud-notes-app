@@ -89,7 +89,6 @@ const verifyRequest = async (
 			res.status(400).json({ message: "Note ID is required" });
 		}
 	} catch (error) {
-		console.log("x");
 		console.log(
 			"<session-auth.ts> middleware verifyRequest function error".yellow,
 			(error as Error).toString().red.bold
