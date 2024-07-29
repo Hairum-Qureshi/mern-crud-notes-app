@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import notes_route from "./routes/notes_route";
 import cookieParser from "cookie-parser";
 import { authenticated } from "./middleware/session-auth";
+import stickynotes_route from "./routes/stickynotes_route";
 
 colors.enable();
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/notes", notes_route);
+app.use("/api/sticky-notes", stickynotes_route);
 
 const PORT: string | number = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI!;
