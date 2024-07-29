@@ -1,5 +1,4 @@
 import "../css/index.css";
-import useStickyNotes from "../hooks/useStickyNotes";
 import laptopImag from "../assets/laptop-image.png";
 import { Link } from "react-router-dom";
 import { useTheme } from "../contexts/themeContext";
