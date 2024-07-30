@@ -8,12 +8,6 @@ export default function Disclaimer() {
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
 			<div className="flex justify-center dark:bg-slate-800 dark:text-slate-50">
 				<div className="w-full lg:w-1/2 mt-5 p-2 rounded text-lg">
-					{/* <Link to="/">
-					<div className="flex items-center text-lg mb-2">
-						<FontAwesomeIcon icon={faArrowLeftLong} />
-						<h1 className="ml-2">Go Back Home</h1>
-					</div>
-				</Link> */}
 					<h1 className="text-2xl font-semibold bg-black dark:bg-slate-600 dark:text-slate-50 rounded text-white p-2">
 						Some Rules & Disclaimers - Please Read!
 					</h1>
