@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { randomUUID } from "crypto";
-import jwt, { decode } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import colors from "colors";
 import Note from "../models/Note";
 import {
