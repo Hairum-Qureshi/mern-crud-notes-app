@@ -98,7 +98,7 @@ const createNote = async (req: Request, res: Response) => {
 			res.status(201).send(createdNote);
 		} catch (error) {
 			console.log(
-				"<notes_controller.ts> createNote function error",
+				"<notes_controller.ts> createNote function error".yellow,
 				(error as Error).toString().red.bold
 			);
 			res.status(500).send(error);
