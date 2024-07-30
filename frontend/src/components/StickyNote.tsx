@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StickyNote as StickyNoteInterface } from "../interfaces";
 import { useEffect, useState } from "react";
 import useStickyNotes from "../hooks/useStickyNotes";
+import useSessionContext from "../contexts/sessionContext";
 
 interface Props {
 	stickyNote: StickyNoteInterface;
@@ -14,6 +15,7 @@ export default function StickyNote({ stickyNote }: Props) {
 	const [stickyNoteColor, setStickyNoteColor] = useState("yellow");
 
 	const { saveStickyNoteData, deleteStickyNote } = useStickyNotes();
+	const { curr_UID } = useSessionContext()!;
 
 	useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
@@ -61,12 +63,15 @@ export default function StickyNote({ stickyNote }: Props) {
 					className="w-6 h-6 rounded-full bg-purple-500 border border-black ml-2 hover:cursor-pointer"
 					onClick={() => setStickyNoteColor("purple")}
 				></div>
-				<div
-					className="ml-auto px-2 py-1 rounded bg-red-600 text-white text-base hover:cursor-pointer"
-					onClick={() => deleteStickyNote(stickyNote._id)}
-				>
-					<FontAwesomeIcon icon={faTrash} />
-				</div>
+				{stickyNote.curr_uid === curr_UID ||
+					(/[^a-zA-Z]/.test(stickyNote._id) && (
+						<div
+							className="ml-auto px-2 py-1 rounded bg-red-600 text-white text-base hover:cursor-pointer"
+							onClick={() => deleteStickyNote(stickyNote._id)}
+						>
+							<FontAwesomeIcon icon={faTrash} />
+						</div>
+					))}
 			</div>
 			<textarea
 				placeholder="Enter note title"
