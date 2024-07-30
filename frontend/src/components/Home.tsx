@@ -10,7 +10,7 @@ export default function Home() {
 		<div className={theme === "dark" ? "dark" : ""}>
 			<div className="w-full flex flex-col bg-[#f7f8fc] dark:bg-slate-800 dark:text-slate-50 pb-10">
 				<div className="w-full lg:flex">
-					<div className="lg:w-1/2 w-full">
+					<div className="lg:w-1/2 w-ful items-center lg:-mt-8">
 						<h1 className="lg:text-6xl text-5xl m-5 text-left lg:leading-tight font-semibold p-3">
 							Your thoughts, <br />
 							Your voice, easily shared without the hassle of creating an
@@ -35,7 +35,7 @@ export default function Home() {
 						/>
 					</div>
 				</div>
-				<div className="bg-slate-200 p-5 text-2xl lg:absolute bottom-0 w-full lg:mb-0 -mb-10 h-72 dark:bg-slate-700">
+				<div className="bg-slate-200 p-5 text-2xl lg:absolute bottom-0 w-full lg:mb-0 -mb-10 h-80 dark:bg-slate-700">
 					<div className="flex">
 						{/* <div>
 						Wanna vent? Post a lengthy note&nbsp;
