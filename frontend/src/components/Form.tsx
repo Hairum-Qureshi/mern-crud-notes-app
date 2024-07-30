@@ -72,7 +72,7 @@ export default function Form() {
 					<div>
 						<form autoComplete="off">
 							{errorMessage && (
-								<div className="p-2 bg-red-600 dark:bg-red-700 text-white rounded my-2 flex items-center -mt-3">
+								<div className="p-2 bg-red-600 dark:bg-red-700 text-sm text-white rounded my-2 flex items-center -mt-3">
 									<h1>{errorMessage}</h1>
 									<FontAwesomeIcon
 										icon={faX}
@@ -125,6 +125,8 @@ export default function Form() {
 								<button
 									// disabled={typedWords < 1000}
 									className={`w-full lg:w-1/2 p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 ${
+										errorMessage && "lg:-mt-4 mt-4"
+									} ${errorMessage && "-mt-4"} ${
 										typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
 									}`}
 									onClick={() => {
@@ -150,7 +152,9 @@ export default function Form() {
 							) : (
 								<button
 									// disabled={typedWords < 1000}
-									className={`w-full lg:w-1/2 p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500  ${
+									className={`w-full lg:w-1/2 p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 ${
+										errorMessage && "lg:-mt-4 mt-4"
+									} ${errorMessage && "-mt-4"} ${
 										typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
 									}`}
 									onClick={() => {
