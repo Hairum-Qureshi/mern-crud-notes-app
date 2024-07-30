@@ -36,10 +36,16 @@ const authenticated = (req: Request, res: Response, next: NextFunction) => {
 			}
 		);
 	} else {
-		res.status(401).json({
-			message:
-				"Your session has expired. Unfortunately, you are no longer able to edit this post. Please make a new post to get a new session"
-		});
+		if (req.params.note_id) {
+			// This will only run if the user has an expired session and they're trying to edit an existing note they posted
+			res.status(401).json({
+				message:
+					"Your session has expired. Unfortunately, you are no longer able to edit this post. Please make a new post to get a new session"
+			});
+		} else {
+			// If they have no token and are trying to post a new note, move on to the next middleware function
+			next();
+		}
 	}
 };
 
