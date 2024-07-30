@@ -38,7 +38,7 @@ const authenticated = (req: Request, res: Response, next: NextFunction) => {
 	} else {
 		res.status(401).json({
 			message:
-				"Your session has expired. Please make a new post to renew your session"
+				"Your session has expired. Unfortunately, you are no longer able to edit this post. Please make a new post to get a new session"
 		});
 	}
 };
