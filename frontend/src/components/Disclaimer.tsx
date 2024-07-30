@@ -24,17 +24,19 @@ export default function Disclaimer() {
 						<br />
 						<p>
 							<strong>Posts:</strong> When you make your first post, you will
-							receive a cookie that expires in one week. During this week, you
-							can create, edit, and delete your own posts. Each time you
-							post/edit/delete, the cookie's expiration extends, keeping it
-							active. If you don't post/edit/delete a post before your cookie
-							expires in one (1) week, you'll lose editing <b>and</b> deleting
-							rights to your posts, even though you authored them. To maintain
-							access to your posts, keep your session active by
-							posting/editing/deleting within the week. Additionally, avoid
-							including any personal or identifiable information in your posts.
-							To prevent spamming, you are limited to 10 posts per hour. The
-							same goes for editing existing posts.
+							receive a cookie that expires in one (1) week. This cookie is
+							unique to you and allows you to edit and delete your own posts. If
+							you manually delete this cookie, you will lose access to edit or
+							delete your existing posts, and this cannot be undone. Each time
+							you post, edit, or delete anything, the cookie's expiration
+							extends, keeping it active. If you do not post, edit, or delete a
+							post within a week, you will lose the rights to edit and delete
+							your posts, even though you authored them. After a week of
+							inactivity, the first new post you make will grant you a new
+							session. Avoid including any personal or identifiable information
+							in your posts. To prevent spamming, you are limited to ten (10)
+							posts per hour, and the same limit applies to editing existing
+							posts.
 							<br />
 							<br />
 							<strong>Privacy:</strong> Your anonymity is my priority. No
