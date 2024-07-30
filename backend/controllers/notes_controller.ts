@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { randomUUID } from "crypto";
-import jwt from "jsonwebtoken";
+import jwt, { decode } from "jsonwebtoken";
 import colors from "colors";
 import Note from "../models/Note";
 import {
@@ -12,8 +12,8 @@ import {
 	asteriskCensorStrategy,
 	MatchPayload
 } from "obscenity";
+import { Document } from "mongoose";
 import mongoose from "mongoose";
-import { parseJWT } from "../server";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -49,7 +49,30 @@ function getMatchPayload(note_content: string): MatchPayload[] {
 	return matches;
 }
 
+async function saveNoteDataToMongo(
+	note_title: string,
+	note_content: string,
+	user_id: string,
+	containsProfanity: boolean
+): Promise<Document | Error> {
+	const matches: MatchPayload[] = getMatchPayload(note_content);
+
+	try {
+		const createdNote = await Note.create({
+			note_title,
+			note_content: censor.applyTo(note_content, matches),
+			curr_uid: user_id,
+			containsProfanity
+		});
+
+		return createdNote;
+	} catch (error) {
+		throw new Error((error as Error).message);
+	}
+}
+
 const createNote = async (req: Request, res: Response) => {
+	// TODO - may need to move the curr_uid logic within the authenticate middleware
 	const { note_title, note_content } = req.body;
 	const curr_uid: string | undefined = req.cookies["anon-session"];
 
@@ -62,16 +85,17 @@ const createNote = async (req: Request, res: Response) => {
 	}
 
 	const matches: MatchPayload[] = getMatchPayload(note_content);
+	const decoded_uid: string = req.cookies.decoded_uid;
 
-	if (!curr_uid) {
+	if (!decoded_uid) {
 		const user_id: string = createCookie(res);
 		try {
-			const createdNote = await Note.create({
+			const createdNote = await saveNoteDataToMongo(
 				note_title,
-				note_content: censor.applyTo(note_content, matches),
-				curr_uid: user_id,
-				containsProfanity: matches.length > 0
-			});
+				censor.applyTo(note_content, matches),
+				user_id,
+				matches.length > 0
+			);
 
 			res.status(201).send(createdNote);
 		} catch (error) {
@@ -83,19 +107,18 @@ const createNote = async (req: Request, res: Response) => {
 		}
 	} else {
 		try {
-			const user_id: string = parseJWT(req.cookies["anon-session"]);
-			if (user_id) {
-				const createdNote = await Note.create({
-					note_title,
-					note_content: censor.applyTo(note_content, matches),
-					curr_uid: user_id,
-					containsProfanity: matches.length > 0
-				});
-				res.status(201).send(createdNote);
-			}
+			// ! Bug - you get the "session is expired" message when trying to make a new post if you don't have a cookie
+			const createdNote = await saveNoteDataToMongo(
+				note_title,
+				censor.applyTo(note_content, matches),
+				decoded_uid,
+				matches.length > 0
+			);
+
+			res.status(201).send(createdNote);
 		} catch (error) {
 			console.log(
-				"<notes_controller.ts> createNote function error",
+				"<notes_controller.ts> createNote function error".yellow,
 				(error as Error).toString().red.bold
 			);
 			res.status(500).send(error);
@@ -115,7 +138,7 @@ const getNoteData = async (req: Request, res: Response) => {
 		}
 	} catch (error) {
 		console.log(
-			"<notes_controller.ts> getNoteData function error",
+			"<notes_controller.ts> getNoteData function error".yellow,
 			(error as Error).toString().red.bold
 		);
 		res.status(500).send(error);
@@ -128,7 +151,7 @@ const getAllNotes = async (req: Request, res: Response) => {
 	const totalNotes: number = await Note.countDocuments({});
 	const totalPages: number = Math.ceil(totalNotes / notesPerPage);
 	if (page < 0 || page > totalPages) {
-		res.status(404).json({ message: "no notes" });
+		res.status(404).json({ message: "No notes" });
 	} else {
 		const skip = (page - 1) * notesPerPage;
 
@@ -151,7 +174,7 @@ const deleteNote = async (req: Request, res: Response) => {
 		res.status(200).send("Note deleted successfully");
 	} catch (error) {
 		console.log(
-			"<notes_controller.ts> deleteNote function error",
+			"<notes_controller.ts> deleteNote function error".yellow,
 			(error as Error).toString().red.bold
 		);
 		res.status(500).send(error);
@@ -187,7 +210,7 @@ const editNote = async (req: Request, res: Response) => {
 		res.status(200).send(updatedNote);
 	} catch (error) {
 		console.log(
-			"<notes_controller.ts> editNote function error",
+			"<notes_controller.ts> editNote function error".yellow,
 			(error as Error).toString().red.bold
 		);
 		res.status(500).send(error);
