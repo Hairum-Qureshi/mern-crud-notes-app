@@ -39,7 +39,7 @@ export default function Note() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="flex items-center flex-col w-full min-h-[calc(100vh-3.5rem)] pb-10 h-auto dark:bg-slate-800 dark:text-white">
+			<div className="flex items-center flex-col w-full min-h-[calc(100vh-3.5rem)] bg-[#f7f8fc] pb-10 h-auto dark:bg-slate-800 dark:text-white">
 				<div className="w-full lg:w-7/12 mt-7">
 					{loadingStatus ? (
 						<div className="flex flex-row mt-48 justify-center items-center">
