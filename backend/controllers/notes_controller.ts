@@ -72,9 +72,7 @@ async function saveNoteDataToMongo(
 }
 
 const createNote = async (req: Request, res: Response) => {
-	// TODO - may need to move the curr_uid logic within the authenticate middleware
 	const { note_title, note_content } = req.body;
-	const curr_uid: string | undefined = req.cookies["anon-session"];
 
 	const checkTitleMatches = matcher.getAllMatches(note_title);
 
@@ -107,7 +105,6 @@ const createNote = async (req: Request, res: Response) => {
 		}
 	} else {
 		try {
-			// ! Bug - you get the "session is expired" message when trying to make a new post if you don't have a cookie
 			const createdNote = await saveNoteDataToMongo(
 				note_title,
 				censor.applyTo(note_content, matches),
