@@ -17,7 +17,7 @@ export default function Disclaimer() {
 					<h1 className="text-2xl font-semibold bg-black dark:bg-slate-600 dark:text-slate-50 rounded text-white p-2">
 						Some Rules & Disclaimers - Please Read!
 					</h1>
-					<div className="text-md my-5">
+					<div className="text-md my-5 mx-8 lg:mx-0">
 						<p>
 							Hiya! It's me, the developer of this full-stack, no-auth,
 							note-posting site. Thanks for giving it a try! While this site is
