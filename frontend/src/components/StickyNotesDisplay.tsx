@@ -20,7 +20,7 @@ export default function StickyNotesDisplay() {
 						<FontAwesomeIcon icon={faPlus} />
 					</button>
 				</div>
-				<div className="w-full p-5 h-auto flex flex-wrap items-center justify-center">
+				<div className="w-full p-5 h-auto flex flex-wrap items-center justify-center dark:text-black">
 					{stickyNotes.length > 0 &&
 						stickyNotes.map((stickyNote: StickyNote, index: number) => {
 							return (
