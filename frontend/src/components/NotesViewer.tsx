@@ -91,7 +91,7 @@ export default function NotesViewer() {
 												key={note._id}
 												className={`${
 													index % 2 === 0
-														? "bg-white dark:bg-slate-500"
+														? "bg-white dark:bg-slate-600"
 														: "bg-slate-200 dark:bg-slate-700"
 												}`}
 											>
