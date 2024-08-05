@@ -1,7 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StickyNote as StickyNoteInterface } from "../interfaces";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useStickyNotes from "../hooks/useStickyNotes";
 import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
@@ -20,6 +20,11 @@ export default function StickyNote({ stickyNote, update }: Props) {
 	const { saveStickyNoteData, deleteStickyNote } = useStickyNotes();
 	const { currUID } = useSessionContext()!;
 
+	const [moveable, setMoveable] = useState(false);
+	const sticky_note = useRef<HTMLDivElement>(null);
+
+	console.log(sticky_note.current);
+
 	tailspin.register();
 
 	useEffect(() => {
@@ -36,9 +41,12 @@ export default function StickyNote({ stickyNote, update }: Props) {
 
 	return (
 		<div
-			className={`border border-black w-80 min-h-72 h-auto m-3 rounded-md ${stickyNoteColor} flex flex-col relative`}
+			className={`border border-black w-80 min-h-72 h-auto m-3 rounded-md ${stickyNoteColor} flex flex-col relative hover:cursor-grab active:cursor-grabbing`}
 		>
-			<div className="min-h-10 w-full p-1 font-semibold text-lg h-auto">
+			<div
+				className="min-h-10 w-full p-1 font-semibold text-lg h-auto"
+				ref={sticky_note}
+			>
 				<div className="w-full flex items-center">
 					<div
 						className="w-6 h-6 rounded-md border border-green-600 ml-1 bg-green-400"
@@ -72,6 +80,9 @@ export default function StickyNote({ stickyNote, update }: Props) {
 					contentEditable="plaintext-only"
 					className="w-full mt-1 p-1 inline-block outline-none"
 					data-placeholder="Enter heading..."
+					data-gramm="false"
+					data-gramm_editor="false"
+					data-enable-grammarly="false"
 				></div>
 			</div>
 			<div className="flex-grow mx-1 flex flex-col">
