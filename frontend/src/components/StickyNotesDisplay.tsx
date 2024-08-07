@@ -4,18 +4,28 @@ import useStickyNotes from "../hooks/useStickyNotes";
 import { StickyNote } from "../interfaces";
 import StickyNoteComponent from "./StickyNote";
 import { useTheme } from "../contexts/themeContext";
+import { useState } from "react";
 
 export default function StickyNotesDisplay() {
 	const { createStickyNote, stickyNotes } = useStickyNotes();
+	const [openedStickyNote, setOpenedStickyNote] = useState(false);
 	const { theme } = useTheme()!;
+
+	function allowNewNote() {
+		setOpenedStickyNote(false);
+	}
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="w-full p-3 dark:bg-slate-800 dark:text-slate-50 lg:min-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-2.5rem)]  h-auto">
+			<div className="w-full p-3 dark:bg-slate-800 dark:text-slate-50 lg:min-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-2.5rem)] h-auto">
 				<div className="p-5 text-2xl">
 					<button
 						className="bg-slate-200 p-2 rounded-md border border-black w-12 h-12 flex items-center justify-center dark:bg-slate-500 dark:text-slate-50"
-						onClick={createStickyNote}
+						onClick={() => {
+							createStickyNote();
+							setOpenedStickyNote(true);
+						}}
+						disabled={openedStickyNote}
 					>
 						<FontAwesomeIcon icon={faPlus} />
 					</button>
@@ -27,6 +37,7 @@ export default function StickyNotesDisplay() {
 								<StickyNoteComponent
 									stickyNote={stickyNote}
 									key={stickyNote._id || index}
+									allowNewNote={allowNewNote}
 								/>
 							);
 						})}
