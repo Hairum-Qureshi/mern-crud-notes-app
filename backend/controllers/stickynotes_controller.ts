@@ -2,20 +2,23 @@ import { Request, Response } from "express";
 import StickyNote from "../models/StickyNote";
 import colors from "colors";
 import { createCookie } from "./notes_controller";
-// import { parseJWT } from "../server";
 import mongoose from "mongoose";
 
 colors.enable();
 
 const createStickyNote = async (req: Request, res: Response) => {
 	const curr_uid: string | undefined = req.cookies["anon-session"];
-	const { stickyNoteTitle, stickyNoteBody, stickyNoteColor } = req.body;
+	const {
+		stickyNoteTitle,
+		stickyNoteBody,
+		stickyNoteColor,
+		stickyNoteRotation
+	} = req.body;
 
-	// Validate required fields
 	if (!stickyNoteTitle || !stickyNoteBody) {
 		return res
 			.status(400)
-			.json({ message: "note_title and note_content are required" });
+			.json({ message: "Note title and note content are required" });
 	}
 
 	try {
@@ -27,13 +30,14 @@ const createStickyNote = async (req: Request, res: Response) => {
 			note_title: stickyNoteTitle,
 			note_content: stickyNoteBody,
 			curr_uid: user_id,
-			color: stickyNoteColor
+			color: stickyNoteColor,
+			rotation: stickyNoteRotation
 		});
 
 		if (createdStickyNote) {
 			const stickyNoteData = await StickyNote.findById(
 				createdStickyNote._id
-			).select("-__v -createdAt -updatedAt");
+			).select("-__v");
 			res.status(201).json(stickyNoteData);
 		} else {
 			res.status(400).json({ message: "Failed to create sticky note" });
@@ -49,7 +53,9 @@ const createStickyNote = async (req: Request, res: Response) => {
 
 const getAllStickyNotes = async (req: Request, res: Response) => {
 	try {
-		const allStickyNotes = await StickyNote.find({}).sort({ createdAt: -1 });
+		const allStickyNotes = await StickyNote.find({})
+			.sort({ createdAt: -1 })
+			.select("-__v");
 		res.status(200).json(allStickyNotes);
 	} catch (error) {
 		console.log(
