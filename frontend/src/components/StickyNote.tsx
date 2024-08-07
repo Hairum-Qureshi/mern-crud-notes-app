@@ -18,13 +18,28 @@ interface Props {
 export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 	const [stickyNoteTitle, setStickyNoteTitle] = useState("");
 	const [stickyNoteBody, setStickyNoteBody] = useState("");
-	const [stickyNoteColor, setStickyNoteColor] = useState("bg-yellow-400");
+	const [stickyNoteColor, setStickyNoteColor] = useState(stickyNote.color);
 	const { saveStickyNoteData, deleteStickyNote } = useStickyNotes();
 	const { currUID } = useSessionContext()!;
 	const [saving, setSaving] = useState(false);
 	const keyUpTimer = useRef<number | null>(null);
 	const titleRef = useRef<HTMLDivElement>(null);
 	const bodyRef = useRef<HTMLDivElement>(null);
+
+	function formatDate(utcDate: string): string {
+		const date = new Date(utcDate);
+
+		const options: Intl.DateTimeFormatOptions = {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+			hour: "2-digit",
+			minute: "2-digit"
+		};
+
+		const formattedDate = date.toLocaleDateString("en-US", options);
+		return formattedDate;
+	}
 
 	const handleChanges = async () => {
 		setSaving(true);
@@ -120,7 +135,9 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 					ref={titleRef}
 					onKeyUp={handleChanges}
 					onInput={setNoteData}
-				></div>
+				>
+					{stickyNote.note_title}
+				</div>
 			</div>
 			<div className="flex-grow mx-1 flex flex-col">
 				<div
@@ -133,7 +150,9 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 					ref={bodyRef}
 					onKeyUp={handleChanges}
 					onInput={setNoteData}
-				></div>
+				>
+					{stickyNote.note_content}
+				</div>
 			</div>
 			<div className="text-sm flex p-1 h-[1.9rem] absolute bottom-0 w-full">
 				{saving ? (
@@ -143,7 +162,8 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 					</>
 				) : (
 					<p className="ml-2">
-						Saved at {new Date().toLocaleString().split(", ")[1]}
+						Saved at&nbsp;
+						{formatDate(stickyNote.createdAt)}
 					</p>
 				)}
 			</div>
