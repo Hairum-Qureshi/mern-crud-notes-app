@@ -6,6 +6,10 @@ import useStickyNotes from "../hooks/useStickyNotes";
 import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
 
+// TODO - need to implement logic to disable the sticky note for editing if you're not the owner of it
+// TODO - update the saveStickyNoteData function so it also takes in the sticky note's rotation too
+// TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
+
 interface Props {
 	stickyNote: StickyNoteInterface;
 	allowNewNote: () => void;
@@ -30,8 +34,14 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 		}
 
 		keyUpTimer.current = window.setTimeout(() => {
-			if (stickyNoteTitle && stickyNoteBody) {
+			if (stickyNoteTitle && stickyNoteBody && stickyNote.rotation) {
 				allowNewNote();
+				saveStickyNoteData(
+					stickyNoteTitle,
+					stickyNoteBody,
+					stickyNoteColor,
+					stickyNote.rotation
+				);
 			}
 			setSaving(false);
 		}, 2000);
@@ -56,27 +66,45 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 				<div className="w-full flex items-center">
 					<div
 						className="w-6 h-6 rounded-md border border-green-600 ml-1 bg-green-400"
-						onClick={() => setStickyNoteColor("bg-green-400")}
+						onClick={() => {
+							setStickyNoteColor("bg-green-400");
+							handleChanges();
+						}}
 					></div>
 					<div
 						className="w-6 h-6 rounded-md border border-pink-600 ml-1 bg-pink-400"
-						onClick={() => setStickyNoteColor("bg-pink-400")}
+						onClick={() => {
+							setStickyNoteColor("bg-pink-400");
+							handleChanges();
+						}}
 					></div>
 					<div
 						className="w-6 h-6 rounded-md border border-yellow-600 ml-1 bg-yellow-400"
-						onClick={() => setStickyNoteColor("bg-yellow-400")}
+						onClick={() => {
+							setStickyNoteColor("bg-yellow-400");
+							handleChanges();
+						}}
 					></div>
 					<div
 						className="w-6 h-6 rounded-md border border-orange-600 ml-1 bg-orange-400"
-						onClick={() => setStickyNoteColor("bg-orange-400")}
+						onClick={() => {
+							setStickyNoteColor("bg-orange-400");
+							handleChanges();
+						}}
 					></div>
 					<div
 						className="w-6 h-6 rounded-md border border-sky-600 ml-1 bg-sky-400"
-						onClick={() => setStickyNoteColor("bg-sky-400")}
+						onClick={() => {
+							setStickyNoteColor("bg-sky-400");
+							handleChanges();
+						}}
 					></div>
 					<div
 						className="w-6 h-6 rounded-md border border-purple-600 ml-1 bg-purple-400"
-						onClick={() => setStickyNoteColor("bg-purple-400")}
+						onClick={() => {
+							setStickyNoteColor("bg-purple-400");
+							handleChanges();
+						}}
 					></div>
 					<div className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto">
 						<FontAwesomeIcon icon={faTrash} />
