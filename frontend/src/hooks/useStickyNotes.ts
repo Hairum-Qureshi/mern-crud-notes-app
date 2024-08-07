@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { StickyNote } from "../interfaces";
+import useSessionContext from "../contexts/sessionContext";
 
 interface StickyNoteHandlers {
 	createStickyNote: () => void;
@@ -15,6 +16,9 @@ interface StickyNoteHandlers {
 
 export default function useStickyNotes(): StickyNoteHandlers {
 	const [stickyNotes, setStickyNotes] = useState<StickyNote[]>([]);
+	const { currUID } = useSessionContext()!;
+
+	const rotations = ["-rotate-3", "rotate-6", "rotate-6", "rotate-3, rotate-0"];
 
 	function createStickyNote() {
 		setStickyNotes(prev => [
@@ -22,7 +26,9 @@ export default function useStickyNotes(): StickyNoteHandlers {
 				_id: Math.floor(Number(new Date()) * Math.random()).toString(),
 				note_title: "",
 				note_content: "",
-				color: "yellow"
+				color: "yellow",
+				curr_uid: currUID!,
+				rotation: rotations[Math.floor(Math.random() * rotations.length)]
 			},
 			...prev
 		]);
