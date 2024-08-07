@@ -21,8 +21,9 @@ export interface StickyNote {
 	_id: string;
 	note_title: string;
 	note_content: string;
-	curr_uid?: string;
+	curr_uid: string;
 	color: string;
+	rotation?: string;
 }
 
 export interface ThemeContextData {
