@@ -6,7 +6,6 @@ import useStickyNotes from "../hooks/useStickyNotes";
 import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
 
-// TODO - need to implement logic to disable the sticky note for editing if you're not the owner of it
 // TODO - update the saveStickyNoteData function so it also takes in the sticky note's rotation too
 // TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
 
@@ -78,55 +77,61 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 			className={`border border-black w-80 min-h-72 h-auto mx-3 my-5 rounded-md ${stickyNoteColor} relative ${stickyNote.rotation}`}
 		>
 			<div className="min-h-10 w-full p-1 font-semibold text-lg h-auto">
-				<div className="w-full flex items-center">
-					<div
-						className="w-6 h-6 rounded-md border border-green-600 ml-1 bg-green-400"
-						onClick={() => {
-							setStickyNoteColor("bg-green-400");
-							handleChanges();
-						}}
-					></div>
-					<div
-						className="w-6 h-6 rounded-md border border-pink-600 ml-1 bg-pink-400"
-						onClick={() => {
-							setStickyNoteColor("bg-pink-400");
-							handleChanges();
-						}}
-					></div>
-					<div
-						className="w-6 h-6 rounded-md border border-yellow-600 ml-1 bg-yellow-400"
-						onClick={() => {
-							setStickyNoteColor("bg-yellow-400");
-							handleChanges();
-						}}
-					></div>
-					<div
-						className="w-6 h-6 rounded-md border border-orange-600 ml-1 bg-orange-400"
-						onClick={() => {
-							setStickyNoteColor("bg-orange-400");
-							handleChanges();
-						}}
-					></div>
-					<div
-						className="w-6 h-6 rounded-md border border-sky-600 ml-1 bg-sky-400"
-						onClick={() => {
-							setStickyNoteColor("bg-sky-400");
-							handleChanges();
-						}}
-					></div>
-					<div
-						className="w-6 h-6 rounded-md border border-purple-600 ml-1 bg-purple-400"
-						onClick={() => {
-							setStickyNoteColor("bg-purple-400");
-							handleChanges();
-						}}
-					></div>
-					<div className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto">
-						<FontAwesomeIcon icon={faTrash} />
+				{stickyNote.curr_uid === currUID && (
+					<div className="w-full flex items-center">
+						<div
+							className="w-6 h-6 rounded-md border border-green-600 ml-1 bg-green-400"
+							onClick={() => {
+								setStickyNoteColor("bg-green-400");
+								handleChanges();
+							}}
+						></div>
+						<div
+							className="w-6 h-6 rounded-md border border-pink-600 ml-1 bg-pink-400"
+							onClick={() => {
+								setStickyNoteColor("bg-pink-400");
+								handleChanges();
+							}}
+						></div>
+						<div
+							className="w-6 h-6 rounded-md border border-yellow-600 ml-1 bg-yellow-400"
+							onClick={() => {
+								setStickyNoteColor("bg-yellow-400");
+								handleChanges();
+							}}
+						></div>
+						<div
+							className="w-6 h-6 rounded-md border border-orange-600 ml-1 bg-orange-400"
+							onClick={() => {
+								setStickyNoteColor("bg-orange-400");
+								handleChanges();
+							}}
+						></div>
+						<div
+							className="w-6 h-6 rounded-md border border-sky-600 ml-1 bg-sky-400"
+							onClick={() => {
+								setStickyNoteColor("bg-sky-400");
+								handleChanges();
+							}}
+						></div>
+						<div
+							className="w-6 h-6 rounded-md border border-purple-600 ml-1 bg-purple-400"
+							onClick={() => {
+								setStickyNoteColor("bg-purple-400");
+								handleChanges();
+							}}
+						></div>
+						{stickyNote.curr_uid === currUID && (
+							<div className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto">
+								<FontAwesomeIcon icon={faTrash} />
+							</div>
+						)}
 					</div>
-				</div>
+				)}
 				<div
-					contentEditable="plaintext-only"
+					contentEditable={
+						stickyNote.curr_uid === currUID ? "plaintext-only" : false
+					}
 					className="w-full mt-1 p-1 inline-block outline-none"
 					data-placeholder="Enter heading..."
 					data-gramm="false"
@@ -141,7 +146,9 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 			</div>
 			<div className="flex-grow mx-1 flex flex-col">
 				<div
-					contentEditable="plaintext-only"
+					contentEditable={
+						stickyNote.curr_uid === currUID ? "plaintext-only" : false
+					}
 					className="w-full outline-none p-1 text-base flex-grow mb-8"
 					data-gramm="false"
 					data-gramm_editor="false"
