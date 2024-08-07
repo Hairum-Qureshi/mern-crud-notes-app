@@ -6,8 +6,11 @@ import useStickyNotes from "../hooks/useStickyNotes";
 import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
 
-// TODO - update the saveStickyNoteData function so it also takes in the sticky note's rotation too
 // TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
+// TODO - create a way to delete sticky notes without page refresh
+// TODO - create an edit sticky note functionality; currently, when you edit an existing sticky note, it'll create another sticky note with that same data
+// -> maybe what you could do is also return the sticky note ID and check if the sticky note has a sticky note ID, that means it's a created sticky note and call the edit function instead of the create sticky note function
+// TODO - not 100% sure this is really a problem, but if you inspect element on a sticky note that you didn't create and change it from 'conteneditable=false' to true and edit the sticky note, it creates a duplicate sticky note with that same data; you don't end up doing any damage to the other user's sticky note, but just something to be aware about.
 
 interface Props {
 	stickyNote: StickyNoteInterface;
@@ -169,7 +172,7 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 					</>
 				) : (
 					<p className="ml-2">
-						Saved at&nbsp;
+						Saved on&nbsp;
 						{formatDate(stickyNote.createdAt)}
 					</p>
 				)}
