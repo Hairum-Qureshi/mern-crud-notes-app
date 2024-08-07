@@ -9,7 +9,8 @@ interface StickyNoteHandlers {
 	saveStickyNoteData: (
 		stickyNoteTitle: string,
 		stickyNoteBody: string,
-		stickyNoteColor: string
+		stickyNoteColor: string,
+		stickyNoteRotation: string
 	) => void;
 	deleteStickyNote: (note_id: string) => void;
 }
@@ -52,7 +53,8 @@ export default function useStickyNotes(): StickyNoteHandlers {
 	async function saveStickyNoteData(
 		stickyNoteTitle: string,
 		stickyNoteBody: string,
-		stickyNoteColor: string
+		stickyNoteColor: string,
+		stickyNoteRotation: string
 	) {
 		if (stickyNoteTitle && stickyNoteBody && stickyNoteColor) {
 			axios
@@ -61,7 +63,8 @@ export default function useStickyNotes(): StickyNoteHandlers {
 					{
 						stickyNoteTitle,
 						stickyNoteBody,
-						stickyNoteColor
+						stickyNoteColor,
+						stickyNoteRotation
 					},
 					{
 						withCredentials: true
