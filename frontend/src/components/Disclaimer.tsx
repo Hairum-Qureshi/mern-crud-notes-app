@@ -50,15 +50,16 @@ export default function Disclaimer() {
 							<br />
 							<br />
 							<strong>Respect:</strong> While I aim to provide a free space for
-							expression, please respect others and refrain from posting content
-							that could be deemed offensive, harmful, or abusive.
+							expression, please respect others and refrain from doxing, posting
+							content that could be deemed offensive, inappropriate, harmful, or
+							abusive.
 							<br />
 							<br />
 							<strong>Content Moderation:</strong> To ensure a pleasant
 							experience for all users, notes that contain profanity will be
 							marked to deter any users who may not want to read such notes.
 							While profanity is allowed, it will be censored. With that being
-							said, sexual and violent content, on the other hand, is{" "}
+							said, sexual and violent content, on the other hand, is&nbsp;
 							<b>prohibited</b>. Despite the measures I've implemented, some
 							inappropriate content might slip through.
 							<br />
