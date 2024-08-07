@@ -27,9 +27,10 @@ export default function useStickyNotes(): StickyNoteHandlers {
 				_id: Math.floor(Number(new Date()) * Math.random()).toString(),
 				note_title: "",
 				note_content: "",
-				color: "yellow",
+				color: "bg-yellow-400",
 				curr_uid: currUID!,
-				rotation: rotations[Math.floor(Math.random() * rotations.length)]
+				rotation: rotations[Math.floor(Math.random() * rotations.length)],
+				createdAt: new Date().toISOString()
 			},
 			...prev
 		]);
