@@ -24,7 +24,7 @@ export interface StickyNote {
 	curr_uid: string;
 	color: string;
 	rotation?: string;
-	createdAt?: string;
+	createdAt: string;
 	updatedAt?: string;
 }
 
