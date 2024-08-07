@@ -22,7 +22,7 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 	const titleRef = useRef<HTMLDivElement>(null);
 	const bodyRef = useRef<HTMLDivElement>(null);
 
-	const handleKeyUp = async () => {
+	const handleChanges = async () => {
 		setSaving(true);
 
 		if (keyUpTimer.current) {
@@ -90,7 +90,7 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 					data-gramm_editor="false"
 					data-enable-grammarly="false"
 					ref={titleRef}
-					onKeyUp={handleKeyUp}
+					onKeyUp={handleChanges}
 					onInput={setNoteData}
 				></div>
 			</div>
@@ -103,7 +103,7 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 					data-enable-grammarly="false"
 					data-placeholder="Enter content..."
 					ref={bodyRef}
-					onKeyUp={handleKeyUp}
+					onKeyUp={handleChanges}
 					onInput={setNoteData}
 				></div>
 			</div>
