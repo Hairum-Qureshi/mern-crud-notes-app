@@ -16,6 +16,10 @@ const stickyNoteSchema = new Schema(
 		color: {
 			type: String,
 			default: "yellow"
+		},
+		rotation: {
+			type: String,
+			default: "rotate-0"
 		}
 	},
 	{
