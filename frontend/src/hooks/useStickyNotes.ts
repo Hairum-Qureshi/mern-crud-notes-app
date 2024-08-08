@@ -113,19 +113,25 @@ export default function useStickyNotes(): StickyNoteHandlers {
 	}
 
 	async function deleteStickyNote(note_id: string) {
-		await axios
-			.delete(`http://localhost:4000/api/sticky-notes/${note_id}`, {
-				withCredentials: true
-			})
-			.then(() => {
-				setStickyNotes(prev => prev.filter(note => note._id !== note_id));
-			})
-			.catch(error => {
-				console.log(error.response.data.message);
-				if (error.response.data.message === "Invalid note ID") {
+		const confirmation = confirm(
+			"Are you sure you would like to delete this sticky note? This cannot be undone!"
+		);
+
+		if (confirmation) {
+			await axios
+				.delete(`http://localhost:4000/api/sticky-notes/${note_id}`, {
+					withCredentials: true
+				})
+				.then(() => {
 					setStickyNotes(prev => prev.filter(note => note._id !== note_id));
-				}
-			});
+				})
+				.catch(error => {
+					console.log(error.response.data.message);
+					if (error.response.data.message === "Invalid note ID") {
+						setStickyNotes(prev => prev.filter(note => note._id !== note_id));
+					}
+				});
+		}
 	}
 
 	return {
