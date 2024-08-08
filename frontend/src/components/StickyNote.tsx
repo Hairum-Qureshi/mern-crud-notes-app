@@ -139,7 +139,10 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 							}}
 						></div>
 						{stickyNote.curr_uid === currUID && (
-							<div className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto">
+							<div
+								className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto"
+								onClick={() => deleteStickyNote(stickyNote._id)}
+							>
 								<FontAwesomeIcon icon={faTrash} />
 							</div>
 						)}
