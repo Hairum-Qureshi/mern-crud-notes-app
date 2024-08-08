@@ -12,6 +12,12 @@ interface StickyNoteHandlers {
 		stickyNoteColor: string,
 		stickyNoteRotation: string
 	) => void;
+	editStickyNote: (
+		note_id: string,
+		stickyNoteTitle: string,
+		stickyNoteBody: string,
+		stickyNoteColor: string
+	) => void;
 	deleteStickyNote: (note_id: string) => void;
 }
 
@@ -80,6 +86,32 @@ export default function useStickyNotes(): StickyNoteHandlers {
 		}
 	}
 
+	async function editStickyNote(
+		stickyNoteID: string,
+		stickyNoteTitle: string,
+		stickyNoteBody: string,
+		stickyNoteColor: string
+	) {
+		await axios
+			.patch(
+				`http://localhost:4000/api/sticky-notes/${stickyNoteID}/edit`,
+				{
+					stickyNoteTitle,
+					stickyNoteBody,
+					stickyNoteColor
+				},
+				{
+					withCredentials: true
+				}
+			)
+			.then(response => {
+				console.log(response.data);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
+
 	async function deleteStickyNote(note_id: string) {
 		await axios
 			.delete(`http://localhost:4000/api/sticky-notes/${note_id}`, {
@@ -100,6 +132,7 @@ export default function useStickyNotes(): StickyNoteHandlers {
 		createStickyNote,
 		stickyNotes,
 		saveStickyNoteData,
+		editStickyNote,
 		deleteStickyNote
 	};
 }
