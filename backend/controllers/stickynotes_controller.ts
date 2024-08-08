@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, request } from "express";
 import StickyNote from "../models/StickyNote";
 import colors from "colors";
 import { createCookie } from "./notes_controller";
@@ -84,4 +84,35 @@ const deleteStickyNote = async (req: Request, res: Response) => {
 	}
 };
 
-export { createStickyNote, getAllStickyNotes, deleteStickyNote };
+const editStickyNote = async (req: Request, res: Response) => {
+	const { sticky_note_id } = req.params;
+	const { stickyNoteTitle, stickyNoteBody, stickyNoteColor } = req.body;
+	try {
+		const updatedStickyNote = await StickyNote.findByIdAndUpdate(
+			{ _id: sticky_note_id },
+			{
+				note_title: stickyNoteTitle,
+				note_content: stickyNoteBody,
+				color: stickyNoteColor
+			},
+			{
+				new: true
+			}
+		);
+
+		res.status(200).json(updatedStickyNote);
+	} catch (error) {
+		console.log(
+			"<sticky_notes_controller.ts> editStickyNote function error".yellow,
+			(error as Error).toString().red.bold
+		);
+		res.status(500).send(error);
+	}
+};
+
+export {
+	createStickyNote,
+	getAllStickyNotes,
+	deleteStickyNote,
+	editStickyNote
+};
