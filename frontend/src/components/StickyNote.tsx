@@ -1,16 +1,18 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StickyNote as StickyNoteInterface } from "../interfaces";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useStickyNotes from "../hooks/useStickyNotes";
 import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
+import formatDate from "../utilities/time-formatter.util";
 
 // TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
 // TODO - create a way to delete sticky notes without page refresh
-// TODO - create an edit sticky note functionality; currently, when you edit an existing sticky note, it'll create another sticky note with that same data
-// -> maybe what you could do is also return the sticky note ID and check if the sticky note has a sticky note ID, that means it's a created sticky note and call the edit function instead of the create sticky note function
 // TODO - not 100% sure this is really a problem, but if you inspect element on a sticky note that you didn't create and change it from 'conteneditable=false' to true and edit the sticky note, it creates a duplicate sticky note with that same data; you don't end up doing any damage to the other user's sticky note, but just something to be aware about.
+// TODO - make sure to add a guard to prevent users from adding profanity on the sticky notes!
+// TODO - need to add a 'loading all sticky notes' feature
+// TODO - make sure the delete sticky note function works
 
 interface Props {
 	stickyNote: StickyNoteInterface;
@@ -21,29 +23,15 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 	const [stickyNoteTitle, setStickyNoteTitle] = useState("");
 	const [stickyNoteBody, setStickyNoteBody] = useState("");
 	const [stickyNoteColor, setStickyNoteColor] = useState(stickyNote.color);
-	const { saveStickyNoteData, deleteStickyNote } = useStickyNotes();
+	const { saveStickyNoteData, deleteStickyNote, editStickyNote } =
+		useStickyNotes();
 	const { currUID } = useSessionContext()!;
 	const [saving, setSaving] = useState(false);
 	const keyUpTimer = useRef<number | null>(null);
 	const titleRef = useRef<HTMLDivElement>(null);
 	const bodyRef = useRef<HTMLDivElement>(null);
 
-	function formatDate(utcDate: string): string {
-		const date = new Date(utcDate);
-
-		const options: Intl.DateTimeFormatOptions = {
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-			hour: "2-digit",
-			minute: "2-digit"
-		};
-
-		const formattedDate = date.toLocaleDateString("en-US", options);
-		return formattedDate;
-	}
-
-	const handleChanges = async () => {
+	const handleChanges = async (sticky_note_color?: string) => {
 		setSaving(true);
 
 		if (keyUpTimer.current) {
@@ -51,15 +39,41 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 		}
 
 		keyUpTimer.current = window.setTimeout(() => {
+			// TODO - get newest color the user switches to; currently, you get the old color of the sticky note
 			if (stickyNoteTitle && stickyNoteBody && stickyNote.rotation) {
 				allowNewNote();
-				saveStickyNoteData(
-					stickyNoteTitle,
-					stickyNoteBody,
-					stickyNoteColor,
-					stickyNote.rotation
-				);
+				if (/^\d+$/.test(stickyNote._id)) {
+					// If the sticky note ID is only numbers, that means it's not a sticky note from MongoDB
+					saveStickyNoteData(
+						stickyNoteTitle,
+						stickyNoteBody,
+						stickyNoteColor,
+						stickyNote.rotation
+					);
+				} else {
+					// User changes an existing sticky note's text and even background color
+					console.log("x", stickyNoteColor);
+
+					editStickyNote(
+						stickyNote._id,
+						stickyNoteTitle,
+						stickyNoteBody,
+						sticky_note_color || stickyNote.color
+					);
+				}
+			} else {
+				// Case where the user only wants to change the sticky note's background color and not text
+				if (!stickyNoteTitle && !stickyNoteBody) {
+					console.log("x", sticky_note_color);
+					editStickyNote(
+						stickyNote._id,
+						stickyNote.note_title,
+						stickyNote.note_content,
+						sticky_note_color || stickyNote.color
+					);
+				}
 			}
+
 			setSaving(false);
 		}, 2000);
 	};
@@ -86,42 +100,42 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 							className="w-6 h-6 rounded-md border border-green-600 ml-1 bg-green-400"
 							onClick={() => {
 								setStickyNoteColor("bg-green-400");
-								handleChanges();
+								handleChanges("bg-green-400");
 							}}
 						></div>
 						<div
 							className="w-6 h-6 rounded-md border border-pink-600 ml-1 bg-pink-400"
 							onClick={() => {
 								setStickyNoteColor("bg-pink-400");
-								handleChanges();
+								handleChanges("bg-pink-400");
 							}}
 						></div>
 						<div
 							className="w-6 h-6 rounded-md border border-yellow-600 ml-1 bg-yellow-400"
 							onClick={() => {
 								setStickyNoteColor("bg-yellow-400");
-								handleChanges();
+								handleChanges("bg-yellow-400");
 							}}
 						></div>
 						<div
 							className="w-6 h-6 rounded-md border border-orange-600 ml-1 bg-orange-400"
 							onClick={() => {
 								setStickyNoteColor("bg-orange-400");
-								handleChanges();
+								handleChanges("bg-orange-400");
 							}}
 						></div>
 						<div
 							className="w-6 h-6 rounded-md border border-sky-600 ml-1 bg-sky-400"
 							onClick={() => {
 								setStickyNoteColor("bg-sky-400");
-								handleChanges();
+								handleChanges("bg-sky-400");
 							}}
 						></div>
 						<div
 							className="w-6 h-6 rounded-md border border-purple-600 ml-1 bg-purple-400"
 							onClick={() => {
 								setStickyNoteColor("bg-purple-400");
-								handleChanges();
+								handleChanges("bg-purple-400");
 							}}
 						></div>
 						{stickyNote.curr_uid === currUID && (
@@ -141,6 +155,7 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 					data-gramm_editor="false"
 					data-enable-grammarly="false"
 					ref={titleRef}
+					suppressContentEditableWarning={true}
 					onKeyUp={handleChanges}
 					onInput={setNoteData}
 				>
@@ -158,6 +173,7 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 					data-enable-grammarly="false"
 					data-placeholder="Enter content..."
 					ref={bodyRef}
+					suppressContentEditableWarning={true}
 					onKeyUp={handleChanges}
 					onInput={setNoteData}
 				>
