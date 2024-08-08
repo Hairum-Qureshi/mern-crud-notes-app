@@ -3,8 +3,10 @@ import { authenticated, verifyRequest } from "../middleware/session-auth";
 import {
 	createStickyNote,
 	getAllStickyNotes,
-	deleteStickyNote
+	deleteStickyNote,
+	editStickyNote
 } from "../controllers/stickynotes_controller";
+import limit from "../config/rate-limiter";
 
 const router = express.Router();
 
@@ -15,6 +17,13 @@ router.delete(
 	authenticated,
 	verifyRequest,
 	deleteStickyNote
+);
+router.patch(
+	"/:sticky_note_id/edit",
+	authenticated,
+	verifyRequest,
+	limit,
+	editStickyNote
 );
 
 export default router;
