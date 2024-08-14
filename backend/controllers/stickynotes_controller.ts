@@ -1,4 +1,4 @@
-import { Request, Response, request } from "express";
+import { Request, Response } from "express";
 import StickyNote from "../models/StickyNote";
 import colors from "colors";
 import { createCookie } from "./notes_controller";
@@ -91,19 +91,37 @@ const editStickyNote = async (req: Request, res: Response) => {
 	const { sticky_note_id } = req.params;
 	const { stickyNoteTitle, stickyNoteBody, stickyNoteColor } = req.body;
 	try {
-		const updatedStickyNote = await StickyNote.findByIdAndUpdate(
-			{ _id: sticky_note_id },
-			{
-				note_title: stickyNoteTitle,
-				note_content: stickyNoteBody,
-				color: stickyNoteColor
-			},
-			{
-				new: true
-			}
-		);
+		if (!mongoose.isValidObjectId(sticky_note_id)) {
+			// The ID is not a valid Object ID meaning it's a temporary ID
+			const updatedStickyNote = await StickyNote.findOneAndUpdate(
+				{ temp_id: sticky_note_id },
+				{
+					note_title: stickyNoteTitle,
+					note_content: stickyNoteBody,
+					color: stickyNoteColor
+				},
+				{
+					new: true
+				}
+			);
 
-		res.status(200).json(updatedStickyNote);
+			res.status(200).json(updatedStickyNote);
+		} else {
+			// The ID is a valid Object ID
+			const updatedStickyNote = await StickyNote.findByIdAndUpdate(
+				{ _id: sticky_note_id },
+				{
+					note_title: stickyNoteTitle,
+					note_content: stickyNoteBody,
+					color: stickyNoteColor
+				},
+				{
+					new: true
+				}
+			);
+
+			res.status(200).json(updatedStickyNote);
+		}
 	} catch (error) {
 		console.log(
 			"<sticky_notes_controller.ts> editStickyNote function error".yellow,
