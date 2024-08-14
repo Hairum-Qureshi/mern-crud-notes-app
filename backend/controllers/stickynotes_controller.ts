@@ -9,6 +9,7 @@ colors.enable();
 const createStickyNote = async (req: Request, res: Response) => {
 	const curr_uid: string | undefined = req.cookies["anon-session"];
 	const {
+		stickyNoteTempID,
 		stickyNoteTitle,
 		stickyNoteBody,
 		stickyNoteColor,
@@ -28,6 +29,7 @@ const createStickyNote = async (req: Request, res: Response) => {
 
 		const createdStickyNote = await StickyNote.create({
 			note_title: stickyNoteTitle,
+			temp_id: stickyNoteTempID,
 			note_content: stickyNoteBody,
 			curr_uid: user_id,
 			color: stickyNoteColor,
@@ -71,6 +73,7 @@ const deleteStickyNote = async (req: Request, res: Response) => {
 	try {
 		if (!mongoose.isValidObjectId(sticky_note_id)) {
 			res.status(400).json({ message: "Invalid note ID" });
+			// res.status(200).json({ message: "Sticky note deleted successfully" });
 		} else {
 			await StickyNote.findByIdAndDelete({ _id: sticky_note_id });
 			res.status(200).json({ message: "Sticky note deleted successfully" });
