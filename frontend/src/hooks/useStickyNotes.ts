@@ -17,7 +17,7 @@ interface StickyNoteHandlers {
 		stickyNoteBody: string,
 		stickyNoteColor: string
 	) => void;
-	deleteStickyNote: (note_id: string) => void;
+	deleteStickyNote: (note_id: string | number) => void;
 }
 
 export default function useStickyNotes(): StickyNoteHandlers {
@@ -39,7 +39,7 @@ export default function useStickyNotes(): StickyNoteHandlers {
 	}, []);
 
 	function saveStickyNoteData(
-		stickyNoteTempID: string,
+		stickyNoteTempID: string | number,
 		stickyNoteTitle: string,
 		stickyNoteBody: string,
 		stickyNoteColor: string,
@@ -69,7 +69,7 @@ export default function useStickyNotes(): StickyNoteHandlers {
 	}
 
 	async function editStickyNote(
-		stickyNoteID: string,
+		stickyNoteID: string | number,
 		stickyNoteTitle: string,
 		stickyNoteBody: string,
 		stickyNoteColor: string
@@ -105,7 +105,18 @@ export default function useStickyNotes(): StickyNoteHandlers {
 			});
 	}
 
-	function deleteStickyNote(note_id: string) {}
+	async function deleteStickyNote(note_id: string | number) {
+		await axios
+			.delete(`http://localhost:4000/api/sticky-notes/${note_id}`, {
+				withCredentials: true
+			})
+			.then(() => {
+				setStickyNotes(prev => prev.filter(note => note._id !== note_id));
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
 
 	return {
 		stickyNotes,
@@ -193,24 +204,24 @@ export default function useStickyNotes(): StickyNoteHandlers {
 // 		}
 // 	}
 
-// 	async function deleteStickyNote(note_id: string) {
-// 		await axios
-// 			.delete(`http://localhost:4000/api/sticky-notes/${note_id}`, {
-// 				withCredentials: true
-// 			})
-// 			.then(() => {
+// async function deleteStickyNote(note_id: string) {
+// 	await axios
+// 		.delete(`http://localhost:4000/api/sticky-notes/${note_id}`, {
+// 			withCredentials: true
+// 		})
+// 		.then(() => {
+// 			setStickyNotes(prev => prev.filter(note => note._id !== note_id));
+// 			console.log("delete 1", stickyNotes);
+// 		})
+// 		.catch(error => {
+// 			// handles case where the user wants to delete a sticky note before refreshing the page
+// 			console.log(error.response.data.message);
+// 			if (error.response.data.message === "Invalid sticky note ID") {
 // 				setStickyNotes(prev => prev.filter(note => note._id !== note_id));
-// 				console.log("delete 1", stickyNotes);
-// 			})
-// 			.catch(error => {
-// 				// handles case where the user wants to delete a sticky note before refreshing the page
-// 				console.log(error.response.data.message);
-// 				if (error.response.data.message === "Invalid sticky note ID") {
-// 					setStickyNotes(prev => prev.filter(note => note._id !== note_id));
-// 					console.log("delete 2", stickyNotes);
-// 				}
-// 			});
-// 	}
+// 				console.log("delete 2", stickyNotes);
+// 			}
+// 		});
+// }
 
 // 	return {
 // 		stickyNotes,
