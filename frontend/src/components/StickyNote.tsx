@@ -18,7 +18,7 @@ interface Props {
 	stickyNote: StickyNoteInterface;
 	allowNewNote: () => void;
 	handleDelete: (note_id: string) => void;
-	alreadyExists: (note_id?: string) => void;
+	alreadyExists: (note_id?: string | number) => void;
 	noteExists: boolean;
 }
 
@@ -51,19 +51,17 @@ export default function StickyNote({
 			if (stickyNoteTitle && stickyNoteBody && stickyNote.rotation) {
 				allowNewNote();
 				alreadyExists(stickyNote._id);
-				if (/^\d+$/.test(stickyNote._id)) {
+				if (/^\d+$/.test(stickyNote._id.toString())) {
 					// If the sticky note ID is numeric
 					if (noteExists) {
-						// edit it
-						console.log("not creating a new note because it already exists");
-						// ! Note: while you may successfully implement the logic to make it seem like you edited the newly created note, it's unlikely that the edit will go through to the backend because the note did not have a valid MongoDB ID which will result in the user having to re-add their edit to the sticky note after refreshing the page which will grant their note to have the MongoDB ID
-
-						// editNote(
-						// 	stickyNote._id,
-						// 	stickyNoteTitle,
-						// 	stickyNoteBody,
-						// 	stickyNote,
-						// );
+						editStickyNote(
+							stickyNote._id,
+							stickyNoteTitle,
+							stickyNoteBody,
+							typeof sticky_note_color !== "string"
+								? stickyNoteColor
+								: sticky_note_color
+						);
 					} else {
 						// save it
 						console.log("saving note...");
