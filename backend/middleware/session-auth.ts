@@ -85,6 +85,20 @@ const verifyRequest = async (
 								.json({ message: "You are not the owner of this sticky note" });
 						}
 					}
+				} else if (/^\d+$/.test(sticky_note_id)) {
+					// case where the ID is a numeric ID (representing a temporary sticky note ID); verifies if it's all numeric
+					const sticky_note = await StickyNote.findOne({
+						temp_id: sticky_note_id
+					});
+					if (!sticky_note) {
+						return res.status(404).json({ message: "Sticky note not found" });
+					} else {
+						if (sticky_note?.curr_uid !== decoded_uid) {
+							return res
+								.status(403)
+								.json({ message: "You are not the owner of this sticky note" });
+						}
+					}
 				} else {
 					return res.status(400).json({ message: "Invalid sticky note ID" });
 				}
