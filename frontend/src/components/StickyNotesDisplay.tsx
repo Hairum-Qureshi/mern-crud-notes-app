@@ -28,7 +28,7 @@ export default function StickyNotesDisplay() {
 		setPostedStickyNotes(stickyNotes);
 	}, [stickyNotes]);
 
-	function handleDelete(note_id: string) {
+	function handleDelete(note_id: string | number) {
 		// TODO - resolve issue where if you delete a note and press the add note button, the previously delete notes re-appear
 		// TODO - saved notes don't appear to be deleted
 
@@ -38,9 +38,7 @@ export default function StickyNotesDisplay() {
 
 		if (confirmation) {
 			setPostedStickyNotes(prev => prev.filter(note => note._id !== note_id));
-			if (!/^\d+$/.test(note_id)) {
-				deleteStickyNote(note_id);
-			}
+			deleteStickyNote(note_id);
 		}
 	}
 
@@ -63,7 +61,7 @@ export default function StickyNotesDisplay() {
 		]);
 	}
 
-	function alreadyExists(note_id?: string) {
+	function alreadyExists(note_id?: string | number) {
 		const found: StickyNote | undefined = postedStickyNotes.find(
 			(note: StickyNote) => note._id === note_id
 		);
