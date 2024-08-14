@@ -89,8 +89,8 @@ export default function StickyNote({
 				// The user only changed the sticky note's background color
 				editStickyNote(
 					stickyNote._id,
-					stickyNoteTitle,
-					stickyNoteBody,
+					!stickyNoteTitle ? stickyNote.note_title : stickyNoteTitle,
+					!stickyNoteBody ? stickyNote.note_content : stickyNoteBody,
 					typeof sticky_note_color !== "string"
 						? stickyNoteColor
 						: sticky_note_color
