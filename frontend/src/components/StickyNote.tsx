@@ -17,14 +17,22 @@ import formatDate from "../utilities/time-formatter.util";
 interface Props {
 	stickyNote: StickyNoteInterface;
 	allowNewNote: () => void;
+	handleDelete: (note_id: string) => void;
+	alreadyExists: (note_id?: string) => void;
+	noteExists: boolean;
 }
 
-export default function StickyNote({ stickyNote, allowNewNote }: Props) {
+export default function StickyNote({
+	stickyNote,
+	allowNewNote,
+	handleDelete,
+	alreadyExists,
+	noteExists
+}: Props) {
 	const [stickyNoteTitle, setStickyNoteTitle] = useState("");
 	const [stickyNoteBody, setStickyNoteBody] = useState("");
 	const [stickyNoteColor, setStickyNoteColor] = useState(stickyNote.color);
-	const { saveStickyNoteData, deleteStickyNote, editStickyNote } =
-		useStickyNotes();
+	const { saveStickyNoteData, editStickyNote } = useStickyNotes();
 	const { currUID } = useSessionContext()!;
 	const [saving, setSaving] = useState(false);
 	const keyUpTimer = useRef<number | null>(null);
@@ -39,43 +47,97 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 		}
 
 		keyUpTimer.current = window.setTimeout(() => {
-			// TODO - get newest color the user switches to; currently, you get the old color of the sticky note
+			// TODO - issue where if you create a new note and change its color, the color isn't updated
 			if (stickyNoteTitle && stickyNoteBody && stickyNote.rotation) {
 				allowNewNote();
+				alreadyExists(stickyNote._id);
 				if (/^\d+$/.test(stickyNote._id)) {
-					// If the sticky note ID is only numbers, that means it's not a sticky note from MongoDB
-					saveStickyNoteData(
-						stickyNoteTitle,
-						stickyNoteBody,
-						stickyNoteColor,
-						stickyNote.rotation
-					);
-				} else {
-					// User changes an existing sticky note's text and even background color
-					console.log("x", stickyNoteColor);
+					// If the sticky note ID is numeric
+					if (noteExists) {
+						// edit it
+						console.log("not creating a new note because it already exists");
+						// ! Note: while you may successfully implement the logic to make it seem like you edited the newly created note, it's unlikely that the edit will go through to the backend because the note did not have a valid MongoDB ID which will result in the user having to re-add their edit to the sticky note after refreshing the page which will grant their note to have the MongoDB ID
 
+						// editNote(
+						// 	stickyNote._id,
+						// 	stickyNoteTitle,
+						// 	stickyNoteBody,
+						// 	stickyNote,
+						// );
+					} else {
+						// save it
+						console.log("saving note...");
+						saveStickyNoteData(
+							stickyNote._id,
+							stickyNoteTitle,
+							stickyNoteBody,
+							typeof sticky_note_color !== "string"
+								? stickyNoteColor
+								: sticky_note_color,
+							stickyNote.rotation
+						);
+					}
+				} else {
+					// If the sticky note ID is a valid MongoDB ID
+					// User changes an existing sticky note (that has a MongoDB ID)'s text and even background color
 					editStickyNote(
 						stickyNote._id,
 						stickyNoteTitle,
 						stickyNoteBody,
-						sticky_note_color || stickyNote.color
-					);
-				}
-			} else {
-				// Case where the user only wants to change the sticky note's background color and not text
-				if (!stickyNoteTitle && !stickyNoteBody) {
-					console.log("x", sticky_note_color);
-					editStickyNote(
-						stickyNote._id,
-						stickyNote.note_title,
-						stickyNote.note_content,
-						sticky_note_color || stickyNote.color
+						typeof sticky_note_color !== "string"
+							? stickyNoteColor
+							: sticky_note_color
 					);
 				}
 			}
 
 			setSaving(false);
 		}, 2000);
+
+		// ! Original Code:
+		// keyUpTimer.current = window.setTimeout(() => {
+		// 	// TODO - issue where if you create a new note and change its color, the color isn't updated
+		// 	if (stickyNoteTitle && stickyNoteBody && stickyNote.rotation) {
+		// 		allowNewNote();
+		// 		if (/^\d+$/.test(stickyNote._id)) {
+		// 			// If the sticky note ID is only numbers, that means it's not a sticky note from MongoDB
+		// saveStickyNoteData(
+		// 	stickyNoteTitle,
+		// 	stickyNoteBody,
+		// 	typeof sticky_note_color !== "string"
+		// 		? stickyNoteColor
+		// 		: sticky_note_color,
+		// 	stickyNote.rotation
+		// );
+
+		// 			// TODO - because this note still has the default ID and not MongoDB's ID, any changes you make will call the 'saveStickyNoteData()' function again resulting in duplicate data
+		// 		} else {
+		// 	// User changes an existing sticky note (that has a MongoDB ID)'s text and even background color
+		// 	editStickyNote(
+		// 		stickyNote._id,
+		// 		stickyNoteTitle,
+		// 		stickyNoteBody,
+		// 		typeof sticky_note_color !== "string"
+		// 			? stickyNoteColor
+		// 			: sticky_note_color
+		// 	);
+		// }
+		// 	} else {
+		// 		// Case where the user only wants to change the sticky note's background color and not text
+		// 		if (!stickyNoteTitle && !stickyNoteBody) {
+		// 			editStickyNote(
+		// 				stickyNote._id,
+		// 				stickyNote.note_title,
+		// 				stickyNote.note_content,
+		// 				typeof sticky_note_color !== "string"
+		// 					? stickyNoteColor
+		// 					: sticky_note_color
+		// 			);
+		// 		}
+		// 	}
+
+		// 	setSaving(false);
+		// }, 2000);
 	};
 
 	function setNoteData() {
@@ -140,8 +202,12 @@ export default function StickyNote({ stickyNote, allowNewNote }: Props) {
 						></div>
 						{stickyNote.curr_uid === currUID && (
 							<div
-								className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto"
-								onClick={() => deleteStickyNote(stickyNote._id)}
+								className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto hover:cursor-pointer"
+								onClick={() => {
+									handleDelete(stickyNote._id);
+									setSaving(false);
+									allowNewNote();
+								}}
 							>
 								<FontAwesomeIcon icon={faTrash} />
 							</div>
