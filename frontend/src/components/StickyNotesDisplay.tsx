@@ -51,7 +51,7 @@ export default function StickyNotesDisplay() {
 	function createStickyNote() {
 		setPostedStickyNotes(prev => [
 			{
-				_id: Math.floor(Number(new Date()) * Math.random()).toString(),
+				_id: Math.floor(Number(new Date()) * Math.random()),
 				note_title: "",
 				note_content: "",
 				color: "bg-yellow-400",
