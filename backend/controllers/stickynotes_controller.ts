@@ -72,10 +72,11 @@ const deleteStickyNote = async (req: Request, res: Response) => {
 	const { sticky_note_id } = req.params;
 	try {
 		if (!mongoose.isValidObjectId(sticky_note_id)) {
-			res.status(400).json({ message: "Invalid note ID" });
-			// res.status(200).json({ message: "Sticky note deleted successfully" });
+			// The ID is not a valid Object ID, meaning it's a temporary numeric ID (middleware handles check if it's numeric)
+			await StickyNote.findOneAndDelete({ temp_id: sticky_note_id });
+			res.status(200).json({ message: "Sticky note deleted successfully" });
 		} else {
-			await StickyNote.findByIdAndDelete({ _id: sticky_note_id });
+			await StickyNote.findByIdAndDelete(sticky_note_id);
 			res.status(200).json({ message: "Sticky note deleted successfully" });
 		}
 	} catch (error) {
@@ -92,7 +93,7 @@ const editStickyNote = async (req: Request, res: Response) => {
 	const { stickyNoteTitle, stickyNoteBody, stickyNoteColor } = req.body;
 	try {
 		if (!mongoose.isValidObjectId(sticky_note_id)) {
-			// The ID is not a valid Object ID meaning it's a temporary ID
+			// The ID is not a valid Object ID meaning it's a temporary numeric ID (middleware handles check if it's numeric)
 			const updatedStickyNote = await StickyNote.findOneAndUpdate(
 				{ temp_id: sticky_note_id },
 				{
