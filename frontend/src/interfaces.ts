@@ -18,7 +18,7 @@ export interface SessionContextData {
 }
 
 export interface StickyNote {
-	_id: string;
+	_id: number;
 	note_title: string;
 	note_content: string;
 	curr_uid: string;
