@@ -6,6 +6,9 @@ const stickyNoteSchema = new Schema(
 			type: String,
 			required: true
 		},
+		temp_id: {
+			type: String
+		},
 		note_content: {
 			type: String,
 			required: true
