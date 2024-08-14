@@ -5,14 +5,14 @@ import { StickyNote } from "../interfaces";
 interface StickyNoteHandlers {
 	stickyNotes: StickyNote[];
 	saveStickyNoteData: (
-		stickyNoteTempID: string,
+		stickyNoteTempID: string | number,
 		stickyNoteTitle: string,
 		stickyNoteBody: string,
 		stickyNoteColor: string,
 		stickyNoteRotation: string
 	) => void;
 	editStickyNote: (
-		stickyNoteID: string,
+		stickyNoteID: string | number,
 		stickyNoteTitle: string,
 		stickyNoteBody: string,
 		stickyNoteColor: string
