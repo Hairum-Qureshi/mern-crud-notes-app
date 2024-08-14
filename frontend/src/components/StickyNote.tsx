@@ -1,7 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StickyNote as StickyNoteInterface } from "../interfaces";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useStickyNotes from "../hooks/useStickyNotes";
 import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
@@ -17,7 +17,7 @@ import formatDate from "../utilities/time-formatter.util";
 interface Props {
 	stickyNote: StickyNoteInterface;
 	allowNewNote: () => void;
-	handleDelete: (note_id: string) => void;
+	handleDelete: (note_id: string | number) => void;
 	alreadyExists: (note_id?: string | number) => void;
 	noteExists: boolean;
 }
@@ -47,7 +47,6 @@ export default function StickyNote({
 		}
 
 		keyUpTimer.current = window.setTimeout(() => {
-			// TODO - issue where if you create a new note and change its color, the color isn't updated
 			if (stickyNoteTitle && stickyNoteBody && stickyNote.rotation) {
 				allowNewNote();
 				alreadyExists(stickyNote._id);
@@ -64,7 +63,6 @@ export default function StickyNote({
 						);
 					} else {
 						// save it
-						console.log("saving note...");
 						saveStickyNoteData(
 							stickyNote._id,
 							stickyNoteTitle,
@@ -87,6 +85,16 @@ export default function StickyNote({
 							: sticky_note_color
 					);
 				}
+			} else {
+				// The user only changed the sticky note's background color
+				editStickyNote(
+					stickyNote._id,
+					stickyNoteTitle,
+					stickyNoteBody,
+					typeof sticky_note_color !== "string"
+						? stickyNoteColor
+						: sticky_note_color
+				);
 			}
 
 			setSaving(false);
