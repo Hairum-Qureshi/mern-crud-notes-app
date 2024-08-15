@@ -7,13 +7,14 @@ import { useTheme } from "../contexts/themeContext";
 import { useEffect, useState } from "react";
 import { StickyNote as StickyNoteInterface } from "../interfaces";
 import useSessionContext from "../contexts/sessionContext";
+import { tailspin } from "ldrs";
 
 export default function StickyNotesDisplay() {
 	const { stickyNotes } = useStickyNotes();
 	const [openedStickyNote, setOpenedStickyNote] = useState(false);
 	const { theme } = useTheme()!;
 
-	const { deleteStickyNote } = useStickyNotes();
+	const { deleteStickyNote, loading } = useStickyNotes();
 	const [postedStickyNotes, setPostedStickyNotes] = useState<
 		StickyNoteInterface[]
 	>([]);
@@ -73,6 +74,8 @@ export default function StickyNotesDisplay() {
 		}
 	}
 
+	tailspin.register();
+
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
 			<div className="w-full p-3 dark:bg-slate-800 dark:text-slate-50 lg:min-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-2.5rem)] h-auto">
@@ -90,19 +93,43 @@ export default function StickyNotesDisplay() {
 					</button>
 				</div>
 				<div className="w-full p-5 h-auto flex flex-wrap items-center justify-center dark:text-black">
-					{postedStickyNotes.length > 0 &&
-						postedStickyNotes.map((stickyNote: StickyNote, index: number) => {
-							return (
-								<StickyNoteComponent
-									stickyNote={stickyNote}
-									key={stickyNote._id || index}
-									allowNewNote={allowNewNote}
-									handleDelete={handleDelete}
-									alreadyExists={alreadyExists}
-									noteExists={noteExists}
-								/>
-							);
-						})}
+					{loading ? (
+						theme === "dark" ? (
+							<>
+								<l-tailspin
+									size="40"
+									stroke="5"
+									speed="0.9"
+									color="white"
+								></l-tailspin>
+								<h1 className="text-2xl text-white font-semibold ml-3">
+									LOADING NOTES
+								</h1>
+							</>
+						) : (
+							<>
+								<l-tailspin
+									size="40"
+									stroke="5"
+									speed="0.9"
+									color="black"
+								></l-tailspin>
+								<h1 className="text-2xl font-semibold ml-3">LOADING NOTES</h1>
+							</>
+						)
+					) : (
+						postedStickyNotes.length > 0 &&
+						postedStickyNotes.map((stickyNote: StickyNote, index: number) => (
+							<StickyNoteComponent
+								stickyNote={stickyNote}
+								key={stickyNote._id || index}
+								allowNewNote={allowNewNote}
+								handleDelete={handleDelete}
+								alreadyExists={alreadyExists}
+								noteExists={noteExists}
+							/>
+						))
+					)}
 				</div>
 			</div>
 		</div>
