@@ -8,10 +8,8 @@ import { tailspin } from "ldrs";
 import formatDate from "../utilities/time-formatter.util";
 
 // TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
-// TODO - not 100% sure this is really a problem, but if you inspect element on a sticky note that you didn't create and change it from 'conteneditable=false' to true and edit the sticky note, it creates a duplicate sticky note with that same data; you don't end up doing any damage to the other user's sticky note, but just something to be aware about.
 // TODO - make sure to add a guard to prevent users from adding profanity on the sticky notes!
 // TODO - need to add a 'loading all sticky notes' feature
-// TODO - make it so that the user is alerted that they need to add both a title and body to their sticky note
 
 interface Props {
 	stickyNote: StickyNoteInterface;
@@ -98,51 +96,6 @@ export default function StickyNote({
 
 			setSaving(false);
 		}, 2000);
-
-		// ! Original Code:
-		// keyUpTimer.current = window.setTimeout(() => {
-		// 	// TODO - issue where if you create a new note and change its color, the color isn't updated
-		// 	if (stickyNoteTitle && stickyNoteBody && stickyNote.rotation) {
-		// 		allowNewNote();
-		// 		if (/^\d+$/.test(stickyNote._id)) {
-		// 			// If the sticky note ID is only numbers, that means it's not a sticky note from MongoDB
-		// saveStickyNoteData(
-		// 	stickyNoteTitle,
-		// 	stickyNoteBody,
-		// 	typeof sticky_note_color !== "string"
-		// 		? stickyNoteColor
-		// 		: sticky_note_color,
-		// 	stickyNote.rotation
-		// );
-
-		// 			// TODO - because this note still has the default ID and not MongoDB's ID, any changes you make will call the 'saveStickyNoteData()' function again resulting in duplicate data
-		// 		} else {
-		// 	// User changes an existing sticky note (that has a MongoDB ID)'s text and even background color
-		// 	editStickyNote(
-		// 		stickyNote._id,
-		// 		stickyNoteTitle,
-		// 		stickyNoteBody,
-		// 		typeof sticky_note_color !== "string"
-		// 			? stickyNoteColor
-		// 			: sticky_note_color
-		// 	);
-		// }
-		// 	} else {
-		// 		// Case where the user only wants to change the sticky note's background color and not text
-		// 		if (!stickyNoteTitle && !stickyNoteBody) {
-		// 			editStickyNote(
-		// 				stickyNote._id,
-		// 				stickyNote.note_title,
-		// 				stickyNote.note_content,
-		// 				typeof sticky_note_color !== "string"
-		// 					? stickyNoteColor
-		// 					: sticky_note_color
-		// 			);
-		// 		}
-		// 	}
-
-		// 	setSaving(false);
-		// }, 2000);
 	};
 
 	function setNoteData() {
