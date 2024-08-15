@@ -8,11 +8,10 @@ import { tailspin } from "ldrs";
 import formatDate from "../utilities/time-formatter.util";
 
 // TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
-// TODO - create a way to delete sticky notes without page refresh
 // TODO - not 100% sure this is really a problem, but if you inspect element on a sticky note that you didn't create and change it from 'conteneditable=false' to true and edit the sticky note, it creates a duplicate sticky note with that same data; you don't end up doing any damage to the other user's sticky note, but just something to be aware about.
 // TODO - make sure to add a guard to prevent users from adding profanity on the sticky notes!
 // TODO - need to add a 'loading all sticky notes' feature
-// TODO - make sure the delete sticky note function works
+// TODO - make it so that the user is alerted that they need to add both a title and body to their sticky note
 
 interface Props {
 	stickyNote: StickyNoteInterface;
@@ -220,40 +219,52 @@ export default function StickyNote({
 						)}
 					</div>
 				)}
-				<div
-					contentEditable={
-						stickyNote.curr_uid === currUID ? "plaintext-only" : false
-					}
-					className="w-full mt-1 p-1 inline-block outline-none"
-					data-placeholder="Enter heading..."
-					data-gramm="false"
-					data-gramm_editor="false"
-					data-enable-grammarly="false"
-					ref={titleRef}
-					suppressContentEditableWarning={true}
-					onKeyUp={handleChanges}
-					onInput={setNoteData}
-				>
-					{stickyNote.note_title}
-				</div>
+				{stickyNote.curr_uid === currUID ? (
+					<div
+						contentEditable={
+							stickyNote.curr_uid === currUID ? "plaintext-only" : false
+						}
+						className="w-full mt-1 p-1 inline-block outline-none"
+						data-placeholder="Enter heading..."
+						data-gramm="false"
+						data-gramm_editor="false"
+						data-enable-grammarly="false"
+						ref={titleRef}
+						suppressContentEditableWarning={true}
+						onKeyUp={handleChanges}
+						onInput={setNoteData}
+					>
+						{stickyNote.note_title}
+					</div>
+				) : (
+					<div className="w-full mt-1 p-1 inline-block outline-none">
+						{stickyNote.note_title}
+					</div>
+				)}
 			</div>
 			<div className="flex-grow mx-1 flex flex-col">
-				<div
-					contentEditable={
-						stickyNote.curr_uid === currUID ? "plaintext-only" : false
-					}
-					className="w-full outline-none p-1 text-base flex-grow mb-8"
-					data-gramm="false"
-					data-gramm_editor="false"
-					data-enable-grammarly="false"
-					data-placeholder="Enter content..."
-					ref={bodyRef}
-					suppressContentEditableWarning={true}
-					onKeyUp={handleChanges}
-					onInput={setNoteData}
-				>
-					{stickyNote.note_content}
-				</div>
+				{stickyNote.curr_uid === currUID ? (
+					<div
+						contentEditable={
+							stickyNote.curr_uid === currUID ? "plaintext-only" : false
+						}
+						className="w-full outline-none p-1 text-base flex-grow mb-8"
+						data-gramm="false"
+						data-gramm_editor="false"
+						data-enable-grammarly="false"
+						data-placeholder="Enter content..."
+						ref={bodyRef}
+						suppressContentEditableWarning={true}
+						onKeyUp={handleChanges}
+						onInput={setNoteData}
+					>
+						{stickyNote.note_content}
+					</div>
+				) : (
+					<div className="w-full outline-none p-1 text-base flex-grow mb-8">
+						{stickyNote.note_content}
+					</div>
+				)}
 			</div>
 			<div className="text-sm flex p-1 h-[1.9rem] absolute bottom-0 w-full">
 				{saving ? (
@@ -263,8 +274,17 @@ export default function StickyNote({
 					</>
 				) : (
 					<p className="ml-2">
-						Saved on&nbsp;
-						{formatDate(stickyNote.createdAt)}
+						{stickyNote.curr_uid === currUID ? (
+							<>
+								Saved on&nbsp;
+								{formatDate(stickyNote.createdAt)}
+							</>
+						) : (
+							<>
+								Posted on&nbsp;
+								{formatDate(stickyNote.createdAt)}
+							</>
+						)}
 					</p>
 				)}
 			</div>
