@@ -10,7 +10,7 @@ import limit from "../config/rate-limiter";
 
 const router = express.Router();
 
-router.post("/create", authenticated, createStickyNote);
+router.post("/create", authenticated, limit, createStickyNote);
 router.get("/all", getAllStickyNotes);
 router.delete(
 	"/:sticky_note_id",
