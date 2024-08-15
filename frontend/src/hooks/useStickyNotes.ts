@@ -18,19 +18,27 @@ interface StickyNoteHandlers {
 		stickyNoteColor: string
 	) => void;
 	deleteStickyNote: (note_id: string | number) => void;
+	errorMessage: string;
+	loading: boolean;
 }
 
 export default function useStickyNotes(): StickyNoteHandlers {
 	const [stickyNotes, setStickyNotes] = useState<StickyNote[]>([]);
+	const [errorMessage, setErrorMessage] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	async function getAllStickyNotes() {
+		setLoading(true);
 		axios
 			.get("http://localhost:4000/api/sticky-notes/all")
 			.then(response => {
+				setLoading(false);
 				setStickyNotes(response.data);
 			})
 			.catch(error => {
-				console.error(error);
+				setLoading(false);
+				console.log(error.response.data.message);
+				setErrorMessage(error.response.data.message);
 			});
 	}
 
@@ -64,7 +72,8 @@ export default function useStickyNotes(): StickyNoteHandlers {
 				getAllStickyNotes();
 			})
 			.catch(error => {
-				console.log(error);
+				console.log(error.response.data.message);
+				setErrorMessage(error.response.data.message);
 			});
 	}
 
@@ -101,7 +110,8 @@ export default function useStickyNotes(): StickyNoteHandlers {
 				);
 			})
 			.catch(error => {
-				console.log(error);
+				console.log(error.response.data.message);
+				setErrorMessage(error.response.data.message);
 			});
 	}
 
@@ -114,7 +124,8 @@ export default function useStickyNotes(): StickyNoteHandlers {
 				setStickyNotes(prev => prev.filter(note => note._id !== note_id));
 			})
 			.catch(error => {
-				console.log(error);
+				console.log(error.response.data.message);
+				setErrorMessage(error.response.data.message);
 			});
 	}
 
@@ -122,111 +133,8 @@ export default function useStickyNotes(): StickyNoteHandlers {
 		stickyNotes,
 		saveStickyNoteData,
 		editStickyNote,
-		deleteStickyNote
+		deleteStickyNote,
+		errorMessage,
+		loading
 	};
 }
-
-// export default function useStickyNotes(): StickyNoteHandlers {
-// 	const [stickyNotes, setStickyNotes] = useState<StickyNote[]>([]);
-
-// useEffect(() => {
-// 	async function getAllStickyNotes() {
-// 		axios
-// 			.get("http://localhost:4000/api/sticky-notes/all")
-// 			.then(response => {
-// 				console.log(response.data);
-// 				setStickyNotes(response.data);
-// 			})
-// 			.catch(error => {
-// 				console.error(error);
-// 			});
-// 	}
-// 	getAllStickyNotes();
-// }, []);
-
-// 	async function saveStickyNoteData(
-// 		stickyNoteTitle: string,
-// 		stickyNoteBody: string,
-// 		stickyNoteColor: string,
-// 		stickyNoteRotation: string
-// 	) {
-// 		if (stickyNoteTitle && stickyNoteBody && stickyNoteColor) {
-// axios
-// 	.post(
-// 		"http://localhost:4000/api/sticky-notes/create",
-// 		{
-// 			stickyNoteTitle,
-// 			stickyNoteBody,
-// 			stickyNoteColor,
-// 			stickyNoteRotation
-// 		},
-// 		{
-// 			withCredentials: true
-// 		}
-// 	)
-// 	.then(response => {
-// 		setStickyNotes(prev => [response.data, ...prev]);
-// 	})
-// 	.catch(error => {
-// 		console.log(error);
-// 	});
-// 		}
-// 	}
-
-// 	async function editStickyNote(
-// 		stickyNoteID: string,
-// 		stickyNoteTitle: string,
-// 		stickyNoteBody: string,
-// 		stickyNoteColor: string
-// 	) {
-// 		if (!stickyNoteTitle || !stickyNoteBody) {
-// 			alert("Please make sure your sticky note has a title and body");
-// 		} else {
-// await axios
-// 	.patch(
-// 		`http://localhost:4000/api/sticky-notes/${stickyNoteID}/edit`,
-// 		{
-// 			stickyNoteTitle,
-// 			stickyNoteBody,
-// 			stickyNoteColor
-// 		},
-// 		{
-// 			withCredentials: true
-// 		}
-// 	)
-// 	.then(response => {
-// 		// TODO - I think here you'll need to append it back to the array of sticky notes and replace the one you updated
-// 		console.log(response.data);
-// 	})
-// 	.catch(error => {
-// 		console.log(error);
-// 	});
-// 		}
-// 	}
-
-// async function deleteStickyNote(note_id: string) {
-// 	await axios
-// 		.delete(`http://localhost:4000/api/sticky-notes/${note_id}`, {
-// 			withCredentials: true
-// 		})
-// 		.then(() => {
-// 			setStickyNotes(prev => prev.filter(note => note._id !== note_id));
-// 			console.log("delete 1", stickyNotes);
-// 		})
-// 		.catch(error => {
-// 			// handles case where the user wants to delete a sticky note before refreshing the page
-// 			console.log(error.response.data.message);
-// 			if (error.response.data.message === "Invalid sticky note ID") {
-// 				setStickyNotes(prev => prev.filter(note => note._id !== note_id));
-// 				console.log("delete 2", stickyNotes);
-// 			}
-// 		});
-// }
-
-// 	return {
-// 		stickyNotes,
-// 		saveStickyNoteData,
-// 		editStickyNote,
-// 		deleteStickyNote
-// 	};
-// }
