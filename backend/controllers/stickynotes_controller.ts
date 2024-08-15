@@ -3,6 +3,7 @@ import StickyNote from "../models/StickyNote";
 import colors from "colors";
 import { createCookie } from "./notes_controller";
 import mongoose from "mongoose";
+import { matcher } from "../config/profanity-checker";
 
 colors.enable();
 
@@ -27,22 +28,33 @@ const createStickyNote = async (req: Request, res: Response) => {
 			? req.cookies.decoded_uid
 			: createCookie(res);
 
-		const createdStickyNote = await StickyNote.create({
-			note_title: stickyNoteTitle,
-			temp_id: stickyNoteTempID,
-			note_content: stickyNoteBody,
-			curr_uid: user_id,
-			color: stickyNoteColor,
-			rotation: stickyNoteRotation
-		});
+		const checkTitleMatches = matcher.getAllMatches(stickyNoteTitle);
+		const checkContentMatches = matcher.getAllMatches(stickyNoteBody);
 
-		if (createdStickyNote) {
-			const stickyNoteData = await StickyNote.findById(
-				createdStickyNote._id
-			).select("-__v");
-			res.status(201).json(stickyNoteData);
+		if (checkTitleMatches.length > 0 || checkContentMatches.length > 0) {
+			// the sticky note does contain profanity
+			return res.status(400).json({
+				message: "Note title and/or note content contains profanity."
+			});
 		} else {
-			res.status(400).json({ message: "Failed to create sticky note" });
+			// sticky note does not contain profanity
+			const createdStickyNote = await StickyNote.create({
+				note_title: stickyNoteTitle,
+				temp_id: stickyNoteTempID,
+				note_content: stickyNoteBody,
+				curr_uid: user_id,
+				color: stickyNoteColor,
+				rotation: stickyNoteRotation
+			});
+
+			if (createdStickyNote) {
+				const stickyNoteData = await StickyNote.findById(
+					createdStickyNote._id
+				).select("-__v");
+				res.status(201).json(stickyNoteData);
+			} else {
+				res.status(400).json({ message: "Failed to create sticky note" });
+			}
 		}
 	} catch (error) {
 		console.log(
