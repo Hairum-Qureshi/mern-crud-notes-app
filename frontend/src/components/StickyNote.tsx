@@ -9,7 +9,6 @@ import formatDate from "../utilities/time-formatter.util";
 
 // TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
 // TODO - make sure to add a guard to prevent users from adding profanity on the sticky notes!
-// TODO - need to add a 'loading all sticky notes' feature
 
 interface Props {
 	stickyNote: StickyNoteInterface;
@@ -117,42 +116,42 @@ export default function StickyNote({
 				{stickyNote.curr_uid === currUID && (
 					<div className="w-full flex items-center">
 						<div
-							className="w-6 h-6 rounded-md border border-green-600 ml-1 bg-green-400"
+							className="w-6 h-6 rounded-md border-2 border-green-600 ml-1 bg-green-400 hover:cursor-pointer hover:bg-green-300"
 							onClick={() => {
 								setStickyNoteColor("bg-green-400");
 								handleChanges("bg-green-400");
 							}}
 						></div>
 						<div
-							className="w-6 h-6 rounded-md border border-pink-600 ml-1 bg-pink-400"
+							className="w-6 h-6 rounded-md border-2 border-pink-600 ml-1 bg-pink-400 hover:cursor-pointer hover:bg-pink-300"
 							onClick={() => {
 								setStickyNoteColor("bg-pink-400");
 								handleChanges("bg-pink-400");
 							}}
 						></div>
 						<div
-							className="w-6 h-6 rounded-md border border-yellow-600 ml-1 bg-yellow-400"
+							className="w-6 h-6 rounded-md border-2 border-yellow-600 ml-1 bg-yellow-400 hover:cursor-pointer hover:bg-yellow-300"
 							onClick={() => {
 								setStickyNoteColor("bg-yellow-400");
 								handleChanges("bg-yellow-400");
 							}}
 						></div>
 						<div
-							className="w-6 h-6 rounded-md border border-orange-600 ml-1 bg-orange-400"
+							className="w-6 h-6 rounded-md border-2 border-orange-600 ml-1 bg-orange-400 hover:cursor-pointer hover:bg-orange-300"
 							onClick={() => {
 								setStickyNoteColor("bg-orange-400");
 								handleChanges("bg-orange-400");
 							}}
 						></div>
 						<div
-							className="w-6 h-6 rounded-md border border-sky-600 ml-1 bg-sky-400"
+							className="w-6 h-6 rounded-md border-2 border-sky-600 ml-1 bg-sky-400 hover:cursor-pointer hover:bg-sky-300"
 							onClick={() => {
 								setStickyNoteColor("bg-sky-400");
 								handleChanges("bg-sky-400");
 							}}
 						></div>
 						<div
-							className="w-6 h-6 rounded-md border border-purple-600 ml-1 bg-purple-400"
+							className="w-6 h-6 rounded-md border-2 border-purple-600 ml-1 bg-purple-400 hover:cursor-pointer hover:bg-purple-300"
 							onClick={() => {
 								setStickyNoteColor("bg-purple-400");
 								handleChanges("bg-purple-400");
