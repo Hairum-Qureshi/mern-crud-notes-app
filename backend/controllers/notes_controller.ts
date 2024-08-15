@@ -3,18 +3,11 @@ import { randomUUID } from "crypto";
 import jwt from "jsonwebtoken";
 import colors from "colors";
 import Note from "../models/Note";
-import {
-	TextCensor,
-	RegExpMatcher,
-	englishDataset,
-	englishRecommendedTransformers,
-	keepStartCensorStrategy,
-	asteriskCensorStrategy,
-	MatchPayload
-} from "obscenity";
+import { MatchPayload } from "obscenity";
 import { Document } from "mongoose";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { censor, getMatchPayload, matcher } from "../config/profanity-checker";
 
 dotenv.config();
 
@@ -33,20 +26,6 @@ export function createCookie(res: Response, uid?: string): string {
 	const token = jwt.sign(payload, secretKey, { expiresIn: "7d" });
 	res.cookie("anon-session", token, { httpOnly: true, maxAge: 604800000 }); // 1 week in milliseconds
 	return user_id;
-}
-
-const matcher = new RegExpMatcher({
-	...englishDataset.build(),
-	...englishRecommendedTransformers
-});
-
-const censor = new TextCensor().setStrategy(
-	keepStartCensorStrategy(asteriskCensorStrategy())
-);
-
-function getMatchPayload(note_content: string): MatchPayload[] {
-	const matches = matcher.getAllMatches(note_content);
-	return matches;
 }
 
 async function saveNoteDataToMongo(
