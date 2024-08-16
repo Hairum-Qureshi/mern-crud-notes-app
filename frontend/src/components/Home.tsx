@@ -1,10 +1,11 @@
 import "../css/index.css";
 import laptopImag from "../assets/laptop-image.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/themeContext";
 
 export default function Home() {
 	const { theme } = useTheme()!;
+	const navigate = useNavigate();
 
 	return (
 		<div className={theme === "dark" ? "dark" : ""}>
@@ -41,35 +42,26 @@ export default function Home() {
 							<div
 								className={
 									theme === "dark"
-										? `bg-gray-800 border-2 border-gray-600 rounded-lg p-4 w-full shadow-lg`
-										: `bg-gray-400 border-2 border-gray-300 rounded-lg p-4 w-full shadow-lg`
+										? `bg-gray-800 border-2 border-gray-600 rounded-lg px-4 py-6 w-full shadow-lg hover:cursor-pointer hover:bg-gray-900`
+										: `bg-gray-400 border-2 border-gray-300 rounded-lg px-4 py-6 w-full shadow-lg hover:cursor-pointer`
 								}
+								onClick={() => navigate("/new-note")}
 							>
 								<h1
 									className={`text-xl ${
 										theme === "dark" ? "text-white" : "text-black"
 									}`}
 								>
-									Wanna vent? Post a lengthy note&nbsp;
-									<Link to="/new-note">
-										<u
-											className={`${
-												theme === "dark"
-													? "text-sky-400 hover:text-sky-300"
-													: "text-blue-600 hover:text-sky-400"
-											} transition-all`}
-										>
-											here!
-										</u>
-									</Link>
+									Wanna vent? Post a lengthy note here!
 								</h1>
 							</div>
 							<div
 								className={
 									theme === "dark"
-										? `bg-gray-800 border-2 border-gray-600 rounded-lg p-4 w-full shadow-lg mt-3`
-										: `bg-gray-400 border-2 border-gray-300 rounded-lg p-4 w-full shadow-lg mt-3`
+										? `bg-gray-800 border-2 border-gray-600 rounded-lg p-4 py-6 w-full shadow-lg mt-3 hover:cursor-pointer hover:bg-gray-900`
+										: `bg-gray-400 border-2 border-gray-300 rounded-lg p-4 py-6 w-full shadow-lg mt-3 hover:cursor-pointer hover:bg-gray-500 hover:text-white`
 								}
+								onClick={() => navigate("/sticky-notes")}
 							>
 								<h1
 									className={`text-xl ${
@@ -77,18 +69,7 @@ export default function Home() {
 									}`}
 								>
 									Wanna share a quick fun fact about yourself? Post a sticky
-									note&nbsp;
-									<Link to="/sticky-notes">
-										<u
-											className={`${
-												theme === "dark"
-													? "text-sky-400 hover:text-sky-300"
-													: "text-blue-600 hover:text-sky-400"
-											} transition-all`}
-										>
-											here!
-										</u>
-									</Link>
+									note here!
 								</h1>
 							</div>
 						</div>
