@@ -6,6 +6,7 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { tailspin } from "ldrs";
 import useSessionContext from "../contexts/sessionContext";
 import { useTheme } from "../contexts/themeContext";
+import formatDate from "../utilities/time-formatter.util";
 
 export default function Note() {
 	const { getNoteData, noteData, loadingStatus, deleteNote } = useNotes();
@@ -20,21 +21,6 @@ export default function Note() {
 
 	tailspin.register();
 
-	function formatDate(utcDate: string): string {
-		const date = new Date(utcDate);
-
-		const options: Intl.DateTimeFormatOptions = {
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-			hour: "2-digit",
-			minute: "2-digit"
-		};
-
-		const formattedDate = date.toLocaleDateString("en-US", options);
-		return formattedDate;
-	}
-
 	const { theme } = useTheme()!;
 
 	return (
@@ -44,12 +30,31 @@ export default function Note() {
 					{loadingStatus ? (
 						<div className="flex flex-row mt-48 justify-center items-center">
 							<div className="flex items-center">
-								<l-tailspin
-									size="40"
-									stroke="5"
-									speed="0.9"
-									color="black"
-								></l-tailspin>
+								{theme === "dark" ? (
+									<>
+										<l-tailspin
+											size="40"
+											stroke="5"
+											speed="0.9"
+											color="white"
+										></l-tailspin>
+										<h1 className="text-2xl text-white font-semibold ml-3">
+											LOADING STICKY NOTES
+										</h1>
+									</>
+								) : (
+									<>
+										<l-tailspin
+											size="40"
+											stroke="5"
+											speed="0.9"
+											color="black"
+										></l-tailspin>
+										<h1 className="text-2xl font-semibold ml-3">
+											LOADING STICKY NOTES
+										</h1>
+									</>
+								)}
 								<h1 className="text-2xl font-semibold ml-3">
 									LOADING NOTE DATA...
 								</h1>

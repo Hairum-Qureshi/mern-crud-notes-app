@@ -55,7 +55,7 @@ export default function NotesViewer() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="lg:p-10 p-3 lg:h-[calc(100vh-3.5rem)] w-full dark:bg-slate-800 dark:text-slate-50">
+			<div className="lg:p-10 p-3 lg:h-[calc(100vh-3.5rem)] h-[calc(100vh+3.5rem)] w-full dark:bg-slate-800 dark:text-slate-50">
 				<div className="mb-3 relative">
 					<h1 className="text-3xl font-semibold mb-1 lg:-mt-4">
 						View All Posted Notes ({totalNotes})
@@ -130,13 +130,31 @@ export default function NotesViewer() {
 					</>
 				) : (
 					<div className="flex items-center justify-center mt-20 dark:text-slate-50">
-						<l-tailspin
-							size="40"
-							stroke="5"
-							speed="0.9"
-							color={theme === "dark" ? "white" : "black"}
-						></l-tailspin>
-
+						{theme === "dark" ? (
+							<>
+								<l-tailspin
+									size="40"
+									stroke="5"
+									speed="0.9"
+									color="white"
+								></l-tailspin>
+								<h1 className="text-2xl text-white font-semibold ml-3">
+									LOADING STICKY NOTES
+								</h1>
+							</>
+						) : (
+							<>
+								<l-tailspin
+									size="40"
+									stroke="5"
+									speed="0.9"
+									color="black"
+								></l-tailspin>
+								<h1 className="text-2xl font-semibold ml-3">
+									LOADING STICKY NOTES
+								</h1>
+							</>
+						)}
 						<h1 className="text-2xl font-semibold ml-3">LOADING NOTES</h1>
 					</div>
 				)}
