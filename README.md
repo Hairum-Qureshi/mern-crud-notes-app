@@ -26,10 +26,10 @@ To get started with the app, follow these steps:
 
 1. **Clone the Repository:**
 
-- ```bash
+```bash
   git clone https://github.com/Hairum-Qureshi/mern-crud-notes-app.git
   cd "MERN CRUD Note App"
-  ```
+```
 
 2. **Install Dependencies:**
 
