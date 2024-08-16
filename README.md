@@ -26,55 +26,58 @@ To get started with the app, follow these steps:
 
 1. **Clone the Repository:**
 
-   ```bash
-   git clone https://github.com/yourusername/mern-crud-sticky-notes-app.git
-   cd mern-crud-sticky-notes-app
-   ```
+- ```bash
+  git clone https://github.com/Hairum-Qureshi/mern-crud-notes-app.git
+  cd mern-crud-notes-app
+  ```
+
+````
 
 2. **Install Dependencies:**
 
-   - Navigate to the server directory and install backend dependencies:
+- Navigate to the server directory and install backend dependencies:
 
-     ```bash
-     cd server
-     npm install
-     ```
+  ```bash
+  cd server
+  npm install
+  ```
 
-   - Navigate to the client directory and install frontend dependencies:
+- Navigate to the client directory and install frontend dependencies:
 
-     ```bash
-     cd ../client
-     npm install
-     ```
+  ```bash
+  cd ../client
+  npm install
+  ```
 
 3. **Configure Environment Variables:**
 
-   - Create a `.env` file in the `server` directory and add your MongoDB connection string:
+- Create a `.env` file in the `server` directory and add your MongoDB connection string:
 
-     ```
-     MONGO_URI=your_mongodb_connection_string
-     ```
+  ```
+  MONGO_URI=your_mongodb_connection_string
+  ```
 
 4. **Run the Application:**
 
-   - Start the backend server:
+- Start the backend server:
 
-     ```bash
-     cd server
-     npm start
-     ```
+  ```bash
+  cd server
+  npm start
+  ```
 
-   - In a new terminal window, start the frontend development server:
+- In a new terminal window, start the frontend development server:
 
-     ```bash
-     cd client
-     npm start
-     ```
+  ```bash
+  cd client
+  npm start
+  ```
 
-   The application should now be running at `http://localhost:3000`.
+The application should now be running at `http://localhost:4000`.
 
 ## Usage
 
 - **Create a Note:** Click on the "Add Note" button, enter your content, and save.
 - **Edit a Note:** Click on the "Edit" button next to a note, update the content, and save changes.
 - **Delete a Note:** Click on the "Delete" button next to a note to remove it.
+````
