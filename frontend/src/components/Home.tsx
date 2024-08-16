@@ -35,41 +35,65 @@ export default function Home() {
 						/>
 					</div>
 				</div>
-				<div className="bg-slate-200 p-5 text-2xl lg:absolute bottom-0 w-full lg:mb-0 -mb-10 h-80 dark:bg-slate-700">
-					<div className="flex">
-						{/* <div>
-						Wanna vent? Post a lengthy note&nbsp;
-						<Link to="/new-note">
-							<u className="text-blue-600">here!</u>
-						</Link>
-					</div>
-					<div className="mt-5">
-						Wanna share a quick fun fact about yourself? Post a sticky
-						note&nbsp;
-						<Link to="/sticky-notes">
-							<u className="text-blue-600">here!</u>
-						</Link>
-					</div> */}
+				<div className="flex bg-slate-200 p-5 text-2xl lg:absolute bottom-0 w-full lg:mb-0 -mb-10 h-80 dark:bg-slate-700">
+					<div className="flex items-center w-full">
+						<div className="w-full">
+							<div
+								className={
+									theme === "dark"
+										? `bg-gray-800 border-2 border-gray-600 rounded-lg p-4 w-full shadow-lg`
+										: `bg-gray-400 border-2 border-gray-300 rounded-lg p-4 w-full shadow-lg`
+								}
+							>
+								<h1
+									className={`text-xl ${
+										theme === "dark" ? "text-white" : "text-black"
+									}`}
+								>
+									Wanna vent? Post a lengthy note&nbsp;
+									<Link to="/new-note">
+										<u
+											className={`${
+												theme === "dark"
+													? "text-sky-400 hover:text-sky-300"
+													: "text-blue-600 hover:text-sky-400"
+											} transition-all`}
+										>
+											here!
+										</u>
+									</Link>
+								</h1>
+							</div>
+							<div
+								className={
+									theme === "dark"
+										? `bg-gray-800 border-2 border-gray-600 rounded-lg p-4 w-full shadow-lg mt-3`
+										: `bg-gray-400 border-2 border-gray-300 rounded-lg p-4 w-full shadow-lg mt-3`
+								}
+							>
+								<h1
+									className={`text-xl ${
+										theme === "dark" ? "text-white" : "text-black"
+									}`}
+								>
+									Wanna share a quick fun fact about yourself? Post a sticky
+									note&nbsp;
+									<Link to="/sticky-notes">
+										<u
+											className={`${
+												theme === "dark"
+													? "text-sky-400 hover:text-sky-300"
+													: "text-blue-600 hover:text-sky-400"
+											} transition-all`}
+										>
+											here!
+										</u>
+									</Link>
+								</h1>
+							</div>
+						</div>
 					</div>
 				</div>
-				{/* <div className="flex flex-grow flex-col">
-				<div className="w-full p-2 text-xl my-10 flex-grow bg-slate-200">
-					<div>
-						Wanna Vent? Post a lengthy note&nbsp;
-						<Link to="/new-note">
-							<u className="text-blue-600">here!</u>
-						</Link>
-					</div>
-					<div>
-						Wanna share a quick fun fact about yourself? Post a sticky
-						note&nbsp;
-						<Link to="/sticky-note">
-							&nbsp;
-							<u className="text-blue-600">here!</u>
-						</Link>
-					</div>
-				</div>
-			</div> */}
 			</div>
 		</div>
 	);
