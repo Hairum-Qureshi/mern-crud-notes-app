@@ -29,13 +29,6 @@ app.use("/api/sticky-notes", stickynotes_route);
 const PORT: string | number = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI!;
 
-export function parseJWT(token: string): string {
-	const decoded_uid = JSON.parse(
-		Buffer.from(token.split(".")[1], "base64").toString()
-	);
-	return decoded_uid.user_id;
-}
-
 app.get(
 	"/api/user/current-session",
 	authenticated,
