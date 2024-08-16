@@ -39,7 +39,7 @@ export default function Note() {
 											color="white"
 										></l-tailspin>
 										<h1 className="text-2xl text-white font-semibold ml-3">
-											LOADING STICKY NOTES
+											LOADING NOTE CONTENT
 										</h1>
 									</>
 								) : (
@@ -51,7 +51,7 @@ export default function Note() {
 											color="black"
 										></l-tailspin>
 										<h1 className="text-2xl font-semibold ml-3">
-											LOADING STICKY NOTES
+											LOADING NOTE CONTENT
 										</h1>
 									</>
 								)}

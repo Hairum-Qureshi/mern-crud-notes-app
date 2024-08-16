@@ -139,7 +139,7 @@ export default function NotesViewer() {
 									color="white"
 								></l-tailspin>
 								<h1 className="text-2xl text-white font-semibold ml-3">
-									LOADING STICKY NOTES
+									LOADING NOTES
 								</h1>
 							</>
 						) : (
@@ -150,9 +150,7 @@ export default function NotesViewer() {
 									speed="0.9"
 									color="black"
 								></l-tailspin>
-								<h1 className="text-2xl font-semibold ml-3">
-									LOADING STICKY NOTES
-								</h1>
+								<h1 className="text-2xl font-semibold ml-3">LOADING NOTES</h1>
 							</>
 						)}
 						<h1 className="text-2xl font-semibold ml-3">LOADING NOTES</h1>
