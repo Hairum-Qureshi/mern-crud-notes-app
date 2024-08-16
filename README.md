@@ -28,10 +28,8 @@ To get started with the app, follow these steps:
 
 - ```bash
   git clone https://github.com/Hairum-Qureshi/mern-crud-notes-app.git
-  cd mern-crud-notes-app
+  cd "MERN CRUD Note App"
   ```
-
-````
 
 2. **Install Dependencies:**
 
@@ -80,4 +78,3 @@ The application should now be running at `http://localhost:4000`.
 - **Create a Note:** Click on the "Add Note" button, enter your content, and save.
 - **Edit a Note:** Click on the "Edit" button next to a note, update the content, and save changes.
 - **Delete a Note:** Click on the "Delete" button next to a note to remove it.
-````
