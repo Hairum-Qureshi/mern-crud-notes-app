@@ -165,33 +165,29 @@ const editNote = async (req: Request, res: Response) => {
 		const checkTitleMatches = matcher.getAllMatches(note_title);
 
 		if (!note_title || !note_content) {
-			res
-				.status(400)
-				.json({
-					message: "Please be sure to provide a note title and content"
-				});
-		}
-
-		if (checkTitleMatches.length > 0) {
+			res.status(400).json({
+				message: "Please be sure to provide a note title and content"
+			});
+		} else if (checkTitleMatches.length > 0) {
 			return res.status(400).json({
 				message: "Title cannot contain profanity"
 			});
+		} else {
+			const matches: MatchPayload[] = getMatchPayload(note_content);
+
+			const updatedNote = await Note.findByIdAndUpdate(
+				{ _id: note_id },
+				{
+					note_title,
+					note_content: censor.applyTo(note_content, matches),
+					containsProfanity: matches.length > 0
+				},
+				{
+					new: true
+				}
+			).select("-__v");
+			res.status(200).send(updatedNote);
 		}
-
-		const matches: MatchPayload[] = getMatchPayload(note_content);
-
-		const updatedNote = await Note.findByIdAndUpdate(
-			{ _id: note_id },
-			{
-				note_title,
-				note_content: censor.applyTo(note_content, matches),
-				containsProfanity: matches.length > 0
-			},
-			{
-				new: true
-			}
-		).select("-__v");
-		res.status(200).send(updatedNote);
 	} catch (error) {
 		console.log(
 			"<notes_controller.ts> editNote function error".yellow,
