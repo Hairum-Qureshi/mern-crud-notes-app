@@ -36,7 +36,7 @@ To get started with the app, follow these steps:
 - Navigate to the server directory and install backend dependencies:
 
   ```bash
-  cd server
+  cd backend
   npm install
   ```
 
@@ -53,6 +53,10 @@ To get started with the app, follow these steps:
 
   ```
   MONGO_URI=your_mongodb_connection_string
+  ```
+
+  ```
+  PORT=4000
   ```
 
   ```
