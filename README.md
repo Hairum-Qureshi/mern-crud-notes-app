@@ -43,7 +43,7 @@ To get started with the app, follow these steps:
 - Navigate to the client directory and install frontend dependencies:
 
   ```bash
-  cd ../client
+  cd ../frontend
   npm install
   ```
 
@@ -53,6 +53,10 @@ To get started with the app, follow these steps:
 
   ```
   MONGO_URI=your_mongodb_connection_string
+  ```
+
+  ```
+  JWT_SECRET=your_jwt_secret
   ```
 
 4. **Run the Application:**
