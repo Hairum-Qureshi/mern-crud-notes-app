@@ -78,3 +78,9 @@ The application should now be running at `http://localhost:4000`.
 - **Create a Note:** Click on the "Add Note" button, enter your content, and save.
 - **Edit a Note:** Click on the "Edit" button next to a note, update the content, and save changes.
 - **Delete a Note:** Click on the "Delete" button next to a note to remove it.
+
+### Configuration for Deployment
+
+When deploying the application, ensure you update the URLs in the client-side code to match your deployed environment:
+
+- **API Base URL:** Update the base URL used to connect to the backend API. Replace any instances of http://localhost:4000 with the URL of your deployed backend service.
