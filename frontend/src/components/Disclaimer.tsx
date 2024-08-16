@@ -101,6 +101,8 @@ export default function Disclaimer() {
 							difference. I encourage everyone to take care of themselves and
 							each other. Let's create a community where support and kindness
 							are at the forefront. Thank you for being a part of this.
+							<br />
+							<br />
 							<strong>Limitations:</strong> As a simple, no-auth site, there are
 							certain limitations in functionality and security. Please use the
 							site responsibly.
