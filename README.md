@@ -83,7 +83,8 @@ The application should now be running at `http://localhost:4000`.
 
 For me, React's PORT started at 5174. If that's not the case for you and it's 5173, you will need to change the CORS configuration in `server.ts`. Replace the `corsOptions` code with:
 
-```const corsOptions = {
+```
+const corsOptions = {
 	origin: "http://localhost:5173", // <-- or whatever your frontend PORT # is
 	credentials: true,
 	optionSuccessStatus: 200
