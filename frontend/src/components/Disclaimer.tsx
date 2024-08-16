@@ -64,6 +64,43 @@ export default function Disclaimer() {
 							inappropriate content might slip through.
 							<br />
 							<br />
+						</p>
+						<p>
+							<strong>Mental Health & Support:</strong> I want this space to be
+							a positive and supportive environment for everyone. If you're
+							feeling overwhelmed, depressed, or in crisis, please know that
+							there are resources and people who can help. Your mental health is
+							important, and reaching out for support is a strong and brave
+							step. If you or someone you know is experiencing severe emotional
+							distress or thoughts of self-harm, please contact a mental health
+							professional or use one of the following resources immediately:
+						</p>
+						<br />
+						<ul className="list-disc list-inside pl-3">
+							<li>
+								National Suicide Prevention Lifeline (US): Call 1-800-273-TALK
+								(8255) or text HELLO to 741741 for immediate support.
+							</li>
+							<li>
+								Samaritans (UK): Call 116 123 for confidential support at any
+								time.
+							</li>
+							<li>
+								Crisis Text Line (Canada): Text HOME to 686868 for free, 24/7
+								crisis support.
+							</li>
+							<li>
+								Lifeline (Australia): Call 13 11 14 for support and crisis
+								intervention.
+							</li>
+						</ul>
+						<br />
+						<p>
+							Remember, it's okay to ask for help, and you don't have to go
+							through this alone. Reaching out for support can make a big
+							difference. I encourage everyone to take care of themselves and
+							each other. Let's create a community where support and kindness
+							are at the forefront. Thank you for being a part of this.
 							<strong>Limitations:</strong> As a simple, no-auth site, there are
 							certain limitations in functionality and security. Please use the
 							site responsibly.
