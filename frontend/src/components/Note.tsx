@@ -55,9 +55,6 @@ export default function Note() {
 										</h1>
 									</>
 								)}
-								<h1 className="text-2xl font-semibold ml-3">
-									LOADING NOTE DATA...
-								</h1>
 							</div>
 						</div>
 					) : (

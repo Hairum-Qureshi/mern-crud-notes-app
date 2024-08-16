@@ -153,7 +153,6 @@ export default function NotesViewer() {
 								<h1 className="text-2xl font-semibold ml-3">LOADING NOTES</h1>
 							</>
 						)}
-						<h1 className="text-2xl font-semibold ml-3">LOADING NOTES</h1>
 					</div>
 				)}
 			</div>
