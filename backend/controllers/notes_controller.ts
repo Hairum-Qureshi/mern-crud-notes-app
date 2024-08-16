@@ -164,6 +164,14 @@ const editNote = async (req: Request, res: Response) => {
 	try {
 		const checkTitleMatches = matcher.getAllMatches(note_title);
 
+		if (!note_title || !note_content) {
+			res
+				.status(400)
+				.json({
+					message: "Please be sure to provide a note title and content"
+				});
+		}
+
 		if (checkTitleMatches.length > 0) {
 			return res.status(400).json({
 				message: "Title cannot contain profanity"
