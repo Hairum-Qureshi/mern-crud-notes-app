@@ -11,6 +11,8 @@ import Navbar from "./Navbar";
 import StickyNotesDisplay from "./StickyNotesDisplay";
 import { ThemeProvider } from "../contexts/themeContext";
 
+// TODO - consider removing navbar on 404 page
+
 export default function App() {
 	return (
 		<BrowserRouter>

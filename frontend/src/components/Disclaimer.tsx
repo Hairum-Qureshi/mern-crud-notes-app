@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "../contexts/themeContext";
+import { useEffect } from "react";
 
 export default function Disclaimer() {
 	const { theme } = useTheme()!;
+
+	useEffect(() => {
+		document.title = "Rules & Disclaimers";
+	}, []);
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>

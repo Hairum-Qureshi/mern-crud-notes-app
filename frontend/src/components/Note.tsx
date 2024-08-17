@@ -19,6 +19,12 @@ export default function Note() {
 		}
 	}, [note_id]);
 
+	useEffect(() => {
+		if (noteData) {
+			document.title = noteData.note_title;
+		}
+	}, [noteData]);
+
 	tailspin.register();
 
 	const { theme } = useTheme()!;

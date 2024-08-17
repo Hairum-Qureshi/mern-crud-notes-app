@@ -36,6 +36,10 @@ export default function NotesViewer() {
 		updateButtons();
 	}, [numPages]);
 
+	useEffect(() => {
+		document.title = "All Posted Notes";
+	}, []);
+
 	tailspin.register();
 
 	function formatDate(utcDate: string): string {

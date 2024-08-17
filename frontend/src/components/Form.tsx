@@ -45,6 +45,7 @@ export default function Form() {
 			setNoteTitle(noteData.note_title);
 			setNoteBody(noteData.note_content);
 			setYourNoteFlair(noteData.curr_uid === currUID);
+			document.title = "Edit Note Form";
 		}
 	}, [noteData]);
 
@@ -53,6 +54,8 @@ export default function Form() {
 	useEffect(() => {
 		const wordCount = noteBody.trim().split(/\s+/).length; // Use \s+ to handle multiple spaces
 		setTypedWords(wordCount);
+
+		document.title = "Post Note Form";
 
 		if (wordCount === 5000) {
 			setMaxCharacters(noteBody.length);

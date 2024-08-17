@@ -8,7 +8,8 @@ import { tailspin } from "ldrs";
 import formatDate from "../utilities/time-formatter.util";
 
 // TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
-// TODO - make sure to add a guard to prevent users from adding profanity on the sticky notes!
+
+// TODO - display an error message to the user when they click the 'add sticky note' button when their current sticky note is empty (they can only add a new sticky note once the recent one isn't empty)
 
 interface Props {
 	stickyNote: StickyNoteInterface;

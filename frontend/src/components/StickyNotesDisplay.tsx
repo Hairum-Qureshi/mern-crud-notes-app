@@ -10,14 +10,20 @@ import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
 
 export default function StickyNotesDisplay() {
-	const { stickyNotes } = useStickyNotes();
 	const [openedStickyNote, setOpenedStickyNote] = useState(false);
 	const { theme } = useTheme()!;
 
-	const { deleteStickyNote, loading } = useStickyNotes();
+	const { deleteStickyNote, stickyNotes, errorMessage, loading } =
+		useStickyNotes();
 	const [postedStickyNotes, setPostedStickyNotes] = useState<
 		StickyNoteInterface[]
 	>([]);
+
+	useEffect(() => {
+		if (errorMessage) {
+			console.error("An error occurred:", errorMessage);
+		}
+	}, [errorMessage]);
 
 	const [noteExists, setNoteExists] = useState(false);
 
@@ -25,14 +31,19 @@ export default function StickyNotesDisplay() {
 		setOpenedStickyNote(false);
 	}
 
+	// TODO - need to make the error message disappear after a few seconds
+	// TODO - when you delete a newly created sticky note, the error message that appears is "sticky note not found"
+	// !BUG - 'errorMessage' in useStickyNotes is defined, but when trying to access it here, it's empty
+
 	useEffect(() => {
 		setPostedStickyNotes(stickyNotes);
 	}, [stickyNotes]);
 
-	function handleDelete(note_id: string | number) {
-		// TODO - resolve issue where if you delete a note and press the add note button, the previously delete notes re-appear
-		// TODO - saved notes don't appear to be deleted
+	useEffect(() => {
+		document.title = "All Sticky Notes";
+	}, []);
 
+	function handleDelete(note_id: string | number) {
 		const confirmation = confirm(
 			"Are you sure you would like to delete this sticky note? This cannot be undone!"
 		);
@@ -79,11 +90,10 @@ export default function StickyNotesDisplay() {
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
 			<div className="w-full p-3 dark:bg-slate-800 dark:text-slate-50 lg:min-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-2.5rem)] h-auto">
-				<div className="p-5 text-2xl">
+				<div className="p-5 text-2xl lg:flex lg:items-center">
 					<button
 						className="bg-slate-200 p-2 rounded-md border border-black w-12 h-12 flex items-center justify-center dark:bg-slate-500 dark:text-slate-50"
 						onClick={() => {
-							// createStickyNote();
 							alreadyExists();
 							setOpenedStickyNote(true);
 						}}
@@ -91,6 +101,14 @@ export default function StickyNotesDisplay() {
 					>
 						<FontAwesomeIcon icon={faPlus} />
 					</button>
+
+					{errorMessage && (
+						<div className="flex justify-center w-full">
+							<h1 className="lg:w-11/12 w-full lg:mt-0 mt-3 text-lg border border-red-600 rounded px-3 py-1 bg-red-800">
+								{errorMessage}
+							</h1>
+						</div>
+					)}
 				</div>
 				<div className="w-full p-5 h-auto flex flex-wrap items-center justify-center dark:text-black">
 					{loading ? (
@@ -103,7 +121,7 @@ export default function StickyNotesDisplay() {
 									color="white"
 								></l-tailspin>
 								<h1 className="text-2xl text-white font-semibold ml-3">
-									LOADING NOTES
+									LOADING STICKY NOTES
 								</h1>
 							</>
 						) : (
@@ -114,7 +132,9 @@ export default function StickyNotesDisplay() {
 									speed="0.9"
 									color="black"
 								></l-tailspin>
-								<h1 className="text-2xl font-semibold ml-3">LOADING NOTES</h1>
+								<h1 className="text-2xl font-semibold ml-3">
+									LOADING STICKY NOTES
+								</h1>
 							</>
 						)
 					) : (

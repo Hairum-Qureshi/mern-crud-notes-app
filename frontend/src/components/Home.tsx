@@ -2,10 +2,15 @@ import "../css/index.css";
 import laptopImag from "../assets/laptop-image.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/themeContext";
+import { useEffect } from "react";
 
 export default function Home() {
 	const { theme } = useTheme()!;
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		document.title = "Anonymous Notes - Speak Your Mind!";
+	}, []);
 
 	return (
 		<div className={theme === "dark" ? "dark" : ""}>
