@@ -65,7 +65,7 @@ export default function Form() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="w-full flex justify-center lg:h-[calc(100vh-3.5rem)] dark:bg-slate-900 flex-1">
+			<div className="w-full flex justify-center lg:h-[calc(100vh-3.5rem)] dark:bg-slate-800 flex-1">
 				<div className="flex flex-col lg:w-7/12 w-full p-3 space-y-4 dark:text-gray-300">
 					<h1 className="text-3xl font-semibold mt-5">
 						{noteData === undefined || !noteData || !yourNoteFlair
@@ -97,7 +97,7 @@ export default function Form() {
 											? noteTitle
 											: undefined
 									}
-									className="w-full p-2 my-1 text-base border border-gray-600 rounded dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300"
+									className="w-full p-2 my-1 text-base border border-gray-600 rounded dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
 									onChange={e => setNoteTitle(e.target.value)}
 								/>
 							</div>
@@ -113,7 +113,7 @@ export default function Form() {
 											? noteBody
 											: undefined
 									}
-									className="w-full p-3 my-1 text-base border border-gray-600 rounded h-96 resize-none dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300"
+									className="w-full p-3 my-1 text-base border border-gray-600 rounded h-96 resize-none dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
 									// maxLength={maxCharacters}
 									readOnly={readOnly}
 									onChange={e => setNoteBody(e.target.value)}
