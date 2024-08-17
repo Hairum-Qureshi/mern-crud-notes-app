@@ -89,7 +89,7 @@ export default function StickyNotesDisplay() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="w-full p-3 dark:bg-slate-800 dark:text-slate-50 lg:min-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-2.5rem)] h-auto">
+			<div className="w-full p-3 bg-[#f7f8fc] dark:bg-slate-800 dark:text-slate-50 lg:min-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-2.5rem)] h-auto">
 				<div className="p-5 text-2xl lg:flex lg:items-center">
 					<button
 						className="bg-slate-200 p-2 rounded-md border border-black w-12 h-12 flex items-center justify-center dark:bg-slate-500 dark:text-slate-50"

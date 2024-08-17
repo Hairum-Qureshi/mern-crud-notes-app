@@ -59,7 +59,7 @@ export default function NotesViewer() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="lg:p-10 p-3 lg:h-[calc(100vh-3.5rem)] h-[calc(100vh+3.5rem)] w-full dark:bg-slate-800 dark:text-slate-50">
+			<div className="lg:p-10 p-3 lg:h-[calc(100vh-3.5rem)] bg-[#f7f8fc] h-[calc(100vh+3.5rem)] w-full dark:bg-slate-800 dark:text-slate-50">
 				<div className="mb-3 relative">
 					<h1 className="text-3xl font-semibold mb-1 lg:-mt-4">
 						View All Posted Notes ({totalNotes})

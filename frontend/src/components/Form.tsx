@@ -65,8 +65,8 @@ export default function Form() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="w-full flex justify-center lg:h-[calc(100vh-3.5rem)] dark:bg-slate-800 flex-1">
-				<div className="flex flex-col lg:w-7/12 w-full p-3 space-y-4 dark:text-gray-300">
+			<div className="w-full flex justify-center lg:h-[calc(100vh-3.5rem)] dark:bg-slate-800 flex-1 bg-[#f7f8fc]">
+				<div className="flex flex-col w-full p-3 space-y-4 dark:text-gray-300">
 					<h1 className="text-3xl font-semibold mt-5">
 						{noteData === undefined || !noteData || !yourNoteFlair
 							? "Create a Note"
@@ -75,7 +75,7 @@ export default function Form() {
 					<div>
 						<form autoComplete="off">
 							{errorMessage && (
-								<div className="p-2 bg-red-600 dark:bg-red-700 text-sm text-white rounded my-2 flex items-center -mt-3">
+								<div className="p-2 bg-red-600 dark:bg-red-700 text-base text-white rounded my-2 flex items-center -mt-3">
 									<h1>{errorMessage}</h1>
 									<FontAwesomeIcon
 										icon={faX}
@@ -113,21 +113,21 @@ export default function Form() {
 											? noteBody
 											: undefined
 									}
-									className="w-full p-3 my-1 text-base border border-gray-600 rounded h-96 resize-none dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
+									className="w-full p-3 my-1 text-base border border-gray-600 rounded h-64 resize-none dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
 									// maxLength={maxCharacters}
 									readOnly={readOnly}
 									onChange={e => setNoteBody(e.target.value)}
 								/>
-								<div className="text-right">
-									<p>{typedWords}/5000</p>
-								</div>
+							</div>
+							<div className="text-right">
+								<p>{typedWords}/5000</p>
 							</div>
 						</form>
-						<div className="flex justify-center">
+						<div className="flex justify-center mt-10">
 							{noteData === undefined || !noteData || !yourNoteFlair ? (
 								<button
 									// disabled={typedWords < 1000}
-									className={`w-full lg:w-1/2 p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 ${
+									className={`w-full p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 ${
 										errorMessage && "lg:-mt-4 mt-4"
 									} ${errorMessage && "-mt-4"} ${
 										typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
@@ -155,7 +155,7 @@ export default function Form() {
 							) : (
 								<button
 									// disabled={typedWords < 1000}
-									className={`w-full lg:w-1/2 p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 ${
+									className={`w-full p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 ${
 										errorMessage && "lg:-mt-4 mt-4"
 									} ${errorMessage && "-mt-4"} ${
 										typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
