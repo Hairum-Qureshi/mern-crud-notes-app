@@ -11,7 +11,7 @@ export default function Disclaimer() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="flex justify-center dark:bg-slate-800 dark:text-slate-50">
+			<div className="flex justify-center bg-[#f7f8fc] dark:bg-slate-800 dark:text-slate-50">
 				<div className="w-full lg:w-1/2 mt-5 p-2 rounded text-lg">
 					<h1 className="text-2xl font-semibold bg-black dark:bg-slate-600 dark:text-slate-50 rounded text-white p-2">
 						Some Rules & Disclaimers - Please Read!
@@ -55,9 +55,9 @@ export default function Disclaimer() {
 							<br />
 							<br />
 							<strong>Respect:</strong> While I aim to provide a free space for
-							expression, please respect others and refrain from doxing, posting
-							content that could be deemed offensive, inappropriate, harmful, or
-							abusive.
+							expression, please respect others and refrain from (but not
+							limited to) doxing, posting content that could be deemed
+							offensive, trigging, inappropriate, harmful, or abusive.
 							<br />
 							<br />
 							<strong>Content Moderation:</strong> To ensure a pleasant
