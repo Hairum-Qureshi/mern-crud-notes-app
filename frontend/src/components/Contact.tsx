@@ -10,7 +10,7 @@ export default function Contact() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="bg-[#f7f8fc dark:bg-slate-800 w-full lg:h-[calc(100vh-3.5rem)] lg:inline-flex dark:text-white">
+			<div className="bg-[#f7f8fc dark:bg-slate-800 w-full lg:h-[calc(100vh-3.5rem)] lg:inline-flex dark:text-gray-100">
 				<div className="lg:w-1/2 w-full h-inherit p-3">
 					<form className="h-full p-10">
 						<h1 className="lg:text-3xl text-4xl font-semibold mb-5">
