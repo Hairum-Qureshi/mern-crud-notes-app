@@ -17,11 +17,13 @@ interface NoteHandlers {
 	clearErrorMessage: () => void;
 	numPages: number;
 	totalNotes: number;
+	formLoadingStatus: boolean;
 }
 
 export default function useNotes(): NoteHandlers {
 	const [noteData, setNoteData] = useState<Note | undefined>();
 	const [loadingStatus, setLoadingStatus] = useState(false);
+	const [formLoadingStatus, setFormLoadingStatus] = useState(false);
 	const [allNotesData, setAllNotesData] = useState<Note[]>([]);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [numPages, setNumPages] = useState(0);
@@ -32,7 +34,7 @@ export default function useNotes(): NoteHandlers {
 		if (!note_title || !note_content) {
 			setErrorMessage("Please make sure all fields are filled");
 		} else {
-			setLoadingStatus(true);
+			setFormLoadingStatus(true);
 			await axios
 				.post(
 					"http://localhost:4000/api/notes/create",
@@ -47,7 +49,7 @@ export default function useNotes(): NoteHandlers {
 				.then(response => {
 					if (response.status === 201) {
 						window.location.href = `http://localhost:5174/note/${response.data._id}`;
-						setLoadingStatus(false);
+						setFormLoadingStatus(false);
 					}
 				})
 				.catch(error => {
@@ -59,7 +61,7 @@ export default function useNotes(): NoteHandlers {
 						setErrorMessage(error.response.data.message);
 					}
 
-					setLoadingStatus(false);
+					setFormLoadingStatus(false);
 				});
 		}
 	}
@@ -166,6 +168,7 @@ export default function useNotes(): NoteHandlers {
 		errorMessage,
 		clearErrorMessage,
 		numPages,
-		totalNotes
+		totalNotes,
+		formLoadingStatus
 	};
 }

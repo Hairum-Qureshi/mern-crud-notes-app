@@ -11,7 +11,7 @@ import { useTheme } from "../contexts/themeContext";
 // TODO - add a character/word limit to the title
 //! BUG - if you press the button only entering the note title, it doesn't prompt you to fill in the textarea
 // ! BUG - if there are no notes, the error "no notes" is displayed to the user
-// ! MINOR BUG - When you click to the form, there's a loading animation for a brief second
+// ! MINOR BUG - fix issue where if you're on the edit form and click on "Create a Big Note", the form still says 'Edit Post'
 
 export default function Form() {
 	const [noteTitle, setNoteTitle] = useState("");
@@ -27,10 +27,10 @@ export default function Form() {
 		postNote,
 		getNoteData,
 		noteData,
-		loadingStatus,
 		editNote,
 		errorMessage,
-		clearErrorMessage
+		clearErrorMessage,
+		formLoadingStatus
 	} = useNotes();
 
 	const note_id = window.location.href.split("/")[4];
@@ -133,7 +133,7 @@ export default function Form() {
 										postNote(noteTitle, noteBody);
 									}}
 								>
-									{loadingStatus ? (
+									{formLoadingStatus ? (
 										<>
 											<l-ring-2
 												size="30"
@@ -161,7 +161,7 @@ export default function Form() {
 										editNote(note_id, noteTitle, noteBody);
 									}}
 								>
-									{loadingStatus ? (
+									{formLoadingStatus ? (
 										<>
 											<l-ring-2
 												size="30"
