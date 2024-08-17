@@ -10,6 +10,7 @@ import Contact from "./Contact";
 import Navbar from "./Navbar";
 import StickyNotesDisplay from "./StickyNotesDisplay";
 import { ThemeProvider } from "../contexts/themeContext";
+import SplitPanel from "./SplitPanel";
 
 // TODO - consider removing navbar on 404 page
 
@@ -23,10 +24,10 @@ export default function App() {
 					</div>
 					<Routes>
 						<Route path="/" element={<Home />} />
-						<Route path="/contact" element={<Contact />} />
+						<Route path="/contact" element={<SplitPanel />} />
 						<Route path="/important" element={<Disclaimer />} />
 						<Route path="/sticky-notes" element={<StickyNotesDisplay />} />
-						<Route path="/new-note" element={<Form />} />
+						<Route path="/new-note" element={<SplitPanel />} />
 						<Route path="/note/:note_id" element={<Note />} />
 						<Route path="/note/:note_id/edit" element={<Form />} />
 						<Route path="/notes/all" element={<NotesViewer />} />
