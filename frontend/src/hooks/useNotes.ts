@@ -18,6 +18,7 @@ interface NoteHandlers {
 	numPages: number;
 	totalNotes: number;
 	formLoadingStatus: boolean;
+	errorMessageNV: string;
 }
 
 export default function useNotes(): NoteHandlers {
@@ -26,6 +27,7 @@ export default function useNotes(): NoteHandlers {
 	const [formLoadingStatus, setFormLoadingStatus] = useState(false);
 	const [allNotesData, setAllNotesData] = useState<Note[]>([]);
 	const [errorMessage, setErrorMessage] = useState("");
+	const [errorMessageNV, setErrorMessageNV] = useState("");
 	const [numPages, setNumPages] = useState(0);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [totalNotes, setTotalNotes] = useState(0);
@@ -104,7 +106,6 @@ export default function useNotes(): NoteHandlers {
 
 	const pageNumber = searchParams.get("page");
 	useEffect(() => {
-		console.log(pageNumber);
 		function getAllNotes() {
 			setLoadingStatus(true);
 			axios
@@ -116,8 +117,7 @@ export default function useNotes(): NoteHandlers {
 					setLoadingStatus(false);
 				})
 				.catch(error => {
-					console.log(error);
-					setErrorMessage(error.response.data.message);
+					setErrorMessageNV(error.response.data.message);
 					setLoadingStatus(false);
 				});
 		}
@@ -169,6 +169,7 @@ export default function useNotes(): NoteHandlers {
 		clearErrorMessage,
 		numPages,
 		totalNotes,
-		formLoadingStatus
+		formLoadingStatus,
+		errorMessageNV
 	};
 }
