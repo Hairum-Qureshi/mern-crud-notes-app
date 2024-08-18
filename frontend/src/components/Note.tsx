@@ -3,10 +3,10 @@ import useNotes from "../hooks/useNotes";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { tailspin } from "ldrs";
 import useSessionContext from "../contexts/sessionContext";
 import { useTheme } from "../contexts/themeContext";
 import formatDate from "../utilities/time-formatter.util";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function Note() {
 	const { getNoteData, noteData, loadingStatus, deleteNote } = useNotes();
@@ -25,8 +25,6 @@ export default function Note() {
 		}
 	}, [noteData]);
 
-	tailspin.register();
-
 	const { theme } = useTheme()!;
 
 	return (
@@ -36,31 +34,7 @@ export default function Note() {
 					{loadingStatus ? (
 						<div className="flex flex-row mt-48 justify-center items-center">
 							<div className="flex items-center">
-								{theme === "dark" ? (
-									<>
-										<l-tailspin
-											size="40"
-											stroke="5"
-											speed="0.9"
-											color="white"
-										></l-tailspin>
-										<h1 className="text-2xl text-white font-semibold ml-3">
-											LOADING NOTE CONTENT
-										</h1>
-									</>
-								) : (
-									<>
-										<l-tailspin
-											size="40"
-											stroke="5"
-											speed="0.9"
-											color="black"
-										></l-tailspin>
-										<h1 className="text-2xl font-semibold ml-3">
-											LOADING NOTE CONTENT
-										</h1>
-									</>
-								)}
+								<LoadingSpinner>LOADING NOTE DATA...</LoadingSpinner>
 							</div>
 						</div>
 					) : (
