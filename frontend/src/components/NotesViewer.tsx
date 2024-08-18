@@ -14,7 +14,8 @@ import { useTheme } from "../contexts/themeContext";
 
 export default function NotesViewer() {
 	const [numButtons, setNumButtons] = useState<number[]>([]);
-	const { allNotesData, loadingStatus, numPages, totalNotes } = useNotes();
+	const { allNotesData, loadingStatus, numPages, totalNotes, errorMessageNV } =
+		useNotes();
 	const { currUID } = useSessionContext()!;
 	const [searchParams, setSearchParams] = useSearchParams();
 	const pageNumber = searchParams.get("page");
@@ -67,6 +68,14 @@ export default function NotesViewer() {
 					<p className="text-base">
 						Click on the blog title to go to that blog
 					</p>
+					{errorMessageNV &&
+						totalNotes > 0 &&
+						(errorMessageNV !== "No notes" ||
+							totalNotes !== Number(pageNumber)) && (
+							<div className="w-full bg-red-700 text-white p-2 rounded-md mt-2">
+								{errorMessageNV}
+							</div>
+						)}
 				</div>
 				{!loadingStatus ? (
 					<>
