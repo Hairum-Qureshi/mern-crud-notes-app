@@ -1,8 +1,4 @@
-import {
-	faArrowLeft,
-	faArrowRight,
-	faCrown
-} from "@fortawesome/free-solid-svg-icons";
+import { faCrown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useSearchParams } from "react-router-dom";
 import useNotes from "../hooks/useNotes";
