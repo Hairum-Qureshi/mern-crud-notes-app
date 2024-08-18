@@ -17,11 +17,11 @@
 	},
 	{
 		"question": "Can I use offensive language in my notes?",
-		"answer": "It's understandable that you may want to swear, especially when venting. While profanity will be automatically censored, it's still preferred to avoid swearing to maintain a respectful environment. But yes, you can."
+		"answer": "It's understandable that you may want to swear, especially when venting. While profanity will be automatically censored, it's still preferred to avoid swearing to maintain a respectful environment. Please avoid slurs at all costs! But yes, you can use profanity."
 	},
 	{
 		"question": "Are there any restrictions on the content of my notes?",
-		"answer": "Yes, while you can discuss various topics, your notes should not contain illegal content, personal threats, or any form of harassment. Please adhere to the site's guidelines to ensure a positive environment. Please check out the <Link to = '/important' style = {{ color: '#06b6d4' }}><u>rules & disclaimers</u></Link> page for more information."
+		"answer": "Yes, while you can discuss various topics, your notes should not contain illegal content, personal threats, or any form of harassment. Please adhere to the site's guidelines to ensure a positive environment. Please check out the <a href = '/important' style = {{ color: '#06b6d4' }}><u>rules & disclaimers</u></a> page for more information."
 	},
 	{
 		"question": "What should I do if I see a note that violates the site's guidelines?",
