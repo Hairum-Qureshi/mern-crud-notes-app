@@ -12,27 +12,19 @@
 		"answer": "Content that includes personal attacks, hate speech, illegal activities, or excessive vulgarity is considered inappropriate. Please use the platform responsibly and avoid posting content that could harm others."
 	},
 	{
-		"question": "What if I accidentally post something inappropriate?",
-		"answer": "If you notice that you've posted something inappropriate, you can edit or delete it. If you need further assistance, please contact the site administrators. We aim to keep the community safe and respectful."
-	},
-	{
 		"question": "Can I use offensive language in my notes?",
 		"answer": "It's understandable that you may want to swear, especially when venting. While profanity will be automatically censored, it's still preferred to avoid swearing to maintain a respectful environment. Please avoid slurs at all costs! But yes, you can use profanity."
 	},
 	{
 		"question": "Are there any restrictions on the content of my notes?",
-		"answer": "Yes, while you can discuss various topics, your notes should not contain illegal content, personal threats, or any form of harassment. Please adhere to the site's guidelines to ensure a positive environment. Please check out the <a href = '/important' style = {{ color: '#06b6d4' }}><u>rules & disclaimers</u></a> page for more information."
+		"answer": "Yes, while you can discuss various topics, your notes should not contain illegal content, personal threats, or any form of harassment. Please adhere to the site's guidelines to ensure a positive environment and check out the <a href='/important' style={{ color: '#06b6d4' }}><u>rules & disclaimers</u></a> page for more information."
 	},
 	{
-		"question": "What should I do if I see a note that violates the site's guidelines?",
-		"answer": "If you come across a note that you believe violates the site's guidelines, use the report feature to notify the administrators. We take all reports seriously and will review the content in accordance with our policies."
+		"question": "What should I do if I come across inappropriate content?",
+		"answer": "If you encounter content that seems to violate the site's guidelines, consider reaching out <a href = '/contact'>here</a> for further guidance. We strive to maintain a respectful and safe community."
 	},
 	{
 		"question": "Can I change or delete a note after posting it?",
 		"answer": "Yes, you can edit or delete your posts. If you need assistance with managing your notes, check the site's help section for more details."
-	},
-	{
-		"question": "How can I ensure my note is respectful to others?",
-		"answer": "Think about how your note might be received by others before posting. Aim to express your thoughts and feelings in a way that is thoughtful and avoids causing unnecessary offense."
 	}
 ]
