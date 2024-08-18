@@ -41,8 +41,8 @@ export default function SplitPanel() {
 						</div>
 					) : (
 						<>
-							<h1 className="text-3xl font-semibold mb-5">
-								Before posting, please check out...
+							<h1 className="text-3xl font-semibold mb-5 text-center">
+								Before posting, please check out the FAQ:
 							</h1>
 							<FAQ />
 						</>
