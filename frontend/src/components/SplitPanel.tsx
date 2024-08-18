@@ -16,7 +16,7 @@ export default function SplitPanel() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="bg-[#f7f8fc dark:bg-slate-800 w-full lg:flex lg:h-[calc(100vh-3.5rem)] dark:text-gray-100">
+			<div className="bg-[#f7f8fc dark:bg-slate-800 w-full lg:flex lg:min-h-[calc(100vh-3.5rem)] dark:text-gray-100">
 				<div className="lg:w-1/2 w-full h-inherit p-3">
 					{isContact ? <ContactForm /> : <Form />}
 				</div>
