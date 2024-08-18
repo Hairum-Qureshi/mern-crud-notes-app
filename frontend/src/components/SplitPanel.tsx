@@ -40,7 +40,12 @@ export default function SplitPanel() {
 							</h3>
 						</div>
 					) : (
-						<FAQ />
+						<>
+							<h1 className="text-3xl font-semibold mb-5">
+								Before posting, please check out...
+							</h1>
+							<FAQ />
+						</>
 					)}
 				</div>
 			</div>
