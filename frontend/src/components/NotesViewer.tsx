@@ -8,9 +8,9 @@ import { Link, useSearchParams } from "react-router-dom";
 import useNotes from "../hooks/useNotes";
 import { Note } from "../interfaces";
 import useSessionContext from "../contexts/sessionContext";
-import { tailspin } from "ldrs";
 import { useEffect, useState } from "react";
 import { useTheme } from "../contexts/themeContext";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function NotesViewer() {
 	const [numButtons, setNumButtons] = useState<number[]>([]);
@@ -40,8 +40,6 @@ export default function NotesViewer() {
 	useEffect(() => {
 		document.title = "All Posted Notes";
 	}, []);
-
-	tailspin.register();
 
 	function formatDate(utcDate: string): string {
 		const date = new Date(utcDate);
@@ -154,29 +152,7 @@ export default function NotesViewer() {
 					</>
 				) : (
 					<div className="flex items-center justify-center mt-20 dark:text-slate-50">
-						{theme === "dark" ? (
-							<>
-								<l-tailspin
-									size="40"
-									stroke="5"
-									speed="0.9"
-									color="white"
-								></l-tailspin>
-								<h1 className="text-2xl text-white font-semibold ml-3">
-									LOADING NOTES
-								</h1>
-							</>
-						) : (
-							<>
-								<l-tailspin
-									size="40"
-									stroke="5"
-									speed="0.9"
-									color="black"
-								></l-tailspin>
-								<h1 className="text-2xl font-semibold ml-3">LOADING NOTES</h1>
-							</>
-						)}
+						<LoadingSpinner>LOADING NOTES...</LoadingSpinner>
 					</div>
 				)}
 			</div>
