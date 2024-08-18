@@ -32,3 +32,8 @@ export interface ThemeContextData {
 	theme: string;
 	toggleTheme: () => void;
 }
+
+export interface FAQ_Interface {
+	question: string;
+	answer: string;
+}
