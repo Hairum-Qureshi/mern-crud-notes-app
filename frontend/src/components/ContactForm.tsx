@@ -25,7 +25,7 @@ export default function ContactForm() {
 					</label>
 					<br />
 					<textarea
-						placeholder="Enter your message"
+						placeholder="If you're reporting a bug, please be sure to list steps to reproduce it as well!"
 						className="w-full h-60 p-2 my-1 text-base border-2 border-gray-600 rounded dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2 resize-none"
 					></textarea>
 				</div>
