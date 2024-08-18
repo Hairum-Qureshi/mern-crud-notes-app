@@ -2,11 +2,7 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import faq_json from "../JSON/faq.json";
-
-interface FAQ_Interface {
-	question: string;
-	answer: string;
-}
+import { FAQ_Interface } from "../interfaces";
 
 export default function FAQ() {
 	const [faqIndex, setFAQIndex] = useState(-1);
@@ -14,10 +10,7 @@ export default function FAQ() {
 	// TODO - move interface to 'interfaces.ts' file
 	// TODO - consider modifying/removing the report FAQ
 	// TODO - figure out why the link color isn't being added for the rules & disclaimers link
-	// TODO - make it so that you're able to click the link instead of the FAQ div closing
-	// TODO - make it so that you're able to open a specific FAQ instead of them all
 	// TODO - make the background fill the entire screen even on mobile view
-	// TODO - consider adding an 'FAQ' title or a 'Before Posting...' title
 
 	return faq_json.map((faq: FAQ_Interface, index: number) => {
 		return (
