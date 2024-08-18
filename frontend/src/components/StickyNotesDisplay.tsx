@@ -7,7 +7,7 @@ import { useTheme } from "../contexts/themeContext";
 import { useEffect, useState } from "react";
 import { StickyNote as StickyNoteInterface } from "../interfaces";
 import useSessionContext from "../contexts/sessionContext";
-import { tailspin } from "ldrs";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function StickyNotesDisplay() {
 	const [openedStickyNote, setOpenedStickyNote] = useState(false);
@@ -85,8 +85,6 @@ export default function StickyNotesDisplay() {
 		}
 	}
 
-	tailspin.register();
-
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
 			<div className="w-full p-3 bg-[#f7f8fc] dark:bg-slate-800 dark:text-slate-50 lg:min-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-2.5rem)] h-auto">
@@ -113,31 +111,7 @@ export default function StickyNotesDisplay() {
 				</div>
 				<div className="w-full p-5 h-auto flex flex-wrap items-center justify-center dark:text-black">
 					{loading ? (
-						theme === "dark" ? (
-							<>
-								<l-tailspin
-									size="40"
-									stroke="5"
-									speed="0.9"
-									color="white"
-								></l-tailspin>
-								<h1 className="text-2xl text-white font-semibold ml-3">
-									LOADING STICKY NOTES
-								</h1>
-							</>
-						) : (
-							<>
-								<l-tailspin
-									size="40"
-									stroke="5"
-									speed="0.9"
-									color="black"
-								></l-tailspin>
-								<h1 className="text-2xl font-semibold ml-3">
-									LOADING STICKY NOTES
-								</h1>
-							</>
-						)
+						<LoadingSpinner>LOADING STICKY NOTES</LoadingSpinner>
 					) : (
 						postedStickyNotes.length > 0 &&
 						postedStickyNotes.map((stickyNote: StickyNote, index: number) => (
