@@ -65,9 +65,7 @@ export default function NotesViewer() {
 					<h1 className="text-3xl font-semibold mb-1 lg:-mt-4">
 						View All Posted Notes ({totalNotes})
 					</h1>
-					<p className="text-base">
-						Click on the blog title to go to that blog
-					</p>
+					<p className="text-base">Click on the blog title to view that blog</p>
 					{errorMessageNV &&
 						totalNotes > 0 &&
 						(errorMessageNV !== "No notes" ||
@@ -139,6 +137,19 @@ export default function NotesViewer() {
 									})}
 								</tbody>
 							</table>
+							{totalNotes === 0 && (
+								<div className="text-3xl font-semibold w-3/4 m-auto dark:text-white text-center mt-16">
+									There are currently no notes to check out. If you would like
+									to have your notes shown publicly, click&nbsp;
+									<Link
+										to="/new-note"
+										className="dark:text-sky-400 text-blue-500"
+									>
+										<u>here</u>
+									</Link>
+									&nbsp;to post your first note!
+								</div>
+							)}
 						</div>
 					</>
 				) : (
