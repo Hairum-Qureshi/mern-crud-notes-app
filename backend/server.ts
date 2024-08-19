@@ -11,6 +11,7 @@ import limit from "./config/rate-limiter";
 import { matcher } from "./config/profanity-checker";
 import { MatchPayload } from "obscenity";
 import sendEmail from "./nodemailer";
+import rateLimiter from "./config/rate-limiter";
 colors.enable();
 dotenv.config();
 
@@ -49,7 +50,7 @@ app.get(
 	}
 );
 
-app.post("/send-email", limit, (req: Request, res: Response) => {
+app.post("/send-email", rateLimiter(3), (req: Request, res: Response) => {
 	try {
 		const { subject, sender_email, message } = req.body;
 
@@ -62,7 +63,7 @@ app.post("/send-email", limit, (req: Request, res: Response) => {
 		if (checkSubjectMatches || messageSubjectMessages || emailSubjectMessages) {
 			// Email contains profanity
 			res.status(400).send({
-				message: "Please refrain from including profanity in your email "
+				message: "Please refrain from including profanity in your email"
 			});
 		} else {
 			sendEmail(subject, message, sender_email);
