@@ -1,45 +1,63 @@
 import { FormEvent, useState } from "react";
-import Modal from "./Modal";
+import axios from "axios";
 
 export default function ContactForm() {
 	const [subject, setSubject] = useState("");
 	const [email, setEmail] = useState("");
 	const [message, setMessage] = useState("");
-	const [showModal, setShowModal] = useState(false);
-	const [isError, setIsError] = useState(false);
+	const [displayMessage, setDisplayMessage] = useState({
+		messageType: "",
+		message: ""
+	});
+
+	// TODO - figure out how to clear input after submitting
+	// TODO - make the alerts go away after a few seconds
 
 	async function sendEmail(e: FormEvent) {
 		e.preventDefault();
 		if (subject && message) {
-			setShowModal(true);
-			setIsError(false);
+			await axios
+				.post("http://localhost:4000/send-email", {
+					subject,
+					message,
+					sender_email: email
+				})
+				.then(response => {
+					setDisplayMessage({
+						messageType: "success",
+						message: response.data.message
+					});
+				})
+				.catch(error => {
+					console.log(error);
+					setDisplayMessage({
+						messageType: "error",
+						message: error.response.data.message || error.response.data
+					});
+				});
 		} else {
-			setShowModal(true);
-			setIsError(true);
+			setDisplayMessage({
+				messageType: "error",
+				message: "Please be sure to provide a subject and message"
+			});
 		}
-	}
-
-	function toggleModal() {
-		setShowModal(false);
 	}
 
 	return (
 		<div>
-			{showModal && (
-				<Modal
-					modalType="confirmation"
-					heading={isError ? "There was a problem" : "Success!"}
-					toggleModal={toggleModal}
-					modalFor="note"
-				>
-					{isError
-						? "Please be sure you've provided a subject and a message body"
-						: "Your email has been sent! Please keep an eye on your inbox for a reply within the next few days."}
-				</Modal>
-			)}
-
 			<form className="h-full p-10">
-				<h1 className="lg:text-3xl text-4xl font-semibold mb-5">Contact Me!</h1>
+				<h1 className="lg:text-3xl text-4xl font-semibold">Contact Me!</h1>
+				{displayMessage.message && (
+					<div
+						className={`w-full p-2 my-2 rounded-md ${
+							displayMessage.messageType === "error"
+								? "bg-red-700"
+								: "bg-green-700"
+						} text-white`}
+					>
+						{displayMessage.message}
+					</div>
+				)}
 				<div>
 					<label htmlFor="">
 						Enter subject <span className="text-red-500">*</span>
@@ -76,7 +94,9 @@ export default function ContactForm() {
 
 				<button
 					className="w-full mt-8 p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500"
-					onClick={e => sendEmail(e)}
+					onClick={e => {
+						sendEmail(e);
+					}}
 				>
 					Send Email
 				</button>
