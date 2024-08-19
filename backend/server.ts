@@ -7,6 +7,8 @@ import notes_route from "./routes/notes_route";
 import cookieParser from "cookie-parser";
 import { authenticated } from "./middleware/session-auth";
 import stickynotes_route from "./routes/stickynotes_route";
+import limit from "./config/rate-limiter";
+import sendEmail from "./nodemailer";
 
 colors.enable();
 dotenv.config();
@@ -37,11 +39,29 @@ app.get(
 		try {
 			res.status(200).json(decoded_uid);
 		} catch (error) {
-			console.log("<server.ts>  error", (error as Error).toString().red.bold);
+			console.log(
+				"<server.ts> current-session GET request error",
+				(error as Error).toString().red.bold
+			);
 			res.status(500).send(error);
 		}
 	}
 );
+
+app.post("/send-email", limit, (req: Request, res: Response) => {
+	// TODO - add a check to make sure the user isn't passing in any profanity
+
+	try {
+		const { subject, sender_email, message } = req.body;
+		sendEmail(subject, message, sender_email);
+	} catch (error) {
+		console.log(
+			"<server.ts> send-email POST request error",
+			(error as Error).toString().red.bold
+		);
+		res.status(500).send(error);
+	}
+});
 
 mongoose
 	.connect(MONGO_URI)
