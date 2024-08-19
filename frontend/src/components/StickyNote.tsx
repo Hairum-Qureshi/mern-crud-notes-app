@@ -1,7 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StickyNote as StickyNoteInterface } from "../interfaces";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useStickyNotes from "../hooks/useStickyNotes";
 import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
@@ -113,7 +113,7 @@ export default function StickyNote({
 
 	return (
 		<div
-			className={`border border-black w-80 min-h-72 h-auto mx-3 my-5 rounded-md ${stickyNoteColor} relative ${stickyNote.rotation}`}
+			className={`border border-black w-80 min-h-72 max-h-96 h-auto mx-3 my-5 rounded-md ${stickyNoteColor} relative ${stickyNote.rotation}`}
 		>
 			<div className="min-h-10 w-full p-1 font-semibold text-lg h-auto">
 				{stickyNote.curr_uid === currUID && (
@@ -204,7 +204,7 @@ export default function StickyNote({
 						contentEditable={
 							stickyNote.curr_uid === currUID ? "plaintext-only" : false
 						}
-						className="w-full outline-none p-1 text-base flex-grow mb-8"
+						className="w-full outline-none p-1 text-base flex-grow mb-8 max-h-64 overflow-y-auto flex-shrink-0"
 						data-gramm="false"
 						data-gramm_editor="false"
 						data-enable-grammarly="false"
