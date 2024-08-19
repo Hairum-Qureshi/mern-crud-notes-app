@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 
 export default function ContactForm() {
@@ -11,7 +11,15 @@ export default function ContactForm() {
 	});
 
 	// TODO - figure out how to clear input after submitting
-	// TODO - make the alerts go away after a few seconds
+
+	useEffect(() => {
+		setTimeout(() => {
+			setDisplayMessage({
+				messageType: "",
+				message: ""
+			});
+		}, 3000);
+	}, [displayMessage]);
 
 	async function sendEmail(e: FormEvent) {
 		e.preventDefault();
@@ -49,7 +57,7 @@ export default function ContactForm() {
 				<h1 className="lg:text-3xl text-4xl font-semibold">Contact Me!</h1>
 				{displayMessage.message && (
 					<div
-						className={`w-full p-2 my-2 rounded-md ${
+						className={`w-full p-2 my-2 rounded-md transition-opacity ease-in duration-100 ${
 							displayMessage.messageType === "error"
 								? "bg-red-700"
 								: "bg-green-700"
