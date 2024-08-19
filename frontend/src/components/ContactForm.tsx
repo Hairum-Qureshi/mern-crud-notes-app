@@ -71,7 +71,7 @@ export default function ContactForm() {
 	return (
 		<div>
 			<form className="h-full p-10">
-				<h1 className="lg:text-3xl text-4xl font-semibold">Contact Me!</h1>
+				<h1 className="lg:text-3xl text-4xl font-semibold mb-3">Contact Me!</h1>
 				{showMessage && (
 					<div
 						className={`w-full p-2 my-2 rounded-md transition-opacity ease-in duration-100 ${
@@ -84,7 +84,7 @@ export default function ContactForm() {
 					</div>
 				)}
 				<div>
-					<label htmlFor="">
+					<label>
 						Enter subject <span className="text-red-500">*</span>
 					</label>
 					<br />
