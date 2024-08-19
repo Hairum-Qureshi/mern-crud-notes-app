@@ -8,7 +8,7 @@ interface Props {
 	children: React.ReactNode;
 	modalType: string;
 	toggleModal: () => void;
-	noteID: string | number;
+	noteID?: string | number;
 	modalFor: string;
 	handleStickyNoteDeletion?: (noteID: string | number) => void;
 }
