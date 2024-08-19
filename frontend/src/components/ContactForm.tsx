@@ -4,7 +4,10 @@ export default function ContactForm() {
 			<form className="h-full p-10">
 				<h1 className="lg:text-3xl text-4xl font-semibold mb-5">Contact Me!</h1>
 				<div>
-					<label htmlFor="">Enter subject</label> <br />
+					<label htmlFor="">
+						Enter subject <span className="text-red-500">*</span>
+					</label>{" "}
+					<br />
 					<input
 						type="text"
 						placeholder="Subject"
@@ -12,7 +15,7 @@ export default function ContactForm() {
 					/>
 				</div>
 				<div className="mt-3">
-					<label htmlFor="">Enter your email (optional)</label> <br />
+					<label htmlFor="">Enter your email</label> <br />
 					<input
 						type="email"
 						placeholder="Email"
@@ -22,6 +25,7 @@ export default function ContactForm() {
 				<div className="mt-3">
 					<label htmlFor="">
 						Enter your message/describe the bug or issue you've encountered
+						&nbsp;<span className="text-red-500">*</span>
 					</label>
 					<br />
 					<textarea
