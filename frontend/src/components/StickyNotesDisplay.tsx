@@ -8,13 +8,17 @@ import { useEffect, useState } from "react";
 import { StickyNote as StickyNoteInterface } from "../interfaces";
 import useSessionContext from "../contexts/sessionContext";
 import LoadingSpinner from "./LoadingSpinner";
+import Modal from "./Modal";
 
 export default function StickyNotesDisplay() {
 	const [openedStickyNote, setOpenedStickyNote] = useState(false);
+	const [modalVisibility, setModalVisibility] = useState(false);
+	const [selectedStickyNoteID, setSelectedStickyNoteID] = useState<
+		string | number
+	>(-1);
 	const { theme } = useTheme()!;
 
-	const { deleteStickyNote, stickyNotes, errorMessage, loading } =
-		useStickyNotes();
+	const { stickyNotes, errorMessage, loading } = useStickyNotes();
 	const [postedStickyNotes, setPostedStickyNotes] = useState<
 		StickyNoteInterface[]
 	>([]);
@@ -43,15 +47,13 @@ export default function StickyNotesDisplay() {
 		document.title = "All Sticky Notes";
 	}, []);
 
-	function handleDelete(note_id: string | number) {
-		const confirmation = confirm(
-			"Are you sure you would like to delete this sticky note? This cannot be undone!"
-		);
+	function toggleModal() {
+		setModalVisibility(!modalVisibility);
+	}
 
-		if (confirmation) {
-			setPostedStickyNotes(prev => prev.filter(note => note._id !== note_id));
-			deleteStickyNote(note_id);
-		}
+	function handleDelete(note_id: string | number) {
+		setModalVisibility(true);
+		setSelectedStickyNoteID(note_id);
 	}
 
 	const { currUID } = useSessionContext()!;
@@ -73,6 +75,10 @@ export default function StickyNotesDisplay() {
 		]);
 	}
 
+	function handleStickyNoteDeletion(note_id: string | number) {
+		setPostedStickyNotes(prev => prev.filter(note => note._id !== note_id));
+	}
+
 	function alreadyExists(note_id?: string | number) {
 		const found: StickyNote | undefined = postedStickyNotes.find(
 			(note: StickyNote) => note._id === note_id
@@ -87,6 +93,19 @@ export default function StickyNotesDisplay() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
+			{modalVisibility && (
+				<Modal
+					modalType="confirmation"
+					heading="Hang on!"
+					toggleModal={toggleModal}
+					noteID={selectedStickyNoteID}
+					modalFor="sticky note"
+					handleStickyNoteDeletion={handleStickyNoteDeletion}
+				>
+					Are you sure you would like to delete your sticky note? This action
+					cannot be undone!
+				</Modal>
+			)}
 			<div className="w-full p-3 bg-[#f7f8fc] dark:bg-slate-800 dark:text-slate-50 lg:min-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-2.5rem)] h-auto">
 				<div className="p-5 text-2xl lg:flex lg:items-center">
 					<button
@@ -122,6 +141,7 @@ export default function StickyNotesDisplay() {
 								handleDelete={handleDelete}
 								alreadyExists={alreadyExists}
 								noteExists={noteExists}
+								toggleModal={toggleModal}
 							/>
 						))
 					)}

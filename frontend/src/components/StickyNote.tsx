@@ -17,6 +17,7 @@ interface Props {
 	handleDelete: (note_id: string | number) => void;
 	alreadyExists: (note_id?: string | number) => void;
 	noteExists: boolean;
+	toggleModal: () => void;
 }
 
 export default function StickyNote({
@@ -24,7 +25,8 @@ export default function StickyNote({
 	allowNewNote,
 	handleDelete,
 	alreadyExists,
-	noteExists
+	noteExists,
+	toggleModal
 }: Props) {
 	const [stickyNoteTitle, setStickyNoteTitle] = useState("");
 	const [stickyNoteBody, setStickyNoteBody] = useState("");
@@ -162,9 +164,10 @@ export default function StickyNote({
 							<div
 								className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto hover:cursor-pointer"
 								onClick={() => {
-									handleDelete(stickyNote._id);
+									toggleModal();
 									setSaving(false);
 									allowNewNote();
+									handleDelete(stickyNote._id);
 								}}
 							>
 								<FontAwesomeIcon icon={faTrash} />
