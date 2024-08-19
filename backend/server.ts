@@ -8,8 +8,9 @@ import cookieParser from "cookie-parser";
 import { authenticated } from "./middleware/session-auth";
 import stickynotes_route from "./routes/stickynotes_route";
 import limit from "./config/rate-limiter";
+import { matcher } from "./config/profanity-checker";
+import { MatchPayload } from "obscenity";
 import sendEmail from "./nodemailer";
-
 colors.enable();
 dotenv.config();
 
@@ -49,11 +50,24 @@ app.get(
 );
 
 app.post("/send-email", limit, (req: Request, res: Response) => {
-	// TODO - add a check to make sure the user isn't passing in any profanity
-
 	try {
 		const { subject, sender_email, message } = req.body;
-		sendEmail(subject, message, sender_email);
+
+		const checkSubjectMatches: MatchPayload[] = matcher.getAllMatches(subject);
+		const messageSubjectMessages: MatchPayload[] =
+			matcher.getAllMatches(message);
+		const emailSubjectMessages: MatchPayload[] | undefined =
+			(sender_email && matcher.getAllMatches(sender_email)) || undefined;
+
+		if (checkSubjectMatches || messageSubjectMessages || emailSubjectMessages) {
+			// Email contains profanity
+			res.status(400).send({
+				message: "Please refrain from including profanity in your email "
+			});
+		} else {
+			sendEmail(subject, message, sender_email);
+			res.status(200).json({ message: "Successfully sent email!" });
+		}
 	} catch (error) {
 		console.log(
 			"<server.ts> send-email POST request error",
