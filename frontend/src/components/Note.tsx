@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useNotes from "../hooks/useNotes";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,10 +7,12 @@ import useSessionContext from "../contexts/sessionContext";
 import { useTheme } from "../contexts/themeContext";
 import formatDate from "../utilities/time-formatter.util";
 import LoadingSpinner from "./LoadingSpinner";
+import Modal from "./Modal";
 
 export default function Note() {
-	const { getNoteData, noteData, loadingStatus, deleteNote } = useNotes();
+	const { getNoteData, noteData, loadingStatus } = useNotes();
 	const { currUID } = useSessionContext()!;
+	const [showModal, setShowModal] = useState(false);
 
 	const note_id = window.location.href.split("/").pop();
 	useEffect(() => {
@@ -25,10 +27,25 @@ export default function Note() {
 		}
 	}, [noteData]);
 
+	function toggleModal() {
+		setShowModal(false);
+	}
+
 	const { theme } = useTheme()!;
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
+			{noteData && showModal && (
+				<Modal
+					modalType="confirmation"
+					heading="Hang on!"
+					toggleModal={toggleModal}
+					noteID={noteData?._id}
+				>
+					Are you sure you would like to delete your note titled "
+					{noteData?.note_title}"? This action cannot be undone!
+				</Modal>
+			)}
 			<div className="flex items-center flex-col w-full min-h-[calc(100vh-3.5rem)] bg-[#f7f8fc] pb-10 h-auto dark:bg-slate-800 dark:text-white">
 				<div className="w-full lg:w-7/12 mt-7">
 					{loadingStatus ? (
@@ -91,9 +108,7 @@ export default function Note() {
 												<FontAwesomeIcon
 													icon={faTrash}
 													className="ml-2 bg-red-500 p-1 text-lg text-slate-100 rounded hover:cursor-pointer"
-													onClick={() =>
-														deleteNote(noteData?._id, noteData?.note_title)
-													}
+													onClick={() => setShowModal(true)}
 												/>
 											</div>
 										)}
