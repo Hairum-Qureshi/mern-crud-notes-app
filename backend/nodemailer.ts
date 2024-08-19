@@ -18,6 +18,7 @@ function callEmailAuth(): nodemailer.Transporter {
 }
 
 async function sendEmail(
+	subject: string,
 	message: string,
 	senderEmail?: string
 ): Promise<number> {
@@ -26,7 +27,7 @@ async function sendEmail(
 		await transporter.sendMail({
 			from: process.env.EMAIL,
 			to: process.env.EMAIL,
-			subject: "Somebody sent you an email from your site, Anonymous Notes!",
+			subject: `[Anonymous Notes Inquiry] - ${subject}`,
 			text: `${message} ${
 				senderEmail && `\n \n \n You can reach me at: ${senderEmail}`
 			}`
