@@ -21,7 +21,7 @@
 	},
 	{
 		"question": "What should I do if I come across inappropriate content?",
-		"answer": "If you encounter content that seems to violate the site's guidelines, consider reaching out <a href = '/contact'>here</a> for further guidance. We strive to maintain a respectful and safe community."
+		"answer": "If you encounter content that seems to violate the site's guidelines, consider reaching out <a href = '/contact'><u>here</u></a> for further guidance. We strive to maintain a respectful and safe community."
 	},
 	{
 		"question": "Can I change or delete a note after posting it?",
