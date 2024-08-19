@@ -28,8 +28,8 @@ async function sendEmail(
 			from: process.env.EMAIL,
 			to: process.env.EMAIL,
 			subject: `[Anonymous Notes Inquiry] - ${subject}`,
-			text: `${message} ${
-				senderEmail && `\n \n \n You can reach me at: ${senderEmail}`
+			text: `Hi Hairum, somebody left you the following message from your website. Here's what they said: \n \n ${message} ${
+				senderEmail && `\n \n You can reach me at: ${senderEmail}`
 			}`
 		});
 	} catch (error) {
