@@ -50,7 +50,7 @@ export default function useNotes(): NoteHandlers {
 				)
 				.then(response => {
 					if (response.status === 201) {
-						window.location.href = `http://localhost:5174/note/${response.data._id}`;
+						window.location.href = `http://localhost:5173/note/${response.data._id}`;
 						setFormLoadingStatus(false);
 					}
 				})
@@ -138,7 +138,7 @@ export default function useNotes(): NoteHandlers {
 			)
 			.then(response => {
 				if (response.status === 200) {
-					window.location.href = `http://localhost:5174/note/${response.data._id}`;
+					window.location.href = `http://localhost:5173/note/${response.data._id}`;
 					setLoadingStatus(false);
 				}
 			})
