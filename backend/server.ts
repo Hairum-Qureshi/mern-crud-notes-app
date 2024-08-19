@@ -50,7 +50,7 @@ app.get(
 	}
 );
 
-app.post("/send-email", rateLimiter(3), (req: Request, res: Response) => {
+app.post("/send-email", rateLimiter(2), (req: Request, res: Response) => {
 	try {
 		const { subject, sender_email, message } = req.body;
 
