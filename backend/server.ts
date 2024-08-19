@@ -30,9 +30,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/notes", notes_route);
 app.use("/api/sticky-notes", stickynotes_route);
 
-const PORT: string | number = process.env.PORT || 4000;
-const MONGO_URI = process.env.MONGO_URI!;
-
 app.get(
 	"/api/user/current-session",
 	authenticated,
@@ -81,6 +78,9 @@ app.post("/send-email", rateLimiter(2), (req: Request, res: Response) => {
 		res.status(500).send(error);
 	}
 });
+
+const PORT: string | number = process.env.PORT || 4000;
+const MONGO_URI = process.env.MONGO_URI!;
 
 mongoose
 	.connect(MONGO_URI)
