@@ -4,6 +4,7 @@ import colors from "colors";
 import { createCookie } from "./notes_controller";
 import mongoose from "mongoose";
 import { matcher } from "../config/profanity-checker";
+import { MatchPayload } from "obscenity";
 
 colors.enable();
 
@@ -28,8 +29,10 @@ const createStickyNote = async (req: Request, res: Response) => {
 			? req.cookies.decoded_uid
 			: createCookie(res);
 
-		const checkTitleMatches = matcher.getAllMatches(stickyNoteTitle);
-		const checkContentMatches = matcher.getAllMatches(stickyNoteBody);
+		const checkTitleMatches: MatchPayload[] =
+			matcher.getAllMatches(stickyNoteTitle);
+		const checkContentMatches: MatchPayload[] =
+			matcher.getAllMatches(stickyNoteBody);
 
 		if (checkTitleMatches.length > 0 || checkContentMatches.length > 0) {
 			// the sticky note does contain profanity
