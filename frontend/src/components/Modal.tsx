@@ -7,11 +7,14 @@ interface Props {
 	modalType: string;
 }
 
+// TODO - make the buttons work
+// TODO - add hover effects on the buttons
+
 export default function Modal({ children, modalType, heading }: Props) {
 	const message = children as string;
 	return (
 		<div
-			className={`m-auto lg:w-1/2 w-11/12 border-box text-white bg-slate-800 p-2 absolute left-0 right-0 top-32 rounded-md z-10 dark:bg-sky-950 dark:border dark:border-sky-400 ${
+			className={`m-auto lg:w-1/2 w-11/12 border-box text-white bg-slate-800 p-2 absolute left-0 right-0 top-32 rounded-md dark:bg-sky-950 dark:border dark:border-sky-400 ${
 				modalType !== "confirmation" && "pb-5"
 			}`}
 		>
