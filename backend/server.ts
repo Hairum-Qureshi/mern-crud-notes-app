@@ -55,12 +55,16 @@ app.post("/send-email", rateLimiter(3), (req: Request, res: Response) => {
 		const { subject, sender_email, message } = req.body;
 
 		const checkSubjectMatches: MatchPayload[] = matcher.getAllMatches(subject);
-		const messageSubjectMessages: MatchPayload[] =
+		const messageSubjectMatches: MatchPayload[] =
 			matcher.getAllMatches(message);
 		const emailSubjectMessages: MatchPayload[] | undefined =
 			(sender_email && matcher.getAllMatches(sender_email)) || undefined;
 
-		if (checkSubjectMatches || messageSubjectMessages || emailSubjectMessages) {
+		if (
+			checkSubjectMatches.length > 0 ||
+			messageSubjectMatches.length > 0 ||
+			emailSubjectMessages
+		) {
 			// Email contains profanity
 			res.status(400).send({
 				message: "Please refrain from including profanity in your email"
