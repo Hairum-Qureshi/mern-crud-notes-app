@@ -63,6 +63,15 @@ To get started with the app, follow these steps:
   JWT_SECRET=your_jwt_secret
   ```
 
+  **This project also uses Nodemailer for the contact form functionality. In order to make that work, you will need the following variables:**
+  ```
+  EMAIL=your.email@gmail.com
+  ```
+  
+  ```
+  APP_PASS=your-google-app-password
+  ```
+  
 4. **Run the Application:**
 
 - Start the backend server:
