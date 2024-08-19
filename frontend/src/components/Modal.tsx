@@ -2,11 +2,12 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Props {
+	heading: string;
 	children: React.ReactNode;
 	modalType: string;
 }
 
-export default function Modal({ children, modalType }: Props) {
+export default function Modal({ children, modalType, heading }: Props) {
 	const message = children as string;
 	return (
 		<div
@@ -18,7 +19,7 @@ export default function Modal({ children, modalType }: Props) {
 				<FontAwesomeIcon icon={faX} className="mr-2" />
 			</div>
 			<div className="m-2">
-				<h1 className="text-2xl font-semibold mb-2">Hang On!</h1>
+				<h1 className="text-2xl font-semibold mb-2">{heading}</h1>
 				<p className="text-lg">{message}</p>
 			</div>
 			{modalType === "confirmation" && (
