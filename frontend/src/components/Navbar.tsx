@@ -81,7 +81,7 @@ export default function Navbar() {
 				</div>
 			</div>
 			{openNavbar && (
-				<div className="absolute lg:hidden left-0 z-10 bg-slate-900 w-full h-screen flex text-center items-center justify-center">
+				<div className="absolute lg:hidden left-0 bg-slate-900 w-full h-screen flex text-center items-center justify-center z-20">
 					<div className="text-3xl mt-5">
 						<Link to="/new-note" onClick={() => setOpenNavbar(false)}>
 							<button className="text-white p-2 text-center block w-full">
