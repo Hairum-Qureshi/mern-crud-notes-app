@@ -41,6 +41,7 @@ export default function Note() {
 					heading="Hang on!"
 					toggleModal={toggleModal}
 					noteID={noteData?._id}
+					modalFor="note"
 				>
 					Are you sure you would like to delete your note titled "
 					{noteData?.note_title}"? This action cannot be undone!
