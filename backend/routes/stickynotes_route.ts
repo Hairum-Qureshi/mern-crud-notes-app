@@ -6,11 +6,11 @@ import {
 	deleteStickyNote,
 	editStickyNote
 } from "../controllers/stickynotes_controller";
-import limit from "../config/rate-limiter";
+import rateLimiter from "../config/rate-limiter";
 
 const router = express.Router();
 
-router.post("/create", authenticated, limit, createStickyNote);
+router.post("/create", authenticated, rateLimiter(10), createStickyNote);
 router.get("/all", getAllStickyNotes);
 router.delete(
 	"/:sticky_note_id",
@@ -22,7 +22,7 @@ router.patch(
 	"/:sticky_note_id/edit",
 	authenticated,
 	verifyRequest,
-	limit,
+	rateLimiter(10),
 	editStickyNote
 );
 
