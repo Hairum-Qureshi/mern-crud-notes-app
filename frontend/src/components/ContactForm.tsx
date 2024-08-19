@@ -8,7 +8,7 @@ export default function ContactForm() {
 	const [showModal, setShowModal] = useState(false);
 	const [isError, setIsError] = useState(false);
 
-	function sendEmail(e: FormEvent) {
+	async function sendEmail(e: FormEvent) {
 		e.preventDefault();
 		if (subject && message) {
 			setShowModal(true);
