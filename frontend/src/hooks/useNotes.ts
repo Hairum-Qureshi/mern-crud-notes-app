@@ -11,7 +11,7 @@ interface NoteHandlers {
 	noteData: Note | undefined;
 	loadingStatus: boolean;
 	allNotesData: Note[];
-	deleteNote: (note_id: string, note_title: string) => void;
+	deleteNote: (note_id: string) => void;
 	editNote: (note_id: string, noteTitle: string, noteBody: string) => void;
 	errorMessage: string;
 	clearErrorMessage: () => void;
@@ -83,25 +83,20 @@ export default function useNotes(): NoteHandlers {
 			});
 	}
 
-	async function deleteNote(note_id: string, note_title: string) {
-		const confirmation = confirm(
-			`Are you sure you would like to delete "${note_title}"? This cannot be undone!`
-		);
-		if (confirmation) {
-			await axios
-				.delete(`http://localhost:4000/api/notes/${note_id}`, {
-					withCredentials: true
-				})
-				.then(response => {
-					if (response.status === 200) {
-						window.location.href = "/";
-					}
-				})
-				.catch(error => {
-					console.log(error);
-					setErrorMessage(error.response.data.message);
-				});
-		}
+	async function deleteNote(note_id: string) {
+		await axios
+			.delete(`http://localhost:4000/api/notes/${note_id}`, {
+				withCredentials: true
+			})
+			.then(response => {
+				if (response.status === 200) {
+					window.location.href = "/";
+				}
+			})
+			.catch(error => {
+				console.log(error);
+				setErrorMessage(error.response.data.message);
+			});
 	}
 
 	const pageNumber = searchParams.get("page");
