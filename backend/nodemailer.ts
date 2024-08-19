@@ -21,7 +21,7 @@ async function sendEmail(
 	subject: string,
 	message: string,
 	senderEmail?: string
-): Promise<number> {
+) {
 	try {
 		const transporter = callEmailAuth();
 		await transporter.sendMail({
@@ -32,12 +32,9 @@ async function sendEmail(
 				senderEmail && `\n \n \n You can reach me at: ${senderEmail}`
 			}`
 		});
-
-		return 200;
 	} catch (error) {
 		"<nodemailer.ts> sendEmail function error".yellow,
 			(error as Error).toString().red.bold;
-		return 500;
 	}
 }
 
