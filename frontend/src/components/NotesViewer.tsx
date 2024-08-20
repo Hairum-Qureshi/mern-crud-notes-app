@@ -55,7 +55,7 @@ export default function NotesViewer() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="lg:p-10 p-3 lg:h-[calc(100vh-3.5rem)] bg-[#f7f8fc] h-[calc(100vh+3.5rem)] w-full dark:bg-slate-800 dark:text-slate-50">
+			<div className="lg:p-10 p-3 bg-[#f7f8fc] min-h-[calc(100vh+3.5rem)] max-h-auto w-full dark:bg-slate-800 dark:text-slate-50">
 				<div className="mb-3 relative">
 					<h1 className="text-3xl font-semibold mb-1 lg:-mt-4">
 						View All Posted Notes ({totalNotes})
@@ -63,8 +63,8 @@ export default function NotesViewer() {
 					<p className="text-base">Click on the blog title to view that blog</p>
 					{errorMessageNV &&
 						totalNotes > 0 &&
-						(errorMessageNV !== "No notes" ||
-							totalNotes !== Number(pageNumber)) && (
+						errorMessageNV !== "No notes" &&
+						totalNotes !== Number(pageNumber) && (
 							<div className="w-full bg-red-700 text-white p-2 rounded-md mt-2">
 								{errorMessageNV}
 							</div>
@@ -132,7 +132,7 @@ export default function NotesViewer() {
 									})}
 								</tbody>
 							</table>
-							{totalNotes === 0 && (
+							{totalNotes === 0 && Number(pageNumber) <= numPages && (
 								<div className="text-3xl font-semibold w-3/4 m-auto dark:text-white text-center mt-16">
 									There are currently no notes to check out. If you would like
 									to have your notes shown publicly, click&nbsp;
@@ -143,6 +143,19 @@ export default function NotesViewer() {
 										<u>here</u>
 									</Link>
 									&nbsp;to post your first note!
+								</div>
+							)}
+							{Number(pageNumber) > numPages && (
+								<div className="text-3xl font-semibold w-3/4 m-auto dark:text-white text-center mt-16">
+									There are currently no notes on this page. <br />
+									Click&nbsp;
+									<Link
+										to="/notes/all"
+										className="dark:text-sky-400 text-blue-500"
+									>
+										<u>here</u>
+									</Link>
+									&nbsp;to view all posted notes!
 								</div>
 							)}
 						</div>
