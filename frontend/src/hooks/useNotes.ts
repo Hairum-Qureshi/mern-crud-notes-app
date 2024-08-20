@@ -39,7 +39,7 @@ export default function useNotes(): NoteHandlers {
 			setFormLoadingStatus(true);
 			await axios
 				.post(
-					"http://localhost:4000/api/notes/create",
+					`${import.meta.env.VITE_BACKEND_BASE_URL}/api/notes/create`,
 					{
 						note_title,
 						note_content
@@ -50,7 +50,9 @@ export default function useNotes(): NoteHandlers {
 				)
 				.then(response => {
 					if (response.status === 201) {
-						window.location.href = `http://localhost:5173/note/${response.data._id}`;
+						window.location.href = `${
+							import.meta.env.VITE_FRONTEND_BASE_URL
+						}/note/${response.data._id}`;
 						setFormLoadingStatus(false);
 					}
 				})
@@ -71,7 +73,7 @@ export default function useNotes(): NoteHandlers {
 	async function getNoteData(note_id: string) {
 		setLoadingStatus(true);
 		await axios
-			.get(`http://localhost:4000/api/notes/${note_id}`)
+			.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/notes/${note_id}`)
 			.then(response => {
 				setNoteData(response.data);
 				setLoadingStatus(false);
@@ -85,7 +87,7 @@ export default function useNotes(): NoteHandlers {
 
 	async function deleteNote(note_id: string) {
 		await axios
-			.delete(`http://localhost:4000/api/notes/${note_id}`, {
+			.delete(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/notes/${note_id}`, {
 				withCredentials: true
 			})
 			.then(response => {
@@ -104,7 +106,11 @@ export default function useNotes(): NoteHandlers {
 		function getAllNotes() {
 			setLoadingStatus(true);
 			axios
-				.get(`http://localhost:4000/api/notes/all?page=${pageNumber}`)
+				.get(
+					`${
+						import.meta.env.VITE_BACKEND_BASE_URL
+					}/api/notes/all?page=${pageNumber}`
+				)
 				.then(response => {
 					setAllNotesData(response.data.all_notes);
 					setNumPages(response.data.totalPages);
@@ -127,7 +133,7 @@ export default function useNotes(): NoteHandlers {
 		setLoadingStatus(true);
 		await axios
 			.patch(
-				`http://localhost:4000/api/notes/${note_id}/edit`,
+				`${import.meta.env.VITE_BACKEND_BASE_URL}/api/notes/${note_id}/edit`,
 				{
 					note_title: noteTitle,
 					note_content: noteBody
@@ -138,7 +144,9 @@ export default function useNotes(): NoteHandlers {
 			)
 			.then(response => {
 				if (response.status === 200) {
-					window.location.href = `http://localhost:5173/note/${response.data._id}`;
+					window.location.href = `${
+						import.meta.env.VITE_FRONTEND_BASE_URL
+					}/note/${response.data._id}`;
 					setLoadingStatus(false);
 				}
 			})
