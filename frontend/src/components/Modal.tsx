@@ -60,8 +60,10 @@ export default function Modal({
 								if (modalFor == "note") {
 									deleteNote(noteID as string);
 								} else {
-									deleteStickyNote(noteID);
-									handleStickyNoteDeletion!(noteID);
+									deleteStickyNote((noteID as string) || (noteID as number));
+									handleStickyNoteDeletion!(
+										(noteID as string) || (noteID as number)
+									);
 								}
 
 								toggleModal();
