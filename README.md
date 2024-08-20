@@ -94,7 +94,7 @@ For me, React's PORT started at 5174. If that's not the case for you and it's 51
 
 ```
 const corsOptions = {
-	origin: "http://localhost:5173", // <-- or whatever your frontend PORT # is
+	origin: ["http://localhost:5173", "http://localhost:5174"], 
 	credentials: true,
 	optionSuccessStatus: 200
 };
