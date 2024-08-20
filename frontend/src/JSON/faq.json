@@ -1,23 +1,19 @@
 [
 	{
 		"question": "What should I keep in mind when posting an anonymous note?",
-		"answer": "Even though you're posting anonymously, it's important to be respectful and considerate. Avoid sharing sensitive personal information, targeting individuals, or engaging in harmful behavior."
+		"answer": "Even though you're posting anonymously, it's important to be respectful and considerate. Avoid sharing sensitive personal information, targeting individuals, or engaging in harmful behavior. While you can discuss various topics, your notes should not contain illegal content, personal threats, or any form of harassment. Please adhere to the site's guidelines to ensure a positive environment and check out the <a href='/important'><u>rules & disclaimers</u></a> page for more information."
 	},
 	{
 		"question": "Why are titles not allowed to contain profanity?",
 		"answer": "Titles are moderated to ensure they remain appropriate and respectful. This helps maintain a positive environment on the site and ensures that the content is accessible to all users."
 	},
 	{
-		"question": "What types of content are considered inappropriate for posting?",
-		"answer": "Content that includes personal attacks, hate speech, illegal activities, or excessive vulgarity is considered inappropriate. Please use the platform responsibly and avoid posting content that could harm others."
-	},
-	{
 		"question": "Can I use offensive language in my notes?",
 		"answer": "It's understandable that you may want to swear, especially when venting. While profanity will be automatically censored, it's still preferred to avoid swearing to maintain a respectful environment. Please avoid slurs at all costs! But yes, you can use profanity."
 	},
 	{
-		"question": "Are there any restrictions on the content of my notes?",
-		"answer": "Yes, while you can discuss various topics, your notes should not contain illegal content, personal threats, or any form of harassment. Please adhere to the site's guidelines to ensure a positive environment and check out the <a href='/important' style={{ color: '#06b6d4' }}><u>rules & disclaimers</u></a> page for more information."
+		"question": "What types of content are considered inappropriate for posting?",
+		"answer": "Content that includes personal attacks, hate speech, illegal activities, or excessive vulgarity is considered inappropriate. Please use the platform responsibly and avoid posting content that could harm others."
 	},
 	{
 		"question": "What should I do if I come across inappropriate content?",
@@ -26,5 +22,9 @@
 	{
 		"question": "Can I change or delete a note after posting it?",
 		"answer": "Yes, you can edit or delete your posts. If you need assistance with managing your notes, check the site's help section for more details."
+	},
+	{
+		"question": "Where can I look for more information?",
+		"answer": "You can find more information on the site's <a href='/important'><u>rules & disclaimer's page</u></a>. This page has more in-depth detail on the entire site system."
 	}
 ]
