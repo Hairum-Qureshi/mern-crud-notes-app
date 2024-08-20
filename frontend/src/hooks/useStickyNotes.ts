@@ -30,7 +30,7 @@ export default function useStickyNotes(): StickyNoteHandlers {
 	async function getAllStickyNotes() {
 		setLoading(true);
 		axios
-			.get("http://localhost:4000/api/sticky-notes/all")
+			.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/sticky-notes/all`)
 			.then(response => {
 				setLoading(false);
 				setStickyNotes(response.data);
@@ -55,7 +55,7 @@ export default function useStickyNotes(): StickyNoteHandlers {
 	) {
 		axios
 			.post(
-				"http://localhost:4000/api/sticky-notes/create",
+				`${import.meta.env.VITE_BACKEND_BASE_URL}/api/sticky-notes/create`,
 				{
 					stickyNoteTempID,
 					stickyNoteTitle,
@@ -85,7 +85,9 @@ export default function useStickyNotes(): StickyNoteHandlers {
 	) {
 		await axios
 			.patch(
-				`http://localhost:4000/api/sticky-notes/${stickyNoteID}/edit`,
+				`${
+					import.meta.env.VITE_BACKEND_BASE_URL
+				}/api/sticky-notes/${stickyNoteID}/edit`,
 				{
 					stickyNoteTitle,
 					stickyNoteBody,
@@ -117,9 +119,12 @@ export default function useStickyNotes(): StickyNoteHandlers {
 
 	async function deleteStickyNote(note_id: string | number) {
 		await axios
-			.delete(`http://localhost:4000/api/sticky-notes/${note_id}`, {
-				withCredentials: true
-			})
+			.delete(
+				`${import.meta.env.VITE_BACKEND_BASE_URL}/api/sticky-notes/${note_id}`,
+				{
+					withCredentials: true
+				}
+			)
 			.then(() => {
 				setStickyNotes(prev => prev.filter(note => note._id !== note_id));
 			})
