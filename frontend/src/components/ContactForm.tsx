@@ -34,7 +34,7 @@ export default function ContactForm() {
 		e.preventDefault();
 		if (subject && message) {
 			await axios
-				.post("http://localhost:4000/send-email", {
+				.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/send-email`, {
 					subject,
 					message,
 					sender_email: email
