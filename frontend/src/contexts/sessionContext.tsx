@@ -11,9 +11,12 @@ export const SessionProvider = ({ children }: ContextProps) => {
 	useEffect(() => {
 		async function getUser() {
 			await axios
-				.get("http://localhost:4000/api/user/current-session", {
-					withCredentials: true
-				})
+				.get(
+					`${import.meta.env.VITE_BACKEND_BASE_URL}/api/user/current-session`,
+					{
+						withCredentials: true
+					}
+				)
 				.then(response => {
 					setCurrUID(response.data);
 				})
