@@ -1,7 +1,6 @@
 import { faBars, faMoon, faSun, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import useStickyNotes from "../hooks/useStickyNotes";
 import { useState } from "react";
 import { useTheme } from "../contexts/themeContext";
 
@@ -23,7 +22,7 @@ export default function Navbar() {
 				<div className="lg:flex items-center ml-auto hidden">
 					<Link to="/new-note" onClick={() => setOpenNavbar(false)}>
 						<button className="text-white p-2 text-center block w-full">
-							Create a Big Note
+							Create a Note
 						</button>
 					</Link>
 					<Link to="/notes/all" onClick={() => setOpenNavbar(false)}>
@@ -78,7 +77,7 @@ export default function Navbar() {
 					<div className="text-3xl mt-5">
 						<Link to="/new-note" onClick={() => setOpenNavbar(false)}>
 							<button className="text-white p-2 text-center block w-full">
-								Create a Big Note
+								Create a Note
 							</button>
 						</Link>
 						<Link to="/notes/all" onClick={() => setOpenNavbar(false)}>
