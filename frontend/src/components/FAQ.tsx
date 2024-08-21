@@ -15,7 +15,7 @@ export default function FAQ() {
 	return faq_json.map((faq: FAQ_Interface, index: number) => {
 		return (
 			<div
-				className={`border-2 text-base bg-black text-white border-black dark:border-gray-500 rounded-md px-2 py-3 dark:bg-slate-800 hover:cursor-pointer ${
+				className={`border-2 text-base bg-gray-800 text-white border-blue-700 dark:border-gray-500 rounded-md px-2 py-3 dark:bg-slate-800 hover:cursor-pointer ${
 					index !== 0 && "mt-4"
 				}`}
 				key={index}
