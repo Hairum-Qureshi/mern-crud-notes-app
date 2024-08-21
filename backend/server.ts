@@ -62,7 +62,6 @@ app.post("/send-email", rateLimiter(2), (req: Request, res: Response) => {
 			messageSubjectMatches.length > 0 ||
 			emailSubjectMessages
 		) {
-			// Email contains profanity
 			res.status(400).send({
 				message: "Please refrain from including profanity"
 			});
