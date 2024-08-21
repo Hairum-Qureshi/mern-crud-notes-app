@@ -1,26 +1,6 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { StickyNote } from "../interfaces";
-
-interface StickyNoteHandlers {
-	stickyNotes: StickyNote[];
-	saveStickyNoteData: (
-		stickyNoteTempID: string | number,
-		stickyNoteTitle: string,
-		stickyNoteBody: string,
-		stickyNoteColor: string,
-		stickyNoteRotation: string
-	) => void;
-	editStickyNote: (
-		stickyNoteID: string | number,
-		stickyNoteTitle: string,
-		stickyNoteBody: string,
-		stickyNoteColor: string
-	) => void;
-	deleteStickyNote: (note_id: string | number) => void;
-	errorMessage: string;
-	loading: boolean;
-}
+import { StickyNote, StickyNoteHandlers } from "../interfaces";
 
 export default function useStickyNotes(): StickyNoteHandlers {
 	const [stickyNotes, setStickyNotes] = useState<StickyNote[]>([]);
