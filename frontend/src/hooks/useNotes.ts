@@ -1,25 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Note } from "../interfaces";
+import { Note, NoteHandlers } from "../interfaces";
 import { useSearchParams } from "react-router-dom";
-
-// TODO - need to make middleware to make sure only users with a cookie can make posts!
-
-interface NoteHandlers {
-	postNote: (note_title: string, note_content: string) => void;
-	getNoteData: (note_id: string) => void;
-	noteData: Note | undefined;
-	loadingStatus: boolean;
-	allNotesData: Note[];
-	deleteNote: (note_id: string) => void;
-	editNote: (note_id: string, noteTitle: string, noteBody: string) => void;
-	errorMessage: string;
-	clearErrorMessage: () => void;
-	numPages: number;
-	totalNotes: number;
-	formLoadingStatus: boolean;
-	errorMessageNV: string;
-}
 
 export default function useNotes(): NoteHandlers {
 	const [noteData, setNoteData] = useState<Note | undefined>();
