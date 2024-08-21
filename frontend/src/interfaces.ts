@@ -89,3 +89,13 @@ export interface PaginationProps {
 	numPages: number;
 	numButtons: number[];
 }
+
+export interface ModalProps {
+	heading: string;
+	children: React.ReactNode;
+	modalType: string;
+	toggleModal: () => void;
+	noteID?: string | number;
+	modalFor: string;
+	handleStickyNoteDeletion?: (noteID: string | number) => void;
+}
