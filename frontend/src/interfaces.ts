@@ -82,3 +82,10 @@ export interface StickyNoteProps {
 	noteExists: boolean;
 	toggleModal: () => void;
 }
+
+export interface PaginationProps {
+	totalNotes: number;
+	pageNumber: string | null;
+	numPages: number;
+	numButtons: number[];
+}
