@@ -24,10 +24,11 @@ export default function Home() {
 						</h1>
 						<p className="text-xl mx-10">
 							Please check out&nbsp;
-							<Link to="/important">
-								<u className="text-blue-600 dark:text-sky-400">
-									the disclaimers/rules
-								</u>
+							<Link
+								to="/important"
+								className="text-blue-600 dark:text-sky-400 hover:text-sky-600 dark:hover:text-sky-500"
+							>
+								<u className="">the disclaimers/rules</u>
 							</Link>
 							&nbsp;page for some important information you should know before
 							making any posts.
