@@ -49,10 +49,10 @@ To get started with the app, follow these steps:
 
 3. **Configure Environment Variables:**
 
-- Create a `.env` file in the `server` directory and add your MongoDB connection string:
+- Create a `.env` file in the `server` directory and add the following:
 
   ```
-  MONGO_URI=your_mongodb_connection_string
+  MONGO_URI=your_mongodb_connection_string 
   ```
 
   ```
@@ -70,6 +70,17 @@ To get started with the app, follow these steps:
   
   ```
   APP_PASS=your-google-app-password
+  ```
+
+  - Create a `.env` file in the `frontend` directory (make sure it's **not** created inside of the `src` folder) and add the following:
+ 
+  ```
+  VITE_BACKEND_BASE_URL = "http://localhost:4000" 
+
+  ```
+
+  ```
+  VITE_FRONTEND_BASE_URL = "http://localhost:5173"
   ```
   
 4. **Run the Application:**
@@ -105,6 +116,16 @@ const corsOptions = {
 - **Create a Note:** Click on the "Add Note" button, enter your content, and save.
 - **Edit a Note:** Click on the "Edit" button next to a note, update the content, and save changes.
 - **Delete a Note:** Click on the "Delete" button next to a note to remove it.
+
+## Node.js Version
+
+This project uses Node.js version 20.11.1. To ensure compatibility and avoid potential issues, please use the same version. The required version is specified in the .nvmrc file located at the root of the repository.
+If you are using Node Version Manager (NVM), you can easily switch to the correct version by running:
+
+```
+nvm install
+nvm use
+```
 
 ### Configuration for Deployment
 
