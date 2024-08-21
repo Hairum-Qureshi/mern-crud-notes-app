@@ -6,14 +6,6 @@ import { ring2 } from "ldrs";
 import useSessionContext from "../contexts/sessionContext";
 import { useTheme } from "../contexts/themeContext";
 
-// TODO - figure out how to add a max word limit to the textarea
-// TODO - uncomment the disabled logic for the button
-// TODO - add a character/word limit to the title
-// TODO - there doesn't seem to be a loading animation for the edit form
-// ! BUG - if you press the button only entering the note title, it doesn't prompt you to fill in the textarea
-// ! BUG - if there are no notes, the error "no notes" is displayed to the user
-// ! MINOR BUG - fix issue where if you're on the edit form and click on "Create a Big Note", the form still says 'Edit Post'
-
 export default function Form() {
 	const [noteTitle, setNoteTitle] = useState("");
 	const [noteBody, setNoteBody] = useState("");
