@@ -7,7 +7,6 @@ import notes_route from "./routes/notes_route";
 import cookieParser from "cookie-parser";
 import { authenticated } from "./middleware/session-auth";
 import stickynotes_route from "./routes/stickynotes_route";
-import limit from "./config/rate-limiter";
 import { matcher } from "./config/profanity-checker";
 import { MatchPayload } from "obscenity";
 import sendEmail from "./nodemailer";
