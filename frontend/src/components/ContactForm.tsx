@@ -121,7 +121,7 @@ export default function ContactForm() {
 				</div>
 
 				<button
-					className="w-full mt-8 p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600"
+					className="w-full mt-8 p-3 bg-black hover:bg-slate-800 rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600"
 					onClick={e => {
 						sendEmail(e);
 					}}

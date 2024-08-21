@@ -10,7 +10,7 @@ export default function Form() {
 	const [noteTitle, setNoteTitle] = useState("");
 	const [noteBody, setNoteBody] = useState("");
 	const [typedWords, setTypedWords] = useState(0);
-	const [maxCharacters, setMaxCharacters] = useState(1000);
+	const [maxCharacters, setMaxCharacters] = useState(5000);
 	const [readOnly, setReadOnly] = useState(false);
 	const [yourNoteFlair, setYourNoteFlair] = useState(false);
 	const { currUID } = useSessionContext()!;
@@ -121,7 +121,7 @@ export default function Form() {
 							{noteData === undefined || !noteData || !yourNoteFlair ? (
 								<button
 									// disabled={typedWords < 1000}
-									className={`w-full p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
+									className={`w-full p-3 bg-black hover:bg-slate-800 rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
 										errorMessage && "lg:-mt-4 mt-4"
 									} ${errorMessage && "-mt-4"} ${
 										typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
@@ -149,7 +149,7 @@ export default function Form() {
 							) : (
 								<button
 									// disabled={typedWords < 1000}
-									className={`w-full p-3 bg-black rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
+									className={`w-full p-3 bg-black hover:bg-slate-800 rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
 										errorMessage && "lg:-mt-4 mt-4"
 									} ${errorMessage && "-mt-4"} ${
 										typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
