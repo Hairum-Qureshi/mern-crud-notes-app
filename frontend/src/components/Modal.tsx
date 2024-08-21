@@ -2,16 +2,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useNotes from "../hooks/useNotes";
 import useStickyNotes from "../hooks/useStickyNotes";
-
-interface Props {
-	heading: string;
-	children: React.ReactNode;
-	modalType: string;
-	toggleModal: () => void;
-	noteID?: string | number;
-	modalFor: string;
-	handleStickyNoteDeletion?: (noteID: string | number) => void;
-}
+import { ModalProps } from "../interfaces";
 
 // TODO - add hover effects on the buttons
 
@@ -23,7 +14,7 @@ export default function Modal({
 	noteID,
 	modalFor,
 	handleStickyNoteDeletion
-}: Props) {
+}: ModalProps) {
 	const message = children as string;
 
 	const { deleteNote } = useNotes();
