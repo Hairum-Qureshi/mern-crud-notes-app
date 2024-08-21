@@ -73,3 +73,12 @@ export interface StickyNoteHandlers {
 	errorMessage: string;
 	loading: boolean;
 }
+
+export interface StickyNoteProps {
+	stickyNote: StickyNote;
+	allowNewNote: () => void;
+	handleDelete: (note_id: string | number) => void;
+	alreadyExists: (note_id?: string | number) => void;
+	noteExists: boolean;
+	toggleModal: () => void;
+}
