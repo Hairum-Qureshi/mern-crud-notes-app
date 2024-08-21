@@ -99,3 +99,7 @@ export interface ModalProps {
 	modalFor: string;
 	handleStickyNoteDeletion?: (noteID: string | number) => void;
 }
+
+export interface LoadingSpinnerProps {
+	children: React.ReactNode;
+}
