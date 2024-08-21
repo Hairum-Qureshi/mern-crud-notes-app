@@ -1,13 +1,10 @@
 import { useTheme } from "../contexts/themeContext";
 import { tailspin } from "ldrs";
-
-interface Props {
-	children: React.ReactNode;
-}
+import { LoadingSpinnerProps } from "../interfaces";
 
 tailspin.register();
 
-export default function LoadingSpinner({ children }: Props) {
+export default function LoadingSpinner({ children }: LoadingSpinnerProps) {
 	const loadingMessage = children as string;
 	const { theme } = useTheme()!;
 
