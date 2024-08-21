@@ -72,7 +72,7 @@ To get started with the app, follow these steps:
   APP_PASS=your-google-app-password
   ```
 
-  - Create a `.env` file in the `frontend` directory (make sure it's **not** created inside of the `src` folder) and add the following:
+- Create a `.env` file in the `frontend` directory (make sure it's **not** created inside of the `src` folder) and add the following:
  
   ```
   VITE_BACKEND_BASE_URL = "http://localhost:4000" 
@@ -130,4 +130,4 @@ nvm use
 
 When deploying the application, ensure you update the URLs in the client-side code to match your deployed environment:
 
-- **API Base URL:** Update the base URL used to connect to the backend API. Replace any instances of http://localhost:4000 with the URL of your deployed backend service.
+- **API Base URL:** Update the base URL used to connect to the backend API. Replace any instances of http://localhost:4000 with the URL of your deployed backend service; this can easily be done by updating the URL inside of the frontend `.env` file.
