@@ -37,3 +37,39 @@ export interface FAQ_Interface {
 	question: string;
 	answer: string;
 }
+
+export interface NoteHandlers {
+	postNote: (note_title: string, note_content: string) => void;
+	getNoteData: (note_id: string) => void;
+	noteData: Note | undefined;
+	loadingStatus: boolean;
+	allNotesData: Note[];
+	deleteNote: (note_id: string) => void;
+	editNote: (note_id: string, noteTitle: string, noteBody: string) => void;
+	errorMessage: string;
+	clearErrorMessage: () => void;
+	numPages: number;
+	totalNotes: number;
+	formLoadingStatus: boolean;
+	errorMessageNV: string;
+}
+
+export interface StickyNoteHandlers {
+	stickyNotes: StickyNote[];
+	saveStickyNoteData: (
+		stickyNoteTempID: string | number,
+		stickyNoteTitle: string,
+		stickyNoteBody: string,
+		stickyNoteColor: string,
+		stickyNoteRotation: string
+	) => void;
+	editStickyNote: (
+		stickyNoteID: string | number,
+		stickyNoteTitle: string,
+		stickyNoteBody: string,
+		stickyNoteColor: string
+	) => void;
+	deleteStickyNote: (note_id: string | number) => void;
+	errorMessage: string;
+	loading: boolean;
+}
