@@ -45,3 +45,8 @@ note a note title and body
 [x] - need to improve the dark mode theme - it looks ugly 
 [x] - if you go into mobile view and scroll down, the background color behind the paginate buttons is white as the background color doesn't go all the way down (the same happens for the note posting form too) 
 [ ] - consider a scenario where there's tons of buttons for each page; implement some type of logic to only list X number of buttons and if there's number of pages beyond that, maybe create a button that has ellipses?
+
+## NEXT TIME...
+
+1. Use only the external .gitignore file instead of having 2 separate ones in each folder
+2. Make the Form component reusable by passing in props to it depending on what kind of form it is
