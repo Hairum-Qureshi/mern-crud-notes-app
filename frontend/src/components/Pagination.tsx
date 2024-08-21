@@ -1,20 +1,14 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-
-interface Props {
-	totalNotes: number;
-	pageNumber: string | null;
-	numPages: number;
-    numButtons: number[]
-}
+import { PaginationProps } from "../interfaces";
 
 export default function Pagination({
 	totalNotes,
 	pageNumber,
 	numPages,
-    numButtons
-}: Props) {
+	numButtons
+}: PaginationProps) {
 	return (
 		totalNotes > 9 && (
 			<div className="w-full lg:absolute fixed bottom-0 p-5 flex items-center text-lg justify-center shadow-md">
