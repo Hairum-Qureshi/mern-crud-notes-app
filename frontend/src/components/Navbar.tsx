@@ -7,7 +7,6 @@ import { useTheme } from "../contexts/themeContext";
 
 export default function Navbar() {
 	const [openNavbar, setOpenNavbar] = useState(false);
-	const { createStickyNote } = useStickyNotes();
 	const { theme, toggleTheme } = useTheme()!;
 
 	return (
@@ -33,10 +32,7 @@ export default function Navbar() {
 						</button>
 					</Link>
 					<Link to="/sticky-notes" onClick={() => setOpenNavbar(false)}>
-						<button
-							className="text-white p-2 text-center block w-full"
-							onClick={createStickyNote}
-						>
+						<button className="text-white p-2 text-center block w-full">
 							Sticky Notes
 						</button>
 					</Link>
@@ -46,10 +42,7 @@ export default function Navbar() {
 						</button>
 					</Link>
 					<Link to="/contact" onClick={() => setOpenNavbar(false)}>
-						<button
-							className="text-white p-2 text-center block w-full mr-4 -ml-2"
-							onClick={createStickyNote}
-						>
+						<button className="text-white p-2 text-center block w-full mr-4 -ml-2">
 							Contact
 						</button>
 					</Link>
@@ -94,10 +87,7 @@ export default function Navbar() {
 							</button>
 						</Link>
 						<Link to="/sticky-notes" onClick={() => setOpenNavbar(false)}>
-							<button
-								className="text-white p-2 text-center block w-full"
-								onClick={createStickyNote}
-							>
+							<button className="text-white p-2 text-center block w-full">
 								Sticky Notes
 							</button>
 						</Link>
@@ -107,10 +97,7 @@ export default function Navbar() {
 							</button>
 						</Link>
 						<Link to="/contact" onClick={() => setOpenNavbar(false)}>
-							<button
-								className="text-white p-2 text-center block w-full"
-								onClick={createStickyNote}
-							>
+							<button className="text-white p-2 text-center block w-full">
 								Contact
 							</button>
 						</Link>
