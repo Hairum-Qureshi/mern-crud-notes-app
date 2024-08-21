@@ -1,7 +1,7 @@
 [
 	{
 		"question": "What should I keep in mind when posting an anonymous note?",
-		"answer": "Even though you're posting anonymously, it's important to be respectful and considerate. Avoid sharing sensitive personal information, targeting individuals, sexual content, or engaging in harmful behavior. While you can discuss various topics, your notes should not contain illegal content, personal threats, or any form of harassment. Please adhere to the site's guidelines to ensure a positive environment and check out the <a href='/important'><u>rules & disclaimers</u></a> page for more information."
+		"answer": "Even though you're posting anonymously, it's important to be respectful and considerate. Avoid sharing sensitive personal information, targeting individuals, sexual content, or engaging in harmful behavior. While you can discuss various topics, your notes should not contain illegal content, personal threats, or any form of harassment. Please adhere to the site's guidelines to ensure a positive environment and check out the <a href='/important' style='color: #60A5FA'><u>rules & disclaimers</u></a> page for more information."
 	},
 	{
 		"question": "Why are titles not allowed to contain profanity?",
@@ -13,7 +13,7 @@
 	},
 	{
 		"question": "What should I do if I come across inappropriate content?",
-		"answer": "If you encounter content that seems to violate the site's guidelines, consider reaching out <a href = '/contact'><u>here</u></a> for further guidance. Please be sure to copy the note's URL and share it as well."
+		"answer": "If you encounter content that seems to violate the site's guidelines, consider reaching out <a href='/contact' style='color: #60A5FA'><u>here</u></a> for further guidance. Please be sure to copy the note's URL and share it as well."
 	},
 	{
 		"question": "Can I change or delete a note after posting it?",
@@ -21,6 +21,6 @@
 	},
 	{
 		"question": "Where can I look for more information?",
-		"answer": "You can find more information on the site's <a href='/important'><u>rules & disclaimer's page</u></a>. This page has more in-depth detail on the entire site system."
+		"answer": "You can find more information on the site's <a href='/important' style='color: #60A5FA'><u>rules & disclaimers</u></a> page. This page has more in-depth detail on the entire site system."
 	}
 ]
