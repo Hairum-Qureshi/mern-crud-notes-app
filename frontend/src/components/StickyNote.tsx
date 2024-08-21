@@ -1,24 +1,15 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { StickyNote as StickyNoteInterface } from "../interfaces";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useStickyNotes from "../hooks/useStickyNotes";
 import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
 import formatDate from "../utilities/time-formatter.util";
+import { StickyNoteProps } from "../interfaces";
 
 // TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
 
 // TODO - display an error message to the user when they click the 'add sticky note' button when their current sticky note is empty (they can only add a new sticky note once the recent one isn't empty)
-
-interface Props {
-	stickyNote: StickyNoteInterface;
-	allowNewNote: () => void;
-	handleDelete: (note_id: string | number) => void;
-	alreadyExists: (note_id?: string | number) => void;
-	noteExists: boolean;
-	toggleModal: () => void;
-}
 
 export default function StickyNote({
 	stickyNote,
@@ -27,7 +18,7 @@ export default function StickyNote({
 	alreadyExists,
 	noteExists,
 	toggleModal
-}: Props) {
+}: StickyNoteProps) {
 	const [stickyNoteTitle, setStickyNoteTitle] = useState("");
 	const [stickyNoteBody, setStickyNoteBody] = useState("");
 	const [stickyNoteColor, setStickyNoteColor] = useState(stickyNote.color);

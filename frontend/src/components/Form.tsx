@@ -9,7 +9,8 @@ import { useTheme } from "../contexts/themeContext";
 // TODO - figure out how to add a max word limit to the textarea
 // TODO - uncomment the disabled logic for the button
 // TODO - add a character/word limit to the title
-//! BUG - if you press the button only entering the note title, it doesn't prompt you to fill in the textarea
+// TODO - there doesn't seem to be a loading animation for the edit form
+// ! BUG - if you press the button only entering the note title, it doesn't prompt you to fill in the textarea
 // ! BUG - if there are no notes, the error "no notes" is displayed to the user
 // ! MINOR BUG - fix issue where if you're on the edit form and click on "Create a Big Note", the form still says 'Edit Post'
 
@@ -65,7 +66,7 @@ export default function Form() {
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
-			<div className="w-full flex justify-center lg:h-[calc(100vh-3.5rem)] dark:bg-slate-800 flex-1 bg-[#f7f8fc]">
+			<div className="flex justify-center lg:h-[calc(100vh-3.5rem)] dark:bg-slate-800 flex-1 bg-[#f7f8fc]">
 				<div className="flex flex-col w-full p-3 space-y-4 dark:text-gray-300">
 					<h1 className="text-3xl font-semibold mt-5">
 						{noteData === undefined || !noteData || !yourNoteFlair
@@ -113,6 +114,7 @@ export default function Form() {
 											? noteBody
 											: undefined
 									}
+									maxLength={5000}
 									className="w-full p-3 my-1 text-base border border-gray-600 rounded h-64 resize-none dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
 									// maxLength={maxCharacters}
 									readOnly={readOnly}

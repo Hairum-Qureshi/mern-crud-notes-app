@@ -8,11 +8,13 @@ export default function SplitPanel() {
 	const { theme } = useTheme()!;
 	const [isContact, setIsContact] = useState(false);
 
-	const url = window.location.pathname.split("/").pop();
+	const lastParam = window.location.pathname.split("/").pop();
 
 	useEffect(() => {
-		setIsContact(url === "contact");
-	}, [url]);
+		setIsContact(lastParam === "contact");
+	}, [lastParam]);
+
+	// I noticed when I console log the 'url' variable when the edit form is open, nothing gets printed whereas for the post note form, it returns 'create-form' and the contact form returns 'contact'. This might be why the edit form isn't the same as the post form.
 
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
