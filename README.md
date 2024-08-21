@@ -76,7 +76,6 @@ To get started with the app, follow these steps:
  
   ```
   VITE_BACKEND_BASE_URL = "http://localhost:4000" 
-
   ```
 
   ```
