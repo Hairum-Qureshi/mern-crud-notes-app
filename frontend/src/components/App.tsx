@@ -29,7 +29,7 @@ export default function App() {
 						<Route path="/sticky-notes" element={<StickyNotesDisplay />} />
 						<Route path="/new-note" element={<SplitPanel />} />
 						<Route path="/note/:note_id" element={<Note />} />
-						<Route path="/note/:note_id/edit" element={<Form />} />
+						<Route path="/note/:note_id/edit" element={<SplitPanel />} />
 						<Route path="/notes/all" element={<NotesViewer />} />
 						<Route path="*" element={<NotFound />} />
 					</Routes>
