@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useNotes from "../hooks/useNotes";
 import useStickyNotes from "../hooks/useStickyNotes";
 import { ModalProps } from "../interfaces";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO - add hover effects on the buttons
 
@@ -19,6 +20,23 @@ export default function Modal({
 
 	const { deleteNote } = useNotes();
 	const { deleteStickyNote } = useStickyNotes();
+	const queryClient = useQueryClient();
+
+	const deleteMutation = useMutation({
+		mutationFn: async (note_id: string | number) => {
+			return deleteStickyNote(note_id);
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["sticky-notes"]
+			});
+		}
+	});
+
+	function stickyNoteDeletion(note_id: string | number) {
+		deleteMutation.mutate(note_id);
+		deleteStickyNote(note_id);
+	}
 
 	return (
 		<div
@@ -51,10 +69,10 @@ export default function Modal({
 								if (modalFor == "note") {
 									deleteNote(noteID as string);
 								} else {
-									deleteStickyNote((noteID as string) || (noteID as number));
 									handleStickyNoteDeletion!(
 										(noteID as string) || (noteID as number)
 									);
+									stickyNoteDeletion((noteID as string) || (noteID as number));
 								}
 
 								toggleModal();
