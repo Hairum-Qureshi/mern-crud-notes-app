@@ -6,10 +6,13 @@ import useSessionContext from "../contexts/sessionContext";
 import { tailspin } from "ldrs";
 import formatDate from "../utilities/time-formatter.util";
 import { StickyNoteProps } from "../interfaces";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO - implement logic for displaying a message to the user about not being able to add a note until they provide their existing note a note title and body
 
 // TODO - display an error message to the user when they click the 'add sticky note' button when their current sticky note is empty (they can only add a new sticky note once the recent one isn't empty)
+
+// TODO - need to make useMutation handle deleting sticky notes too
 
 export default function StickyNote({
 	stickyNote,
@@ -29,6 +32,36 @@ export default function StickyNote({
 	const titleRef = useRef<HTMLDivElement>(null);
 	const bodyRef = useRef<HTMLDivElement>(null);
 
+	const queryClient = useQueryClient();
+
+	const stickyNoteMutation = useMutation({
+		mutationFn: async ({
+			// mutation hook only accepts one parameter which is why it needs to be an object
+			id,
+			title,
+			body,
+			color,
+			rotation,
+			mutationType
+		}: {
+			id: string | number;
+			title: string;
+			body: string;
+			color: string;
+			rotation?: string;
+			mutationType: string;
+		}) => {
+			return mutationType === "post"
+				? saveStickyNoteData(id, title, body, color, rotation!)
+				: editStickyNote(id, title, body, color);
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["sticky-notes"]
+			});
+		}
+	});
+
 	const handleChanges = async (sticky_note_color?: string) => {
 		setSaving(true);
 
@@ -43,48 +76,56 @@ export default function StickyNote({
 				if (/^\d+$/.test(stickyNote._id.toString())) {
 					// If the sticky note ID is numeric
 					if (noteExists) {
-						editStickyNote(
-							stickyNote._id,
-							stickyNoteTitle,
-							stickyNoteBody,
-							typeof sticky_note_color !== "string"
-								? stickyNoteColor
-								: sticky_note_color
-						);
+						stickyNoteMutation.mutate({
+							id: stickyNote._id,
+							title: stickyNoteTitle,
+							body: stickyNoteBody,
+							color:
+								typeof sticky_note_color !== "string"
+									? stickyNoteColor
+									: sticky_note_color,
+							mutationType: "edit"
+						});
 					} else {
 						// save it
-						saveStickyNoteData(
-							stickyNote._id,
-							stickyNoteTitle,
-							stickyNoteBody,
-							typeof sticky_note_color !== "string"
-								? stickyNoteColor
-								: sticky_note_color,
-							stickyNote.rotation
-						);
+						stickyNoteMutation.mutate({
+							id: stickyNote._id,
+							title: stickyNoteTitle,
+							body: stickyNoteBody,
+							color:
+								typeof sticky_note_color !== "string"
+									? stickyNoteColor
+									: sticky_note_color,
+							rotation: stickyNote.rotation,
+							mutationType: "post"
+						});
 					}
 				} else {
 					// If the sticky note ID is a valid MongoDB ID
 					// User changes an existing sticky note (that has a MongoDB ID)'s text and even background color
-					editStickyNote(
-						stickyNote._id,
-						stickyNoteTitle,
-						stickyNoteBody,
-						typeof sticky_note_color !== "string"
-							? stickyNoteColor
-							: sticky_note_color
-					);
+					stickyNoteMutation.mutate({
+						id: stickyNote._id,
+						title: stickyNoteTitle,
+						body: stickyNoteBody,
+						color:
+							typeof sticky_note_color !== "string"
+								? stickyNoteColor
+								: sticky_note_color,
+						mutationType: "edit"
+					});
 				}
 			} else {
 				// The user only changed the sticky note's background color
-				editStickyNote(
-					stickyNote._id,
-					!stickyNoteTitle ? stickyNote.note_title : stickyNoteTitle,
-					!stickyNoteBody ? stickyNote.note_content : stickyNoteBody,
-					typeof sticky_note_color !== "string"
-						? stickyNoteColor
-						: sticky_note_color
-				);
+				stickyNoteMutation.mutate({
+					id: stickyNote._id,
+					title: stickyNoteTitle,
+					body: stickyNoteBody,
+					color:
+						typeof sticky_note_color !== "string"
+							? stickyNoteColor
+							: sticky_note_color,
+					mutationType: "edit"
+				});
 			}
 
 			setSaving(false);
