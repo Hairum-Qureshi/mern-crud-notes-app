@@ -1,39 +1,41 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { StickyNote, StickyNoteHandlers } from "../interfaces";
+import { useQuery } from "@tanstack/react-query";
 
 export default function useStickyNotes(): StickyNoteHandlers {
 	const [stickyNotes, setStickyNotes] = useState<StickyNote[]>([]);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	async function getAllStickyNotes() {
-		setLoading(true);
-		axios
-			.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/sticky-notes/all`)
-			.then(response => {
-				setLoading(false);
+	const stickyNotesQuery = useQuery({
+		queryKey: ["sticky-notes"],
+		queryFn: async () => {
+			try {
+				const response = await axios.get(
+					`${import.meta.env.VITE_BACKEND_BASE_URL}/api/sticky-notes/all`
+				);
 				setStickyNotes(response.data);
-			})
-			.catch(error => {
-				setLoading(false);
-				console.log(error.response.data.message);
-				setErrorMessage(error.response.data.message);
-			});
-	}
+				return response;
+			} catch (error) {
+				setErrorMessage((error as Error).message);
+			}
+		}
+	});
 
 	useEffect(() => {
-		getAllStickyNotes();
-	}, []);
+		setLoading(stickyNotesQuery.isLoading);
+		setErrorMessage(stickyNotesQuery.error?.message || "");
+	}, [stickyNotes]);
 
-	function saveStickyNoteData(
+	async function saveStickyNoteData(
 		stickyNoteTempID: string | number,
 		stickyNoteTitle: string,
 		stickyNoteBody: string,
 		stickyNoteColor: string,
 		stickyNoteRotation: string
 	) {
-		axios
+		await axios
 			.post(
 				`${import.meta.env.VITE_BACKEND_BASE_URL}/api/sticky-notes/create`,
 				{
@@ -49,7 +51,6 @@ export default function useStickyNotes(): StickyNoteHandlers {
 			)
 			.then(response => {
 				setStickyNotes(prev => [response.data, ...prev]);
-				getAllStickyNotes();
 			})
 			.catch(error => {
 				console.log(error.response.data.message);
