@@ -47,7 +47,6 @@ export interface NoteHandlers {
 	deleteNote: (note_id: string) => void;
 	editNote: (note_id: string, noteTitle: string, noteBody: string) => void;
 	errorMessage: string;
-	clearErrorMessage: () => void;
 	numPages: number;
 	totalNotes: number;
 	formLoadingStatus: boolean;
