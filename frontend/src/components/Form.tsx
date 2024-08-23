@@ -25,6 +25,8 @@ export default function Form() {
 	} = useNotes();
 
 	const note_id = window.location.href.split("/")[4];
+	const urlEnd = window.location.pathname.split("/").pop();
+
 	useEffect(() => {
 		if (note_id) {
 			getNoteData(note_id);
@@ -55,9 +57,7 @@ export default function Form() {
 			<div className="flex justify-center lg:h-[calc(100vh-3.5rem)] dark:bg-slate-800 flex-1 bg-[#f7f8fc]">
 				<div className="flex flex-col w-full p-3 space-y-4 dark:text-gray-300">
 					<h1 className="text-3xl font-semibold mt-5">
-						{noteData === undefined || !noteData || !yourNoteFlair
-							? "Create a Note"
-							: "Edit Note"}
+						{urlEnd === "new-note" ? "Create a Note" : "Edit Note"}
 					</h1>
 					<h3>
 						You need a minimum of 1,000 characters in your body and 20 for your
@@ -105,7 +105,6 @@ export default function Form() {
 									}
 									maxLength={5000}
 									className="w-full p-3 my-1 text-base border-2 border-gray-600 rounded h-64 resize-none dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
-									// maxLength={maxCharacters}
 									onChange={e => setNoteBody(e.target.value)}
 								/>
 							</div>
@@ -114,7 +113,7 @@ export default function Form() {
 							</div>
 						</form>
 						<div className="flex justify-center mt-10">
-							{noteData === undefined || !noteData || !yourNoteFlair ? (
+							{urlEnd === "new-note" ? (
 								<button
 									// disabled={typedWords < 1000}
 									className={`w-full p-3 bg-black hover:bg-slate-800 rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
@@ -146,7 +145,6 @@ export default function Form() {
 								</button>
 							) : (
 								<button
-									// disabled={typedWords < 1000}
 									className={`w-full p-3 bg-black hover:bg-slate-800 rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
 										errorMessage && "lg:-mt-4 mt-4"
 									} ${errorMessage && "-mt-4"} ${
