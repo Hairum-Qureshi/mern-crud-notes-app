@@ -14,6 +14,14 @@ export default function useNotes(): NoteHandlers {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [totalNotes, setTotalNotes] = useState(0);
 
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setErrorMessage("");
+		}, 1000);
+
+		return () => clearTimeout(timer);
+	}, [errorMessage]);
+
 	async function postNote(note_title: string, note_content: string) {
 		if (!note_title || !note_content) {
 			setErrorMessage("Please make sure all fields are filled");
@@ -142,10 +150,6 @@ export default function useNotes(): NoteHandlers {
 			});
 	}
 
-	function clearErrorMessage() {
-		setErrorMessage("");
-	}
-
 	return {
 		postNote,
 		getNoteData,
@@ -155,7 +159,6 @@ export default function useNotes(): NoteHandlers {
 		deleteNote,
 		editNote,
 		errorMessage,
-		clearErrorMessage,
 		numPages,
 		totalNotes,
 		formLoadingStatus,
