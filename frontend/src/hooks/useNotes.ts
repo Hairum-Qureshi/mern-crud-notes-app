@@ -124,30 +124,38 @@ export default function useNotes(): NoteHandlers {
 		noteTitle: string,
 		noteBody: string
 	) {
-		setLoadingStatus(true);
-		await axios
-			.patch(
-				`${import.meta.env.VITE_BACKEND_BASE_URL}/api/notes/${note_id}/edit`,
-				{
-					note_title: noteTitle,
-					note_content: noteBody
-				},
-				{
-					withCredentials: true
-				}
-			)
-			.then(response => {
-				if (response.status === 200) {
-					window.location.href = `${
-						import.meta.env.VITE_FRONTEND_BASE_URL
-					}/note/${response.data._id}`;
+		if (!noteTitle || !noteBody) {
+			setErrorMessage("Please make sure all fields are filled");
+		} else if (noteTitle.length < 20) {
+			setErrorMessage("Your title must be at least 20 characters long");
+		} else if (noteBody.length < 1000) {
+			setErrorMessage("You must have at least 1,000 characters to make a post");
+		} else {
+			setLoadingStatus(true);
+			await axios
+				.patch(
+					`${import.meta.env.VITE_BACKEND_BASE_URL}/api/notes/${note_id}/edit`,
+					{
+						note_title: noteTitle,
+						note_content: noteBody
+					},
+					{
+						withCredentials: true
+					}
+				)
+				.then(response => {
+					if (response.status === 200) {
+						window.location.href = `${
+							import.meta.env.VITE_FRONTEND_BASE_URL
+						}/note/${response.data._id}`;
+						setLoadingStatus(false);
+					}
+				})
+				.catch(error => {
+					setErrorMessage(error.response.data.message);
 					setLoadingStatus(false);
-				}
-			})
-			.catch(error => {
-				setErrorMessage(error.response.data.message);
-				setLoadingStatus(false);
-			});
+				});
+		}
 	}
 
 	return {
