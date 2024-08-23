@@ -9,7 +9,8 @@ import { useTheme } from "../contexts/themeContext";
 export default function Form() {
 	const [noteTitle, setNoteTitle] = useState("");
 	const [noteBody, setNoteBody] = useState("");
-	const [typedCharacters, setTypedCharacters] = useState(0);
+	const [typedBodyCharacters, setTypedBodyCharacters] = useState(0);
+	const [typedTitleCharacters, setTypedTitleCharacters] = useState(0);
 	const [yourNoteFlair, setYourNoteFlair] = useState(false);
 	const { currUID } = useSessionContext()!;
 	const { theme } = useTheme()!;
@@ -32,8 +33,12 @@ export default function Form() {
 	}, [note_id]);
 
 	useEffect(() => {
-		setTypedCharacters(noteBody.length);
+		setTypedBodyCharacters(noteBody.length);
 	}, [noteBody]);
+
+	useEffect(() => {
+		setTypedTitleCharacters(noteTitle.length);
+	}, [noteTitle]);
 
 	useEffect(() => {
 		if (noteData) {
@@ -55,8 +60,9 @@ export default function Form() {
 							? "Create a Note"
 							: "Edit Note"}
 					</h1>
-					<h3 className="">
-						Please note you need a minimum of 1,000 characters to post
+					<h3>
+						You need a minimum of 1,000 characters in your body and 20 for your
+						title
 					</h3>
 					<div>
 						<form autoComplete="off">
@@ -83,9 +89,13 @@ export default function Form() {
 											? noteTitle
 											: undefined
 									}
-									className="w-full p-2 my-1 text-base border border-gray-600 rounded dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
+									maxLength={80}
+									className="w-full p-2 my-1 text-base border-2 border-gray-600 rounded dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
 									onChange={e => setNoteTitle(e.target.value)}
 								/>
+								<div className="text-right">
+									<h1>{typedTitleCharacters}/80</h1>
+								</div>
 							</div>
 							<div className="mt-3">
 								<label htmlFor="note-body" className="text-lg">
@@ -100,13 +110,13 @@ export default function Form() {
 											: undefined
 									}
 									maxLength={5000}
-									className="w-full p-3 my-1 text-base border border-gray-600 rounded h-64 resize-none dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
+									className="w-full p-3 my-1 text-base border-2 border-gray-600 rounded h-64 resize-none dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
 									// maxLength={maxCharacters}
 									onChange={e => setNoteBody(e.target.value)}
 								/>
 							</div>
 							<div className="text-right">
-								<p>{typedCharacters}/5000</p>
+								<p>{typedBodyCharacters}/5000</p>
 							</div>
 						</form>
 						<div className="flex justify-center mt-10">
@@ -116,7 +126,7 @@ export default function Form() {
 									className={`w-full p-3 bg-black hover:bg-slate-800 rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
 										errorMessage && "lg:-mt-4 mt-4"
 									} ${errorMessage && "-mt-4"} ${
-										typedCharacters < 1000
+										typedBodyCharacters < 1000
 											? "cursor-not-allowed"
 											: "cursor-pointer"
 									}`}
@@ -146,7 +156,7 @@ export default function Form() {
 									className={`w-full p-3 bg-black hover:bg-slate-800 rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
 										errorMessage && "lg:-mt-4 mt-4"
 									} ${errorMessage && "-mt-4"} ${
-										typedCharacters < 1000
+										typedBodyCharacters < 1000
 											? "cursor-not-allowed"
 											: "cursor-pointer"
 									}`}
