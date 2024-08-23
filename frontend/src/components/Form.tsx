@@ -21,7 +21,6 @@ export default function Form() {
 		noteData,
 		editNote,
 		errorMessage,
-		clearErrorMessage,
 		formLoadingStatus
 	} = useNotes();
 
@@ -69,11 +68,6 @@ export default function Form() {
 							{errorMessage && (
 								<div className="p-2 bg-red-600 dark:bg-red-700 text-base text-white rounded my-2 flex items-center">
 									<h1>{errorMessage}</h1>
-									<FontAwesomeIcon
-										icon={faX}
-										className="ml-auto mr-2 text-lg px-2 py-2 hover:cursor-pointer"
-										onClick={clearErrorMessage}
-									/>
 								</div>
 							)}
 							<div>
