@@ -17,6 +17,10 @@ export default function useNotes(): NoteHandlers {
 	async function postNote(note_title: string, note_content: string) {
 		if (!note_title || !note_content) {
 			setErrorMessage("Please make sure all fields are filled");
+		} else if (note_title.length < 20) {
+			setErrorMessage("Your title must be at least 20 characters long");
+		} else if (note_content.length < 1000) {
+			setErrorMessage("You must have at least 1,000 characters to make a post");
 		} else {
 			setFormLoadingStatus(true);
 			await axios
