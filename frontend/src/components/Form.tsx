@@ -9,9 +9,7 @@ import { useTheme } from "../contexts/themeContext";
 export default function Form() {
 	const [noteTitle, setNoteTitle] = useState("");
 	const [noteBody, setNoteBody] = useState("");
-	const [typedWords, setTypedWords] = useState(0);
-	const [maxCharacters, setMaxCharacters] = useState(5000);
-	const [readOnly, setReadOnly] = useState(false);
+	const [typedCharacters, setTypedCharacters] = useState(0);
 	const [yourNoteFlair, setYourNoteFlair] = useState(false);
 	const { currUID } = useSessionContext()!;
 	const { theme } = useTheme()!;
@@ -34,6 +32,10 @@ export default function Form() {
 	}, [note_id]);
 
 	useEffect(() => {
+		setTypedCharacters(noteBody.length);
+	}, [noteBody]);
+
+	useEffect(() => {
 		if (noteData) {
 			setNoteTitle(noteData.note_title);
 			setNoteBody(noteData.note_content);
@@ -44,18 +46,6 @@ export default function Form() {
 
 	ring2.register();
 
-	useEffect(() => {
-		const wordCount = noteBody.trim().split(/\s+/).length; // Use \s+ to handle multiple spaces
-		setTypedWords(wordCount);
-
-		document.title = "Post Note Form";
-
-		if (wordCount === 5000) {
-			setMaxCharacters(noteBody.length);
-			setReadOnly(true);
-		}
-	}, [noteBody]);
-
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
 			<div className="flex justify-center lg:h-[calc(100vh-3.5rem)] dark:bg-slate-800 flex-1 bg-[#f7f8fc]">
@@ -65,10 +55,13 @@ export default function Form() {
 							? "Create a Note"
 							: "Edit Note"}
 					</h1>
+					<h3 className="">
+						Please note you need a minimum of 1,000 characters to post
+					</h3>
 					<div>
 						<form autoComplete="off">
 							{errorMessage && (
-								<div className="p-2 bg-red-600 dark:bg-red-700 text-base text-white rounded my-2 flex items-center -mt-3">
+								<div className="p-2 bg-red-600 dark:bg-red-700 text-base text-white rounded my-2 flex items-center">
 									<h1>{errorMessage}</h1>
 									<FontAwesomeIcon
 										icon={faX}
@@ -109,12 +102,11 @@ export default function Form() {
 									maxLength={5000}
 									className="w-full p-3 my-1 text-base border border-gray-600 rounded h-64 resize-none dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300 dark:focus:outline-none dark:focus:border-gray-500 dark:focus:border-2"
 									// maxLength={maxCharacters}
-									readOnly={readOnly}
 									onChange={e => setNoteBody(e.target.value)}
 								/>
 							</div>
 							<div className="text-right">
-								<p>{typedWords}/5000</p>
+								<p>{typedCharacters}/5000</p>
 							</div>
 						</form>
 						<div className="flex justify-center mt-10">
@@ -124,7 +116,9 @@ export default function Form() {
 									className={`w-full p-3 bg-black hover:bg-slate-800 rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
 										errorMessage && "lg:-mt-4 mt-4"
 									} ${errorMessage && "-mt-4"} ${
-										typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
+										typedCharacters < 1000
+											? "cursor-not-allowed"
+											: "cursor-pointer"
 									}`}
 									onClick={() => {
 										postNote(noteTitle, noteBody);
@@ -152,7 +146,9 @@ export default function Form() {
 									className={`w-full p-3 bg-black hover:bg-slate-800 rounded text-white text-lg flex items-center justify-center dark:bg-blue-500 dark:hover:bg-blue-600 ${
 										errorMessage && "lg:-mt-4 mt-4"
 									} ${errorMessage && "-mt-4"} ${
-										typedWords < 1000 ? "cursor-not-allowed" : "cursor-pointer"
+										typedCharacters < 1000
+											? "cursor-not-allowed"
+											: "cursor-pointer"
 									}`}
 									onClick={() => {
 										editNote(note_id, noteTitle, noteBody);
