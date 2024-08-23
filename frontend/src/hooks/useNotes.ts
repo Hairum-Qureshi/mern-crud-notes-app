@@ -131,7 +131,7 @@ export default function useNotes(): NoteHandlers {
 		} else if (noteBody.length < 1000) {
 			setErrorMessage("You must have at least 1,000 characters to make a post");
 		} else {
-			setLoadingStatus(true);
+			setFormLoadingStatus(true);
 			await axios
 				.patch(
 					`${import.meta.env.VITE_BACKEND_BASE_URL}/api/notes/${note_id}/edit`,
@@ -148,12 +148,12 @@ export default function useNotes(): NoteHandlers {
 						window.location.href = `${
 							import.meta.env.VITE_FRONTEND_BASE_URL
 						}/note/${response.data._id}`;
-						setLoadingStatus(false);
+						setFormLoadingStatus(false);
 					}
 				})
 				.catch(error => {
 					setErrorMessage(error.response.data.message);
-					setLoadingStatus(false);
+					setFormLoadingStatus(false);
 				});
 		}
 	}
