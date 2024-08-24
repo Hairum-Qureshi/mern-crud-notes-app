@@ -12,10 +12,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO - display an error message to the user when they click the 'add sticky note' button when their current sticky note is empty (they can only add a new sticky note once the recent one isn't empty)
 
-// TODO - add the character count for the sticky note header too
-
-// TODO - need to add a height limit for the sticky note header div too
-
 export default function StickyNote({
 	stickyNote,
 	allowNewNote,
@@ -281,7 +277,7 @@ export default function StickyNote({
 						{stickyNote.note_content}
 					</div>
 				) : (
-					<div className="w-full outline-none p-1 text-base flex-grow mb-8">
+					<div className="w-full outline-none p-1 text-base flex-grow mb-11">
 						{stickyNote.note_content}
 					</div>
 				)}
@@ -294,7 +290,7 @@ export default function StickyNote({
 						)}
 						<div className="flex w-full justify-between">
 							{bodyCharacters > 500 || headerCharacters > 60 ? (
-								<p className="ml-2 text-red-800 font-semibold">
+								<p className="text-red-800 font-semibold">
 									Saving failed. Too many characters
 								</p>
 							) : (
