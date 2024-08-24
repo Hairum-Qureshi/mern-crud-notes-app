@@ -173,20 +173,35 @@ const editNote = async (req: Request, res: Response) => {
 				message: "Title cannot contain profanity"
 			});
 		} else {
-			const matches: MatchPayload[] = getMatchPayload(note_content);
+			// Check if the note's content has changed at all
+			const noteData = await Note.findById({ _id: note_id });
+			if (noteData) {
+				if (
+					noteData.note_title === note_title &&
+					noteData.note_content === note_content
+				) {
+					return res.status(200).json(noteData);
+				} else {
+					const matches: MatchPayload[] = getMatchPayload(note_content);
 
-			const updatedNote = await Note.findByIdAndUpdate(
-				{ _id: note_id },
-				{
-					note_title,
-					note_content: censor.applyTo(note_content, matches),
-					containsProfanity: matches.length > 0
-				},
-				{
-					new: true
+					const updatedNote = await Note.findByIdAndUpdate(
+						{ _id: note_id },
+						{
+							note_title,
+							note_content: censor.applyTo(note_content, matches),
+							containsProfanity: matches.length > 0
+						},
+						{
+							new: true
+						}
+					).select("-__v");
+					res.status(200).send(updatedNote);
 				}
-			).select("-__v");
-			res.status(200).send(updatedNote);
+			} else {
+				res.status(404).json({
+					message: "Note not found"
+				});
+			}
 		}
 	} catch (error) {
 		console.log(
