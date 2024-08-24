@@ -22,7 +22,6 @@ router.patch(
 	"/:sticky_note_id/edit",
 	authenticated,
 	verifyRequest,
-	rateLimiter(10),
 	editStickyNote
 );
 
