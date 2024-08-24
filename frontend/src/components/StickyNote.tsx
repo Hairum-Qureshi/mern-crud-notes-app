@@ -253,7 +253,7 @@ export default function StickyNote({
 						{stickyNote.note_title}
 					</div>
 				) : (
-					<div className="w-full mt-1 p-1 inline-block outline-none">
+					<div className="w-full mt-1 p-1 inline-block outline-none break-words">
 						{stickyNote.note_title}
 					</div>
 				)}
