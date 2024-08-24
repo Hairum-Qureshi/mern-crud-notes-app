@@ -14,6 +14,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO - add the character count for the sticky note header too
 
+// TODO - need to add a height limit for the sticky note header div too
+
 export default function StickyNote({
 	stickyNote,
 	allowNewNote,
@@ -209,16 +211,19 @@ export default function StickyNote({
 							}}
 						></div>
 						{stickyNote.curr_uid === currUID && (
-							<div
-								className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto hover:cursor-pointer"
-								onClick={() => {
-									toggleModal();
-									setSaving(false);
-									allowNewNote();
-									handleDelete(stickyNote._id);
-								}}
-							>
-								<FontAwesomeIcon icon={faTrash} />
+							<div className="flex ml-auto items-center">
+								<p className="mr-2 text-base">0/80</p>
+								<div
+									className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto hover:cursor-pointer"
+									onClick={() => {
+										toggleModal();
+										setSaving(false);
+										allowNewNote();
+										handleDelete(stickyNote._id);
+									}}
+								>
+									<FontAwesomeIcon icon={faTrash} />
+								</div>
 							</div>
 						)}
 					</div>
@@ -228,7 +233,7 @@ export default function StickyNote({
 						contentEditable={
 							stickyNote.curr_uid === currUID ? "plaintext-only" : false
 						}
-						className="w-full mt-1 p-1 inline-block outline-none"
+						className="w-full mt-1 p-1 inline-block outline-none max-h-12 overflow-y-hidden"
 						data-placeholder="Enter heading..."
 						data-gramm="false"
 						data-gramm_editor="false"
@@ -252,7 +257,7 @@ export default function StickyNote({
 						contentEditable={
 							stickyNote.curr_uid === currUID ? "plaintext-only" : false
 						}
-						className="w-full outline-none p-1 text-base flex-grow mb-8 max-h-64 overflow-y-auto flex-shrink-0 whitespace-normal"
+						className="w-full outline-none p-1 text-base flex-grow mb-8 max-h-64 overflow-y-auto flex-shrink-0"
 						data-gramm="false"
 						data-gramm_editor="false"
 						data-enable-grammarly="false"
