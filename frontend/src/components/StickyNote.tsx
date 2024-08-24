@@ -275,7 +275,14 @@ export default function StickyNote({
 						<div className="flex w-full justify-between">
 							<p className="ml-2">Saving...</p>
 							<span className="font-semibold">
-								{bodyRef.current?.innerText.length}/500
+								<span
+									className={`${
+										bodyRef.current?.innerText.length! > 500 && "text-red-600"
+									}`}
+								>
+									{bodyRef.current?.innerText.length}
+								</span>
+								/500
 							</span>
 						</div>
 					</div>
@@ -288,7 +295,15 @@ export default function StickyNote({
 										Saved at {formattedTime} on {formattedDate}
 									</p>
 									<span className="font-semibold">
-										{bodyRef.current?.innerText.length}/500
+										<span
+											className={`${
+												bodyRef.current?.innerText.length! > 500 &&
+												"text-red-600"
+											}`}
+										>
+											{bodyRef.current?.innerText.length}
+										</span>
+										/500
 									</span>
 								</div>
 							</div>
