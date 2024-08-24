@@ -141,6 +141,18 @@ export default function StickyNote({
 		}
 	}
 
+	const now: Date = new Date();
+	const formattedTime = now.toLocaleTimeString("en-US", {
+		timeStyle: "short",
+		hour12: true
+	});
+
+	const formattedDate = now.toLocaleDateString("en-US", {
+		month: "2-digit",
+		day: "2-digit",
+		year: "2-digit"
+	});
+
 	tailspin.register();
 
 	return (
@@ -256,24 +268,31 @@ export default function StickyNote({
 			</div>
 			<div className="text-sm flex p-1 h-[1.9rem] absolute bottom-0 w-full">
 				{saving ? (
-					<>
+					<div className="flex w-full">
 						<l-tailspin size="20" stroke="3" speed="0.9" color="black" />
-						<p className="ml-2">Saving...</p>
-					</>
+						<div className="flex w-full justify-between">
+							<p className="ml-2">Saving...</p>
+							<span className="font-semibold">0/500</span>
+						</div>
+					</div>
 				) : (
-					<p className="ml-2">
+					<div className="flex w-full">
 						{stickyNote.curr_uid === currUID ? (
-							<>
-								Saved on&nbsp;
-								{formatDate(stickyNote.createdAt)}
-							</>
+							<div className="w-full">
+								<div className="flex justify-between">
+									<p>
+										Saved at {formattedTime} on {formattedDate}
+									</p>
+									<span className="font-semibold">0/500</span>
+								</div>
+							</div>
 						) : (
-							<>
+							<p>
 								Posted on&nbsp;
 								{formatDate(stickyNote.createdAt)}
-							</>
+							</p>
 						)}
-					</p>
+					</div>
 				)}
 			</div>
 		</div>
