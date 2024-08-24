@@ -35,10 +35,6 @@ export default function StickyNotesDisplay() {
 		setOpenedStickyNote(false);
 	}
 
-	// TODO - need to make the error message disappear after a few seconds
-	// TODO - when you delete a newly created sticky note, the error message that appears is "sticky note not found"
-	// !BUG - 'errorMessage' in useStickyNotes is defined, but when trying to access it here, it's empty
-
 	useEffect(() => {
 		setPostedStickyNotes(stickyNotes);
 	}, [stickyNotes]);
@@ -119,7 +115,6 @@ export default function StickyNotesDisplay() {
 					>
 						<FontAwesomeIcon icon={faPlus} />
 					</button>
-
 					{errorMessage && (
 						<div className="flex justify-center w-full">
 							<h1 className="lg:w-11/12 w-full lg:mt-0 mt-3 text-lg border border-red-600 rounded px-3 py-1 bg-red-800">
@@ -128,6 +123,14 @@ export default function StickyNotesDisplay() {
 						</div>
 					)}
 				</div>
+				{postedStickyNotes.length === 0 && (
+					<div className="p-2 lg:w-1/2 m-auto text-3xl text-center font-semibold">
+						<h1>
+							There are currently no sticky notes posted. Press the plus button
+							to create a sticky note!
+						</h1>
+					</div>
+				)}
 				<div className="w-full p-5 h-auto flex flex-wrap items-center justify-center dark:text-black">
 					{loading ? (
 						<LoadingSpinner>LOADING STICKY NOTES</LoadingSpinner>
