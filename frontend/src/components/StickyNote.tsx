@@ -212,7 +212,7 @@ export default function StickyNote({
 						></div>
 						{stickyNote.curr_uid === currUID && (
 							<div className="flex ml-auto items-center">
-								<p className="mr-2 text-base">
+								<p className="mr-2 text-sm">
 									<span
 										className={`${headerCharacters > 60 && "text-red-600"}`}
 									>
