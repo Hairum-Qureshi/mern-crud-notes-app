@@ -12,7 +12,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO - display an error message to the user when they click the 'add sticky note' button when their current sticky note is empty (they can only add a new sticky note once the recent one isn't empty)
 
-// TODO - need to make useMutation handle deleting sticky notes too
+// TODO - add the character count for the sticky note header too
+
+// TODO - for the character count, if the user types text that goes beyond the maximum characters, change the color to red and for the 'saving message', let them know they added too much text and it won't save.
 
 export default function StickyNote({
 	stickyNote,
@@ -272,7 +274,9 @@ export default function StickyNote({
 						<l-tailspin size="20" stroke="3" speed="0.9" color="black" />
 						<div className="flex w-full justify-between">
 							<p className="ml-2">Saving...</p>
-							<span className="font-semibold">0/500</span>
+							<span className="font-semibold">
+								{bodyRef.current?.innerText.length}/500
+							</span>
 						</div>
 					</div>
 				) : (
@@ -283,7 +287,9 @@ export default function StickyNote({
 									<p>
 										Saved at {formattedTime} on {formattedDate}
 									</p>
-									<span className="font-semibold">0/500</span>
+									<span className="font-semibold">
+										{bodyRef.current?.innerText.length}/500
+									</span>
 								</div>
 							</div>
 						) : (
