@@ -142,7 +142,7 @@ export default function StickyNote({
 
 	function setNoteData() {
 		if (titleRef.current) {
-			setStickyNoteTitle(titleRef.current.innerText);
+			setStickyNoteTitle(titleRef.current.innerText.slice(0, 60));
 			setHeaderCharacters(titleRef.current.innerText.length);
 		}
 		if (bodyRef.current) {
