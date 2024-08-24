@@ -14,8 +14,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO - add the character count for the sticky note header too
 
-// TODO - for the character count, if the user types text that goes beyond the maximum characters, change the color to red and for the 'saving message', let them know they added too much text and it won't save.
-
 export default function StickyNote({
 	stickyNote,
 	allowNewNote,
@@ -33,6 +31,9 @@ export default function StickyNote({
 	const keyUpTimer = useRef<number | null>(null);
 	const titleRef = useRef<HTMLDivElement>(null);
 	const bodyRef = useRef<HTMLDivElement>(null);
+	const [bodyCharacters, setBodyCharacters] = useState(
+		stickyNote.note_content.length
+	);
 
 	const queryClient = useQueryClient();
 
@@ -139,7 +140,8 @@ export default function StickyNote({
 			setStickyNoteTitle(titleRef.current.innerText);
 		}
 		if (bodyRef.current) {
-			setStickyNoteBody(bodyRef.current.innerText);
+			setStickyNoteBody(bodyRef.current.innerText.slice(0, 500));
+			setBodyCharacters(bodyRef.current.innerText.length);
 		}
 	}
 
@@ -250,7 +252,7 @@ export default function StickyNote({
 						contentEditable={
 							stickyNote.curr_uid === currUID ? "plaintext-only" : false
 						}
-						className="w-full outline-none p-1 text-base flex-grow mb-8 max-h-64 overflow-y-auto flex-shrink-0"
+						className="w-full outline-none p-1 text-base flex-grow mb-8 max-h-64 overflow-y-auto flex-shrink-0 whitespace-normal"
 						data-gramm="false"
 						data-gramm_editor="false"
 						data-enable-grammarly="false"
@@ -271,16 +273,20 @@ export default function StickyNote({
 			<div className="text-sm flex p-1 h-[1.9rem] absolute bottom-0 w-full">
 				{saving ? (
 					<div className="flex w-full">
-						<l-tailspin size="20" stroke="3" speed="0.9" color="black" />
+						{bodyRef.current?.innerText.length! < 500 && (
+							<l-tailspin size="20" stroke="3" speed="0.9" color="black" />
+						)}
 						<div className="flex w-full justify-between">
-							<p className="ml-2">Saving...</p>
+							{bodyRef.current?.innerText.length! > 500 ? (
+								<p className="ml-2 text-red-800 font-semibold">
+									Saving failed. Too many characters
+								</p>
+							) : (
+								<p className="ml-2">Saving...</p>
+							)}
 							<span className="font-semibold">
-								<span
-									className={`${
-										bodyRef.current?.innerText.length! > 500 && "text-red-600"
-									}`}
-								>
-									{bodyRef.current?.innerText.length}
+								<span className={`${bodyCharacters > 500 && "text-red-600"}`}>
+									{bodyCharacters}
 								</span>
 								/500
 							</span>
@@ -296,12 +302,9 @@ export default function StickyNote({
 									</p>
 									<span className="font-semibold">
 										<span
-											className={`${
-												bodyRef.current?.innerText.length! > 500 &&
-												"text-red-600"
-											}`}
+											className={`${bodyCharacters > 500 && "text-red-600"}`}
 										>
-											{bodyRef.current?.innerText.length}
+											{bodyCharacters}
 										</span>
 										/500
 									</span>
