@@ -34,7 +34,10 @@ export default function StickyNote({
 	const titleRef = useRef<HTMLDivElement>(null);
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const [bodyCharacters, setBodyCharacters] = useState(
-		stickyNote.note_content.length
+		stickyNote.note_content.length || 0
+	);
+	const [headerCharacters, setHeaderCharacters] = useState(
+		stickyNote.note_title.length || 0
 	);
 
 	const queryClient = useQueryClient();
@@ -140,6 +143,7 @@ export default function StickyNote({
 	function setNoteData() {
 		if (titleRef.current) {
 			setStickyNoteTitle(titleRef.current.innerText);
+			setHeaderCharacters(titleRef.current.innerText.length);
 		}
 		if (bodyRef.current) {
 			setStickyNoteBody(bodyRef.current.innerText.slice(0, 500));
@@ -212,7 +216,7 @@ export default function StickyNote({
 						></div>
 						{stickyNote.curr_uid === currUID && (
 							<div className="flex ml-auto items-center">
-								<p className="mr-2 text-base">0/80</p>
+								<p className="mr-2 text-base">{headerCharacters}/60</p>
 								<div
 									className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto hover:cursor-pointer"
 									onClick={() => {
