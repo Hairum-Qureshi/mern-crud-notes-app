@@ -216,7 +216,14 @@ export default function StickyNote({
 						></div>
 						{stickyNote.curr_uid === currUID && (
 							<div className="flex ml-auto items-center">
-								<p className="mr-2 text-base">{headerCharacters}/60</p>
+								<p className="mr-2 text-base">
+									<span
+										className={`${headerCharacters > 60 && "text-red-600"}`}
+									>
+										{headerCharacters}
+									</span>
+									/60
+								</p>
 								<div
 									className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto hover:cursor-pointer"
 									onClick={() => {
@@ -282,11 +289,11 @@ export default function StickyNote({
 			<div className="text-sm flex p-1 h-[1.9rem] absolute bottom-0 w-full">
 				{saving ? (
 					<div className="flex w-full">
-						{bodyRef.current?.innerText.length! < 500 && (
+						{bodyCharacters < 500 && headerCharacters < 60 && (
 							<l-tailspin size="20" stroke="3" speed="0.9" color="black" />
 						)}
 						<div className="flex w-full justify-between">
-							{bodyRef.current?.innerText.length! > 500 ? (
+							{bodyCharacters > 500 || headerCharacters > 60 ? (
 								<p className="ml-2 text-red-800 font-semibold">
 									Saving failed. Too many characters
 								</p>
