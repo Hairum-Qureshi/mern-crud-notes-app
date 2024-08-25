@@ -9,6 +9,8 @@ import { useTheme } from "../contexts/themeContext";
 import LoadingSpinner from "./LoadingSpinner";
 import Pagination from "./Pagination";
 
+// TODO - make the loading separate from the 'no notes' message and only make the table appear if there are notes published
+
 export default function NotesViewer() {
 	const [numButtons, setNumButtons] = useState<number[]>([]);
 	const { allNotesData, loadingStatus, numPages, totalNotes, errorMessageNV } =
@@ -70,7 +72,29 @@ export default function NotesViewer() {
 							</div>
 						)}
 				</div>
-				{!loadingStatus ? (
+				{totalNotes === 0 &&
+					Number(pageNumber) <= numPages &&
+					!loadingStatus && (
+						<div className="text-3xl font-semibold w-3/4 m-auto dark:text-white text-center mt-16">
+							There are currently no notes to check out. If you would like to
+							have your notes shown publicly, click&nbsp;
+							<Link to="/new-note" className="dark:text-sky-400 text-blue-500">
+								<u>here</u>
+							</Link>
+							&nbsp;to post your first note!
+						</div>
+					)}
+				{Number(pageNumber) > numPages && (
+					<div className="text-3xl font-semibold w-3/4 m-auto dark:text-white text-center mt-16">
+						There are currently no notes on this page. <br />
+						Click&nbsp;
+						<Link to="/notes/all" className="dark:text-sky-400 text-blue-500">
+							<u>here</u>
+						</Link>
+						&nbsp;to view all posted notes!
+					</div>
+				)}
+				{!loadingStatus && totalNotes > 0 && (
 					<>
 						<div className="overflow-x-auto pb-20">
 							<table className="w-full table-auto">
@@ -132,35 +156,10 @@ export default function NotesViewer() {
 									})}
 								</tbody>
 							</table>
-							{totalNotes === 0 && Number(pageNumber) <= numPages && (
-								<div className="text-3xl font-semibold w-3/4 m-auto dark:text-white text-center mt-16">
-									There are currently no notes to check out. If you would like
-									to have your notes shown publicly, click&nbsp;
-									<Link
-										to="/new-note"
-										className="dark:text-sky-400 text-blue-500"
-									>
-										<u>here</u>
-									</Link>
-									&nbsp;to post your first note!
-								</div>
-							)}
-							{Number(pageNumber) > numPages && (
-								<div className="text-3xl font-semibold w-3/4 m-auto dark:text-white text-center mt-16">
-									There are currently no notes on this page. <br />
-									Click&nbsp;
-									<Link
-										to="/notes/all"
-										className="dark:text-sky-400 text-blue-500"
-									>
-										<u>here</u>
-									</Link>
-									&nbsp;to view all posted notes!
-								</div>
-							)}
 						</div>
 					</>
-				) : (
+				)}
+				{loadingStatus && (
 					<div className="flex items-center justify-center mt-20 dark:text-slate-50">
 						<LoadingSpinner>LOADING NOTES...</LoadingSpinner>
 					</div>
