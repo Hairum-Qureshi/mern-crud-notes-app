@@ -54,6 +54,27 @@ export default function Disclaimer() {
 							post.
 							<br />
 							<br />
+							<strong>Bugs:</strong> This website is not flawless
+							(unfortunately). It's taken me roughly 1 month to do as much as I
+							can, implement as many features as I could by myself, so there
+							will be bugs/errors popping up here and there. I tried my best to
+							find as many as I could and patch them up with the amount of time
+							I had, but there will be some I just didn't have the time to patch
+							up or discovered yet. But rest assured, these bugs aren't
+							problematic enough to the point you lose a positive experience on
+							this site. And as always, if you find a bug, don't hesitate to
+							report it&nbsp;
+							<Link to="/contact">
+								<u className="text-blue-600 dark:text-sky-400 hover:text-sky-600 dark:hover:text-sky-500">
+									here
+								</u>
+							</Link>
+							. I'd greatly appreciate it if your response is as detailed as
+							possible, including steps on what led to the discovery of the bug.
+							If you enjoy this project and would like to collab, don't hesitate
+							to send your info!
+							<br />
+							<br />
 							<strong>Respect:</strong> While I aim to provide a free space for
 							expression, please respect others and refrain from (but not
 							limited to) doxing, posting content that could be deemed
@@ -117,7 +138,9 @@ export default function Disclaimer() {
 							If you encounter any issues or have ideas for improvement, feel
 							free to reach out&nbsp;
 							<Link to="/contact">
-								<u className="text-blue-600 dark:text-sky-400">here</u>
+								<u className="text-blue-600 dark:text-sky-400 hover:text-sky-600 dark:hover:text-sky-500">
+									here
+								</u>
 							</Link>
 							. Your input helps me make this site better for everyone.
 							<br />
