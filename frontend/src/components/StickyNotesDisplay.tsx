@@ -23,12 +23,6 @@ export default function StickyNotesDisplay() {
 		StickyNoteInterface[]
 	>([]);
 
-	useEffect(() => {
-		if (errorMessage) {
-			console.error("An error occurred:", errorMessage);
-		}
-	}, [errorMessage]);
-
 	const [noteExists, setNoteExists] = useState(false);
 
 	function allowNewNote() {
@@ -123,7 +117,7 @@ export default function StickyNotesDisplay() {
 						</div>
 					)}
 				</div>
-				{postedStickyNotes.length === 0 && (
+				{postedStickyNotes.length === 0 && !loading && (
 					<div className="p-2 lg:w-1/2 m-auto text-3xl text-center font-semibold">
 						<h1>
 							There are currently no sticky notes posted. Press the plus button
