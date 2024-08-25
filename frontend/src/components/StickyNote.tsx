@@ -12,6 +12,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO - display an error message to the user when they click the 'add sticky note' button when their current sticky note is empty (they can only add a new sticky note once the recent one isn't empty)
 
+// TODO - add logic to convert 1,000 to 1k for the number of characters
+
 export default function StickyNote({
 	stickyNote,
 	allowNewNote,
@@ -30,10 +32,10 @@ export default function StickyNote({
 	const titleRef = useRef<HTMLDivElement>(null);
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const [bodyCharacters, setBodyCharacters] = useState(
-		stickyNote.note_content.length || 0
+		stickyNote.note_content.trim().length || 0
 	);
 	const [headerCharacters, setHeaderCharacters] = useState(
-		stickyNote.note_title.length || 0
+		stickyNote.note_title.trim().length || 0
 	);
 
 	const queryClient = useQueryClient();
@@ -139,11 +141,11 @@ export default function StickyNote({
 	function setNoteData() {
 		if (titleRef.current) {
 			setStickyNoteTitle(titleRef.current.innerText.slice(0, 60));
-			setHeaderCharacters(titleRef.current.innerText.length);
+			setHeaderCharacters(titleRef.current.innerText.trim().length);
 		}
 		if (bodyRef.current) {
 			setStickyNoteBody(bodyRef.current.innerText.slice(0, 500));
-			setBodyCharacters(bodyRef.current.innerText.length);
+			setBodyCharacters(bodyRef.current.innerText.trim().length);
 		}
 	}
 
