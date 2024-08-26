@@ -135,7 +135,7 @@ export default function StickyNote({
 			}
 
 			setSaving(false);
-		}, 2000);
+		}, 500);
 	};
 
 	function setNoteData() {
@@ -223,11 +223,12 @@ export default function StickyNote({
 									/60
 								</p>
 								<div
-									className="p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto hover:cursor-pointer"
+									className={`p-2 inline-flex rounded-md items-center bg-red-600 text-white ml-auto hover:cursor-pointer ${
+										saving && "pointer-events-none"
+									}`}
 									onClick={() => {
 										toggleModal();
 										setSaving(false);
-										allowNewNote();
 										handleDelete(stickyNote._id);
 									}}
 								>
