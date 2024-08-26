@@ -11,7 +11,7 @@ export default function useNotes(): NoteHandlers {
 	const [errorMessage, setErrorMessage] = useState("");
 	const [errorMessageNV, setErrorMessageNV] = useState("");
 	const [numPages, setNumPages] = useState(0);
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const [totalNotes, setTotalNotes] = useState(0);
 
 	useEffect(() => {
