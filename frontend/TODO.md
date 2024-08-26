@@ -46,6 +46,7 @@ note a note title and body
 [x] - utilize React Query to get the sticky notes
 [x] - if you press the sticky note delete button, then the cancel button on the modal, then the add sticky note button, it allows you to add a new sticky note even though you haven't added any content to the last one
 [x] - seems to be a glitch where if you add content to the sticky note and delete it right away, it re-appears
+[ ] - for the character count, add logic to convert 1,000 to 1k for the number of characters
 **StickyNotesDisplay Component** 
 [ ] - need to make the error message disappear after a few seconds 
 [ ] - fix bug: when you delete a newly created sticky note, the error message that appears is "sticky note not found" 
