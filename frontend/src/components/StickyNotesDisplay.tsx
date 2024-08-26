@@ -112,7 +112,7 @@ export default function StickyNotesDisplay() {
 					</button>
 					{errorMessage && (
 						<div className="flex justify-center w-full">
-							<h1 className="lg:w-11/12 w-full lg:mt-0 mt-3 text-lg border border-red-600 rounded px-3 py-1 bg-red-800text-white">
+							<h1 className="lg:w-11/12 w-full lg:mt-0 mt-3 text-lg border border-red-600 rounded px-3 py-1 bg-red-800 text-white">
 								{errorMessage}
 							</h1>
 						</div>
