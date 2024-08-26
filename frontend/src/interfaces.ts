@@ -97,6 +97,7 @@ export interface ModalProps {
 	noteID?: string | number;
 	modalFor: string;
 	handleStickyNoteDeletion?: (noteID: string | number) => void;
+	allowNewNote?: () => void;
 }
 
 export interface LoadingSpinnerProps {
