@@ -7,11 +7,6 @@ import { FAQ_Interface } from "../interfaces";
 export default function FAQ() {
 	const [faqIndex, setFAQIndex] = useState(-1);
 
-	// TODO - move interface to 'interfaces.ts' file
-	// TODO - consider modifying/removing the report FAQ
-	// TODO - figure out why the link color isn't being added for the rules & disclaimers link
-	// TODO - make the background fill the entire screen even on mobile view
-
 	return faq_json.map((faq: FAQ_Interface, index: number) => {
 		return (
 			<div

@@ -14,8 +14,6 @@ export default function SplitPanel() {
 		setIsContact(lastParam === "contact");
 	}, [lastParam]);
 
-	// I noticed when I console log the 'url' variable when the edit form is open, nothing gets printed whereas for the post note form, it returns 'create-form' and the contact form returns 'contact'. This might be why the edit form isn't the same as the post form.
-
 	return (
 		<div className={`${theme === "dark" ? "dark" : ""}`}>
 			<div className="bg-[#f7f8fc dark:bg-slate-800 w-full lg:flex lg:min-h-[calc(100vh-3.5rem)] dark:text-gray-100">

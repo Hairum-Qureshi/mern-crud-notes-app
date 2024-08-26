@@ -25,7 +25,6 @@ export default function useStickyNotes(): StickyNoteHandlers {
 
 	useEffect(() => {
 		setLoading(stickyNotesQuery.isLoading);
-		setErrorMessage(stickyNotesQuery.error?.message || "");
 	}, [stickyNotes]);
 
 	async function saveStickyNoteData(
@@ -53,8 +52,12 @@ export default function useStickyNotes(): StickyNoteHandlers {
 				setStickyNotes(prev => [response.data, ...prev]);
 			})
 			.catch(error => {
-				console.log(error.response.data.message);
-				setErrorMessage(error.response.data.message);
+				if (error.response.status === 429) {
+					setErrorMessage("Too many requests. Please try again later.");
+				} else {
+					console.log(error.response.data.message);
+					setErrorMessage(error.response.data.message);
+				}
 			});
 	}
 
@@ -79,8 +82,6 @@ export default function useStickyNotes(): StickyNoteHandlers {
 				}
 			)
 			.then(response => {
-				// TODO - I think here you'll need to append it back to the array of sticky notes and replace the one you updated
-				// this.setState(prevState => ({       data: prevState.data.map(el => (el.id === id ? { ...el, text } : el)) }))
 				setStickyNotes(prevStickyNotes =>
 					prevStickyNotes.map((stickyNote: StickyNote) =>
 						stickyNote._id === response.data._id
