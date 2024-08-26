@@ -24,7 +24,14 @@ export function createCookie(res: Response, uid?: string): string {
 	};
 
 	const token = jwt.sign(payload, secretKey, { expiresIn: "7d" });
-	res.cookie("anon-session", token, { httpOnly: true, maxAge: 604800000 }); // 1 week in milliseconds
+	const isProduction = process.env.NODE_ENV === "production";
+
+	res.cookie("anon-session", token, {
+		httpOnly: isProduction, // Enable httpOnly in production
+		secure: isProduction, // Use secure cookies in production
+		maxAge: 604800000 // 1 week in mill
+	});
+
 	return user_id;
 }
 
