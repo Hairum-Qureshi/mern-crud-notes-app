@@ -12,8 +12,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO - display an error message to the user when they click the 'add sticky note' button when their current sticky note is empty (they can only add a new sticky note once the recent one isn't empty)
 
-// TODO - add logic to convert 1,000 to 1k for the number of characters
-
 export default function StickyNote({
 	stickyNote,
 	allowNewNote,
