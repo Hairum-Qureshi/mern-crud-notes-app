@@ -16,7 +16,7 @@ export default function NotesViewer() {
 	const { allNotesData, loadingStatus, numPages, totalNotes, errorMessageNV } =
 		useNotes();
 	const { currUID } = useSessionContext()!;
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const pageNumber = searchParams.get("page");
 	const { theme } = useTheme()!;
 

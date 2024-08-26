@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import useNotes from "../hooks/useNotes";
 import { ring2 } from "ldrs";

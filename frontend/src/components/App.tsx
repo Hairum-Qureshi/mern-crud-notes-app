@@ -1,12 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import NotFound from "./NotFound";
-import Form from "./Form";
 import Note from "./Note";
 import { SessionProvider } from "../contexts/sessionContext";
 import NotesViewer from "./NotesViewer";
 import Disclaimer from "../components/Disclaimer";
-import Contact from "./Contact";
 import Navbar from "./Navbar";
 import StickyNotesDisplay from "./StickyNotesDisplay";
 import { ThemeProvider } from "../contexts/themeContext";
