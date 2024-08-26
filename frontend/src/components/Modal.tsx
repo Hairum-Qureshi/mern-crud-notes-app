@@ -59,13 +59,13 @@ export default function Modal({
 				<div className="w-full flex">
 					<div className="ml-auto p-3">
 						<button
-							className="p-1 border-2 text-black bg-slate-200 border-slate-500 rounded-md w-28 mr-2"
+							className="p-1 border-2 text-black bg-slate-200 border-slate-500 hover:bg-gray-300 rounded-md w-28 mr-2"
 							onClick={toggleModal}
 						>
 							Cancel
 						</button>
 						<button
-							className="p-1 border-2 bg-red-700 border-red-600 rounded-md w-28"
+							className="p-1 border-2 bg-red-700 border-red-600 rounded-md w-28 hover:bg-red-800"
 							onClick={() => {
 								if (modalFor == "note") {
 									deleteNote(noteID as string);
