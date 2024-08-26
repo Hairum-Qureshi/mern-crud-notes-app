@@ -54,7 +54,8 @@ note a note title and body
 [ ] - fix bug: 'errorMessage' in useStickyNotes is defined, but when trying to access it in the component, it's empty
 [x] - display a message to the user saying there are currently no sticky notes published
 [ ] - let's say there's 2 pages of notes and if the user goes to page 3, make sure they get a message displayed telling them none exist
-**NotesViewer Component** 
+[ ] - this started happening when i changed `onKeyUp={handleChanges}` to `onKeyUp={() => handleChanges(stickyNote.color)}` to get rid of the error, but sometimes, if you make a new note and change the color of it, your last note loses its content for some reaons
+**NotesViewer Component**  
 [x] - implement logic to render out any error messages to the user 
 [x] - if there are no notes, add a message saying there are no notes 
 [x] - consider making the pagination logic a separate component 

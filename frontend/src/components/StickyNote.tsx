@@ -248,7 +248,7 @@ export default function StickyNote({
 						data-enable-grammarly="false"
 						ref={titleRef}
 						suppressContentEditableWarning={true}
-						onKeyUp={handleChanges}
+						onKeyUp={() => handleChanges(stickyNote.color)}
 						onInput={setNoteData}
 					>
 						{stickyNote.note_title}
@@ -272,7 +272,7 @@ export default function StickyNote({
 						data-placeholder="Enter content..."
 						ref={bodyRef}
 						suppressContentEditableWarning={true}
-						onKeyUp={handleChanges}
+						onKeyUp={() => handleChanges(stickyNote.color)}
 						onInput={setNoteData}
 					>
 						{stickyNote.note_content}
