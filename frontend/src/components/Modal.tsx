@@ -14,7 +14,8 @@ export default function Modal({
 	toggleModal,
 	noteID,
 	modalFor,
-	handleStickyNoteDeletion
+	handleStickyNoteDeletion,
+	allowNewNote
 }: ModalProps) {
 	const message = children as string;
 
@@ -72,6 +73,7 @@ export default function Modal({
 									handleStickyNoteDeletion!(
 										(noteID as string) || (noteID as number)
 									);
+									allowNewNote!();
 									stickyNoteDeletion((noteID as string) || (noteID as number));
 								}
 
