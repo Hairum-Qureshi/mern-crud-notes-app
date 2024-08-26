@@ -22,6 +22,7 @@ export const SessionProvider = ({ children }: ContextProps) => {
 				})
 				.catch(error => {
 					console.log(error);
+					setError(error);
 				});
 		}
 		getUser();
