@@ -112,13 +112,13 @@ export default function StickyNotesDisplay() {
 					</button>
 					{errorMessage && (
 						<div className="flex justify-center w-full">
-							<h1 className="lg:w-11/12 w-full lg:mt-0 mt-3 text-lg border border-red-600 rounded px-3 py-1 bg-red-800">
+							<h1 className="lg:w-11/12 w-full lg:mt-0 mt-3 text-lg border border-red-600 rounded px-3 py-1 bg-red-800text-white">
 								{errorMessage}
 							</h1>
 						</div>
 					)}
 					<div className="flex justify-center w-full">
-						<h1 className="lg:w-11/12 w-full lg:mt-0 mt-3 text-lg border border-red-600 rounded px-3 py-1 bg-red-800">
+						<h1 className="lg:w-11/12 w-full lg:mt-0 mt-3 text-lg border border-red-600 rounded px-3 py-1 bg-red-800 text-white">
 							If you find your sticky note disappearing after it saves, that
 							means you've made too many requests and need to try again in 1
 							hour.
