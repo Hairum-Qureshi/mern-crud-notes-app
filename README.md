@@ -72,6 +72,14 @@ To get started with the app, follow these steps:
   APP_PASS=your-google-app-password
   ```
 
+  ```
+  NODE_ENV = "development"
+  ```
+
+  ```
+  FRONTEND_URL = http://localhost:5173
+  ```
+
 - Create a `.env` file in the `frontend` directory (make sure it's **not** created inside of the `src` folder) and add the following:
  
   ```
@@ -103,8 +111,8 @@ The application should now be running at `http://localhost:4000`.
 For me, React's PORT started at 5174. If that's not the case for you and it's 5173, you will need to change the CORS configuration in `server.ts`. Replace the `corsOptions` code with:
 
 ```
-const corsOptions = {
-	origin: ["http://localhost:5173", "http://localhost:5174"], 
+const corsOptions = { 
+	origin: ["http://localhost:5173", "http://localhost:5174"], // I just utilized my env variable "FRONTEND_URL" here instead of an array
 	credentials: true,
 	optionSuccessStatus: 200
 };
