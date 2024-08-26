@@ -91,6 +91,7 @@ export default function StickyNotesDisplay() {
 					noteID={selectedStickyNoteID}
 					modalFor="sticky note"
 					handleStickyNoteDeletion={handleStickyNoteDeletion}
+					allowNewNote={allowNewNote}
 				>
 					Are you sure you would like to delete your sticky note? This action
 					cannot be undone!
@@ -116,6 +117,13 @@ export default function StickyNotesDisplay() {
 							</h1>
 						</div>
 					)}
+					<div className="flex justify-center w-full">
+						<h1 className="lg:w-11/12 w-full lg:mt-0 mt-3 text-lg border border-red-600 rounded px-3 py-1 bg-red-800">
+							If you find your sticky note disappearing after it saves, that
+							means you've made too many requests and need to try again in 1
+							hour.
+						</h1>
+					</div>
 				</div>
 				{postedStickyNotes.length === 0 && !loading && (
 					<div className="p-2 lg:w-1/2 m-auto text-3xl text-center font-semibold">
