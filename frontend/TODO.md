@@ -1,8 +1,10 @@
 <!-- prettier-ignore -->
 ## Production:
-[ ] - remove react-query-devtools 
+[x] - remove react-query-devtools 
+[x] - updated backend cookie configuration
 
 ## Development:
+[ ] - change MongoDB database name via Mongo URI
 [x] - need to change the loading spinner color to white for dark mode 
 [x] - for the form, need to pick a better dark mode color for the button
 [x] - within the home component, align left div using items center
