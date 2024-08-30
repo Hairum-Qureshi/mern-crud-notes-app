@@ -11,5 +11,5 @@
 			"use": "@vercel/static"
 		}
 	],
-	"rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+	"rewrites": [{ "source": "/api/(.*)", "destination": "/api/$1" }]
 }
