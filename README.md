@@ -15,7 +15,7 @@ Welcome to the Anonymous Notes - A MERN CRUD Anonymous Notes App! This is a full
 ## Technologies Used
 
 - **MongoDB:** NoSQL database to store sticky notes data.
-- **Express.js:** Web framework for Node.js to handle backend operations.
+- **Express.js:** Web framework for Node.js to handle api operations.
 - **React:** Frontend library for building the user interface.
 - **Node.js:** JavaScript runtime for server-side development.
 - **TailwindCSS:** an open-source CSS framework
@@ -33,10 +33,10 @@ To get started with the app, follow these steps:
 
 2. **Install Dependencies:**
 
-- Navigate to the server directory and install backend dependencies:
+- Navigate to the server directory and install api dependencies:
 
   ```bash
-  cd backend
+  cd api
   npm install
   ```
 
@@ -83,7 +83,7 @@ To get started with the app, follow these steps:
 - Create a `.env` file in the `frontend` directory (make sure it's **not** created inside of the `src` folder) and add the following:
  
   ```
-  VITE_BACKEND_BASE_URL = "http://localhost:4000" 
+  VITE_api_BASE_URL = "http://localhost:4000" 
   ```
 
   ```
@@ -92,10 +92,10 @@ To get started with the app, follow these steps:
   
 4. **Run the Application:**
 
-- Start the backend server:
+- Start the api server:
 
   ```bash
-  cd backend
+  cd api
   npm run dev
   ```
 
@@ -138,4 +138,4 @@ nvm use
 
 When deploying the application, ensure you update the URLs in the client-side code to match your deployed environment:
 
-- **API Base URL:** Update the base URL used to connect to the backend API. Replace any instances of http://localhost:4000 with the URL of your deployed backend service; this can easily be done by updating the URL inside of the frontend `.env` file.
+- **API Base URL:** Update the base URL used to connect to the api API. Replace any instances of http://localhost:4000 with the URL of your deployed api service; this can easily be done by updating the URL inside of the frontend `.env` file.
