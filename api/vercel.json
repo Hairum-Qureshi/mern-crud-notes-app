@@ -20,5 +20,6 @@
 				"Access-Control-Allow-Origin": "*"
 			}
 		}
-	]
+	],
+	"rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
 }
