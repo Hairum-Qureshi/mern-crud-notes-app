@@ -29,6 +29,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/notes", notes_route);
 app.use("/api/sticky-notes", stickynotes_route);
 
+app.get("/", (req: Request, res: Response) => {
+	res.send("Welcome to the Anonymous Notes API");
+});
+
 app.get(
 	"/api/user/current-session",
 	authenticated,
