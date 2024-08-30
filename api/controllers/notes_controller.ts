@@ -27,8 +27,6 @@ export function createCookie(res: Response, uid?: string): string {
 	const isProduction = process.env.NODE_ENV === "production";
 
 	res.cookie("anon-session", token, {
-		domain: process.env.BACKEND_URL,
-		path: "/",
 		httpOnly: isProduction, // Enable httpOnly in production
 		secure: isProduction, // Use secure cookies in production
 		maxAge: 604800000, // 1 week in mill,
