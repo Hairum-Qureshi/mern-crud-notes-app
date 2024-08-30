@@ -11,7 +11,6 @@ import { matcher } from "./config/profanity-checker";
 import { MatchPayload } from "obscenity";
 import sendEmail from "./nodemailer";
 import rateLimiter from "./config/rate-limiter";
-import path from "path";
 colors.enable();
 dotenv.config();
 
