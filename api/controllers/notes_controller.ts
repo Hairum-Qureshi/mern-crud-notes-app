@@ -30,7 +30,7 @@ export function createCookie(res: Response, uid?: string): string {
 		httpOnly: isProduction, // Enable httpOnly in production
 		secure: isProduction, // Use secure cookies in production
 		maxAge: 604800000, // 1 week in mill,
-		sameSite: "none"
+		sameSite: "none" // Enables the browser to send the cookie with both cross-site and same-site requests
 	});
 
 	return user_id;
