@@ -29,7 +29,8 @@ export function createCookie(res: Response, uid?: string): string {
 	res.cookie("anon-session", token, {
 		httpOnly: isProduction, // Enable httpOnly in production
 		secure: isProduction, // Use secure cookies in production
-		maxAge: 604800000 // 1 week in mill
+		maxAge: 604800000, // 1 week in mill,
+		sameSite: "none"
 	});
 
 	return user_id;
