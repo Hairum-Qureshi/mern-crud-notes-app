@@ -45,6 +45,8 @@ export default function Form() {
 			setNoteBody(noteData.note_content);
 			setYourNoteFlair(noteData.curr_uid === currUID);
 			document.title = "Edit Note Form";
+		} else {
+			document.title = "Post Note Form";
 		}
 	}, [noteData]);
 
