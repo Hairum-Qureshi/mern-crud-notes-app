@@ -60,8 +60,8 @@ export default function Form() {
 						{urlEnd === "new-note" ? "Create a Note" : "Edit Note"}
 					</h1>
 					<h3>
-						You need a minimum of 1,000 characters in your body and 20 for your
-						title
+						You need a minimum of 20 characters for your title and 1,000 for
+						your body
 					</h3>
 					<div>
 						<form autoComplete="off">
