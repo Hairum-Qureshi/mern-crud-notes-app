@@ -138,4 +138,4 @@ nvm use
 
 When deploying the application, ensure you update the URLs in the client-side code to match your deployed environment:
 
-- **API Base URL:** Update the base URL used to connect to the api API. Replace any instances of http://localhost:4000 with the URL of your deployed api service; this can easily be done by updating the URL inside of the frontend `.env` file.
+- **API Base URL:** Update the base URL used to connect to the backend API. Replace any instances of http://localhost:4000 with the URL of your deployed api service; this can easily be done by updating the URL inside of the frontend `.env` file.
