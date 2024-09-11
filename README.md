@@ -83,7 +83,7 @@ To get started with the app, follow these steps:
 - Create a `.env` file in the `frontend` directory (make sure it's **not** created inside of the `src` folder) and add the following:
  
   ```
-  VITE_api_BASE_URL = "http://localhost:4000" 
+  VITE_BACKEND_BASE_URL = "http://localhost:4000" 
   ```
 
   ```
