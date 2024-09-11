@@ -63,6 +63,14 @@ To get started with the app, follow these steps:
   JWT_SECRET=your_jwt_secret
   ```
 
+  ```
+  NODE_ENV = "development"
+  ```
+
+  ```
+  FRONTEND_URL = http://localhost:5173
+  ```
+
   **This project also uses Nodemailer for the contact form functionality. In order to make that work, you will need the following variables:**
   ```
   EMAIL=your.email@gmail.com
@@ -70,14 +78,6 @@ To get started with the app, follow these steps:
   
   ```
   APP_PASS=your-google-app-password
-  ```
-
-  ```
-  NODE_ENV = "development"
-  ```
-
-  ```
-  FRONTEND_URL = http://localhost:5173
   ```
 
 - Create a `.env` file in the `frontend` directory (make sure it's **not** created inside of the `src` folder) and add the following:
