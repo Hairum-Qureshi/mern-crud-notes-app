@@ -9,7 +9,7 @@ Welcome to the Anonymous Notes - A MERN CRUD Anonymous Notes App! This is a full
 - **Create Notes:** Users can easily create new sticky notes with customizable content.
 - **View Notes:** All created notes are displayed in an organized list, making it easy to browse through them.
 - **Edit Notes:** Users can update the content of their existing sticky notes.
-- **Delete Notes:** Remove sticky notes that are no longer needed.
+- **Delete Notes:** Remove lengthy notes and sticky notes that are no longer needed.
 - **No Login Required:** Enjoy the full functionality of the app without the need for authentication - do note rate limiting is implemented
 
 ## Technologies Used
