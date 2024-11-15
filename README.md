@@ -15,7 +15,7 @@ Welcome to the Anonymous Notes - A MERN CRUD Anonymous Notes App! This is a full
 ## Technologies Used
 
 - **MongoDB:** NoSQL database to store note data.
-- **Express.js:** Web framework for Node.js to handle api operations.
+- **Express.js:** Web framework for Node.js to handle API operations.
 - **React:** Frontend library for building the user interface.
 - **Node.js:** JavaScript runtime for server-side development.
 - **TailwindCSS:** an open-source CSS framework
