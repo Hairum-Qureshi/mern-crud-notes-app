@@ -52,15 +52,15 @@ To get started with the app, follow these steps:
 - Create a `.env` file in the `server` directory and add the following:
 
   ```
-  MONGO_URI=your_mongodb_connection_string 
+  MONGO_URI = your_mongodb_connection_string 
   ```
 
   ```
-  PORT=4000
+  PORT = 4000
   ```
 
   ```
-  JWT_SECRET=your_jwt_secret
+  JWT_SECRET = your_jwt_secret
   ```
 
   ```
@@ -73,11 +73,11 @@ To get started with the app, follow these steps:
 
   **This project also uses Nodemailer for the contact form functionality. In order to make that work, you will need the following variables:**
   ```
-  EMAIL=your.email@gmail.com
+  EMAIL = your.email@gmail.com
   ```
   
   ```
-  APP_PASS=your-google-app-password
+  APP_PASS = your-google-app-password
   ```
 
 - Create a `.env` file in the `frontend` directory (make sure it's **not** created inside of the `src` folder) and add the following:
