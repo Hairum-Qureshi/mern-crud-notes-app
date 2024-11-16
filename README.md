@@ -35,10 +35,10 @@ To get started with the app, follow these steps:
 
 2. **Install Dependencies:**
 
-- Navigate to the server directory and install api dependencies:
+- Navigate to the server directory and install API dependencies:
 
   ```bash
-  cd api
+  cd API
   npm install
   ```
 
@@ -94,10 +94,10 @@ To get started with the app, follow these steps:
   
 4. **Run the Application:**
 
-- Start the api server:
+- Start the API server:
 
   ```bash
-  cd api
+  cd API
   npm run dev
   ```
 
