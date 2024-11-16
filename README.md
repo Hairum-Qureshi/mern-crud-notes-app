@@ -19,6 +19,8 @@ Welcome to the Anonymous Notes - A MERN CRUD Anonymous Notes App! This is a full
 - **React:** Frontend library for building the user interface.
 - **Node.js:** JavaScript runtime for server-side development.
 - **TailwindCSS:** an open-source CSS framework
+- **Vite:** a JavaScript build tool that helps developers create modern web applications faster and more efficiently
+- **TypeScript:** a Superset of JavaScript with type annotations
 
 ## Installation
 
@@ -138,4 +140,4 @@ nvm use
 
 When deploying the application, ensure you update the URLs in the client-side code to match your deployed environment:
 
-- **API Base URL:** Update the base URL used to connect to the backend API. Replace any instances of http://localhost:4000 with the URL of your deployed api service; this can easily be done by updating the URL inside of the frontend `.env` file.
+- **API Base URL:** Update the base URL used to connect to the backend API. Replace any instances of http://localhost:4000 with the URL of your deployed API service; this can easily be done by updating the URL inside of the frontend `.env` file.
