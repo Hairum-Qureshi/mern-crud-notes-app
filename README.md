@@ -38,7 +38,7 @@ To get started with the app, follow these steps:
 - Navigate to the server directory and install API dependencies:
 
   ```bash
-  cd API
+  cd api
   npm install
   ```
 
