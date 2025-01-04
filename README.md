@@ -2,7 +2,7 @@
 
 ## Overview
 
-Welcome to the Anonymous Notes - A MERN CRUD Anonymous Notes App! This is a full-stack application built using MongoDB, Express.js, React, and Node.js (the MERN stack) plus TailwindCSS. The app allows users to create, view, edit, and delete sticky notes without the need to log in. It's designed to provide a simple and intuitive interface for managing your notes and content. The main objective of this project is to get more familiar with the MERN stack and being more familiar with TailwindCSS.
+Welcome to the Anonymous Notes - A MERN CRUD Anonymous Notes App! This is a full-stack application built using MongoDB, Express.js, React, and Node.js (the MERN stack) plus TailwindCSS. The app allows users to use the CRUD operations: create, view (read), edit (update), and delete sticky notes without the need to log in. It's designed to provide a simple and intuitive interface for managing your notes and content. The main objective of this project is to get more familiar with the MERN stack and being more familiar with TailwindCSS.
 
 ## Features
 
